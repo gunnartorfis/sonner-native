@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "rootDir": ".",
+    "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
       "react-native-reanimated-toasts": ["./src/index"]
     },
     "allowUnreachableCode": false,
