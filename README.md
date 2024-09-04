@@ -10,15 +10,39 @@ npm install react-native-reanimated-toasts
 
 ## Usage
 
+### In your App.tsx/entry point
 
-```js
-import { multiply } from 'react-native-reanimated-toasts';
+```typescript
+import { Toaster } from 'react-native-reanimated-toasts';
 
-// ...
-
-const result = await multiply(3, 7);
+function App() {
+  return (
+    <View>
+      <NavigationContainer>...</NavigationContainer>
+      <Toaster />
+    </View>
+  );
+}
 ```
 
+### Show a toast
+
+```typescript
+import { toast } from 'react-native-reanimated-toasts';
+
+function SomeComponent() {
+  return (
+    <Button
+      title="Show Toast"
+      onPress={() => toast('Hello, World!')}
+    />
+  );
+}
+```
+
+## Documentation
+
+For more advanced usage, check out the [documentation](https://xx.com)
 
 ## Contributing
 
