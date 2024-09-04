@@ -1,4 +1,4 @@
-import { type ToastContextType } from '@/types/toastTypes';
+import { type ToastContextType } from '../../types/toastTypes';
 import * as React from 'react';
 
 export const ToastContext = React.createContext<ToastContextType | null>(null);

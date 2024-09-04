@@ -6,7 +6,7 @@ import * as React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   ToastPosition,
-  ToastProvider,
+  Toaster,
   ToastSwipeDirection,
 } from 'react-native-reanimated-toasts';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -30,7 +30,7 @@ const App: React.FC = () => {
             />
           </Stack.Navigator>
         </NavigationContainer>
-        <ToastProvider
+        <Toaster
           position={ToastPosition.TOP_CENTER}
           duration={3000}
           swipToDismissDirection={ToastSwipeDirection.UP}

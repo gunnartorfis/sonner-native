@@ -1,6 +1,6 @@
-import { ANIMATION_DURATION } from '@/components/toast/toastAnimations';
-import { useToastContext } from '@/components/toast/ToastContext';
-import { ToastSwipeDirection } from '@/types/toastTypes';
+import { ANIMATION_DURATION } from './toastAnimations';
+import { useToastContext } from './ToastContext';
+import { ToastSwipeDirection } from '../../types/toastTypes';
 import * as React from 'react';
 import { Dimensions, type ViewStyle } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';

@@ -2,7 +2,7 @@ import {
   ToastPosition,
   ToastSwipeDirection,
   ToastVariant,
-} from '@/types/toastTypes';
+} from '../types/toastTypes';
 
 export const toastDefaultValues = {
   duration: 3000,

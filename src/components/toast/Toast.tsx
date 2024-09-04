@@ -1,10 +1,10 @@
 import {
   ANIMATION_DURATION,
   useToastLayoutAnimations,
-} from '@/components/toast/toastAnimations';
-import { useToastContext } from '@/components/toast/ToastContext';
-import { ToastSwipeHandler } from '@/components/toast/ToastSwipeHandler';
-import { ToastVariant, type ToastProps } from '@/types/toastTypes';
+} from '../toast/toastAnimations';
+import { useToastContext } from './ToastContext';
+import { ToastSwipeHandler } from './ToastSwipeHandler';
+import { ToastVariant, type ToastProps } from '../../types/toastTypes';
 import { CircleCheck, CircleX, Info, X } from 'lucide-react-native';
 import * as React from 'react';
 import { ActivityIndicator, Pressable, Text, View } from 'react-native';

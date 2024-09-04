@@ -1,4 +1,4 @@
-import { ToastContext } from '@/components/toast/ToastContext';
+import { ToastContext } from './ToastContext';
 import {
   ToastPosition,
   type ToastFunctionBase,
@@ -6,8 +6,8 @@ import {
   type ToastProps,
   type ToastProviderProps,
   type ToastUpdateFunction,
-} from '@/types/toastTypes';
-import { toastDefaultValues } from '@/utils/toastConstants';
+} from '../../types/toastTypes';
+import { toastDefaultValues } from '../../utils/toastConstants';
 import * as React from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -20,7 +20,7 @@ let updateToastHandler: ToastUpdateFunction;
 
 const { TOP_CENTER, BOTTOM_CENTER } = ToastPosition;
 
-export const ToastProvider: React.FC<ToastProviderProps> = ({
+export const Toaster: React.FC<ToastProviderProps> = ({
   duration,
   position,
   maxToasts = 3,
