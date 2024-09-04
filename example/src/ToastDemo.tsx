@@ -6,9 +6,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export const ToastDemo: React.FC = () => {
   const [variant, setVariant] = React.useState<ToastVariant>(ToastVariant.INFO);
   return (
-    <SafeAreaView className="gap-4 px-4 mb-16">
+    <SafeAreaView>
       <Text>Selected variant: {variant}</Text>
-      <View className="flex flex-row items-center gap-4">
+      <View className="flex flex-row items-center justify-between mb-12">
         <Button
           title="Success"
           onPress={() => setVariant(ToastVariant.SUCCESS)}

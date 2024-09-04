@@ -2,7 +2,7 @@ import { ANIMATION_DURATION } from '@/components/toast/toastAnimations';
 import { useToastContext } from '@/components/toast/ToastContext';
 import { ToastSwipeDirection } from '@/types/toastTypes';
 import * as React from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, type ViewStyle } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   Easing,
@@ -20,7 +20,8 @@ const { width: WINDOW_WIDTH } = Dimensions.get('window');
 
 type ToastSwipeHandlerProps = {
   onRemove: () => void;
-  className: string;
+  style?: ViewStyle;
+  className?: string;
   onBegin: () => void;
   onFinalize: () => void;
   enabled?: boolean;
@@ -28,7 +29,15 @@ type ToastSwipeHandlerProps = {
 
 export const ToastSwipeHandler: React.FC<
   React.PropsWithChildren<ToastSwipeHandlerProps>
-> = ({ children, onRemove, className, onBegin, onFinalize, enabled }) => {
+> = ({
+  children,
+  onRemove,
+  className,
+  style,
+  onBegin,
+  onFinalize,
+  enabled,
+}) => {
   const translate = useSharedValue(0);
   const { swipToDismissDirection: direction } = useToastContext();
 
@@ -78,7 +87,7 @@ export const ToastSwipeHandler: React.FC<
       runOnJS(onFinalize)();
     });
 
-  const style = useAnimatedStyle(() => {
+  const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [
         direction === LEFT
@@ -96,7 +105,7 @@ export const ToastSwipeHandler: React.FC<
   return (
     <GestureDetector gesture={pan}>
       <Animated.View
-        style={style}
+        style={[animatedStyle, { width: '100%' }, style]}
         className={className}
         layout={LinearTransition.duration(ANIMATION_DURATION)}
       >

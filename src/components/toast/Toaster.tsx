@@ -7,11 +7,11 @@ import {
   type ToastProviderProps,
   type ToastUpdateFunction,
 } from '@/types/toastTypes';
-import { cn } from '@/utils/tailwind-utils';
 import { toastDefaultValues } from '@/utils/toastConstants';
 import * as React from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FullWindowOverlay } from 'react-native-screens';
 import { v4 as uuidv4 } from 'uuid';
 import Toast from './Toast';
 
@@ -24,9 +24,12 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
   duration,
   position,
   maxToasts = 3,
+  rootStyle,
   rootClassName,
   toastContainerClassName,
+  toastContainerStyle,
   toastContentClassName,
+  toastContentStyle,
   swipToDismissDirection,
   ...props
 }) => {
@@ -95,33 +98,48 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
       : toasts.slice().reverse();
 
   return (
-    <ToastContext.Provider value={value}>
-      <View
-        className={cn(
-          'absolute w-full items-center',
-          {
-            'bottom-10': position === BOTTOM_CENTER && bottom === 0,
-            'top-10': position === TOP_CENTER && top === 0,
-            'top-0': position === TOP_CENTER && top > 0,
-            'bottom-0': position === BOTTOM_CENTER && bottom > 0,
-          },
-          rootClassName
-        )}
-      >
-        {positionedToasts.map((toast) => {
-          return (
-            <Toast
-              key={toast.id}
-              {...toast}
-              onHide={() => removeToast(toast.id)}
-              className={toastContentClassName}
-              containerClassName={toastContainerClassName}
-              {...props}
-            />
-          );
-        })}
-      </View>
-    </ToastContext.Provider>
+    <FullWindowOverlay>
+      <ToastContext.Provider value={value}>
+        <View
+          style={[
+            {
+              position: 'absolute',
+              width: '100%',
+              alignItems: 'center',
+              bottom:
+                position === BOTTOM_CENTER && bottom > 0
+                  ? 0
+                  : position === BOTTOM_CENTER && bottom === 0
+                    ? 40
+                    : undefined,
+              top:
+                position === TOP_CENTER && top > 0
+                  ? 0
+                  : position === TOP_CENTER && top === 0
+                    ? 40
+                    : undefined,
+            },
+            rootStyle,
+          ]}
+          className={rootClassName}
+        >
+          {positionedToasts.map((toast) => {
+            return (
+              <Toast
+                key={toast.id}
+                {...toast}
+                onHide={() => removeToast(toast.id)}
+                className={toastContentClassName}
+                style={toastContentStyle}
+                containerStyle={toastContainerStyle}
+                containerClassName={toastContainerClassName}
+                {...props}
+              />
+            );
+          })}
+        </View>
+      </ToastContext.Provider>
+    </FullWindowOverlay>
   );
 };
 

@@ -1,16 +1,14 @@
-import { CircleCheck, CircleX, Info, X } from 'lucide-react-native';
-import * as React from 'react';
-import type { ViewStyle } from 'react-native';
-import { ActivityIndicator, Pressable, View, Text } from 'react-native';
-import Animated from 'react-native-reanimated';
-import { cn } from '@/utils/tailwind-utils';
-import { ToastVariant, type ToastProps } from '@/types/toastTypes';
 import {
   ANIMATION_DURATION,
   useToastLayoutAnimations,
 } from '@/components/toast/toastAnimations';
-import { ToastSwipeHandler } from '@/components/toast/ToastSwipeHandler';
 import { useToastContext } from '@/components/toast/ToastContext';
+import { ToastSwipeHandler } from '@/components/toast/ToastSwipeHandler';
+import { ToastVariant, type ToastProps } from '@/types/toastTypes';
+import { CircleCheck, CircleX, Info, X } from 'lucide-react-native';
+import * as React from 'react';
+import { ActivityIndicator, Pressable, Text, View } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 const Toast: React.FC<ToastProps> = ({
   id,
@@ -20,12 +18,18 @@ const Toast: React.FC<ToastProps> = ({
   variant,
   action,
   onHide,
+  style,
   className,
   containerClassName,
+  containerStyle,
   actionClassName,
+  actionStyle,
   actionLabelClassName,
+  actionLabelStyle,
   titleClassName,
+  titleStyle,
   descriptionClassName,
+  descriptionStyle,
   getIconColorForVariant: getIconColorForVariant,
   closeIconColor,
   promiseOptions,
@@ -98,18 +102,32 @@ const Toast: React.FC<ToastProps> = ({
         }
       }}
       enabled={!promiseOptions}
-      className={cn('w-full', containerClassName)}
+      style={containerStyle}
+      className={containerClassName}
     >
       <Animated.View
-        className={cn('p-4 rounded-2xl mb-4 mx-4', className)}
-        style={elevationStyle}
+        className={className}
+        style={[
+          elevationStyle,
+          {
+            padding: 16,
+            borderRadius: 16,
+            marginBottom: 16,
+            marginHorizontal: 16,
+            backgroundColor: '#fff',
+            borderCurve: 'continuous',
+          },
+          style,
+        ]}
         entering={entering}
         exiting={exiting}
       >
         <View
-          className={cn('flex flex-row gap-4', {
-            'items-center': description?.length === 0,
-          })}
+          style={{
+            flexDirection: 'row',
+            gap: 16,
+            alignItems: description?.length === 0 ? 'center' : undefined,
+          }}
         >
           {promiseOptions ? (
             <ActivityIndicator />
@@ -119,33 +137,73 @@ const Toast: React.FC<ToastProps> = ({
               getIconColorForVariant={getIconColorForVariant}
             />
           )}
-          <View className="flex-1">
-            <Text className={cn('font-semibold leading-5', titleClassName)}>
+          <View style={{ flex: 1 }}>
+            <Text
+              style={[
+                {
+                  fontWeight: '600',
+                  lineHeight: 20,
+                  color: '#232020',
+                },
+                titleStyle,
+              ]}
+              className={titleClassName}
+            >
               {title}
             </Text>
             {description ? (
-              <Text className={cn('text-sm mt-[2px]', descriptionClassName)}>
+              <Text
+                style={[
+                  {
+                    fontSize: 14,
+                    lineHeight: 20,
+                    marginTop: 2,
+                    color: '#4f4a4a',
+                  },
+                  descriptionStyle,
+                ]}
+                className={descriptionClassName}
+              >
                 {description}
               </Text>
             ) : null}
             {action ? (
-              <View className="flex flex-row items-center gap-4 mt-4">
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 16,
+                  marginTop: 16,
+                }}
+              >
                 <Pressable
                   onPress={action.onPress}
-                  className={cn(
-                    'rounded-full border px-2 py-1',
-                    actionClassName
-                  )}
-                  style={{
-                    borderCurve: 'continuous',
-                  }}
+                  className={actionClassName}
+                  style={[
+                    {
+                      borderRadius: 999,
+                      borderWidth: 1,
+                      borderColor: '#e6e3e3',
+                      paddingHorizontal: 8,
+                      paddingVertical: 4,
+                      borderCurve: 'continuous',
+                      backgroundColor: '#f7f7f7',
+                    },
+                    actionStyle,
+                  ]}
                 >
                   <Text
                     numberOfLines={1}
-                    className={cn(
-                      'text-sm font-semibold',
-                      actionLabelClassName
-                    )}
+                    style={[
+                      {
+                        fontSize: 14,
+                        lineHeight: 20,
+                        fontWeight: '600',
+                        color: '##232020',
+                      },
+                      actionLabelStyle,
+                    ]}
+                    className={actionLabelClassName}
                   >
                     {action.label}
                   </Text>
@@ -154,7 +212,7 @@ const Toast: React.FC<ToastProps> = ({
             ) : null}
           </View>
           <Pressable onPress={onHide} hitSlop={10}>
-            <X size={20} color={closeIconColor ?? '#ccc'} />
+            <X size={20} color={closeIconColor ?? '#3f3b3b'} />
           </Pressable>
         </View>
       </Animated.View>
@@ -170,14 +228,14 @@ export const ToastIcon: React.FC<
       return (
         <CircleCheck
           size={20}
-          color={getIconColorForVariant?.(ToastVariant.SUCCESS) ?? '#fff'}
+          color={getIconColorForVariant?.(ToastVariant.SUCCESS) ?? '#3c8643'}
         />
       );
     case 'error':
       return (
         <CircleX
           size={20}
-          color={getIconColorForVariant?.(ToastVariant.SUCCESS) ?? '#fff'}
+          color={getIconColorForVariant?.(ToastVariant.SUCCESS) ?? '#ff3a41'}
         />
       );
     default:
@@ -185,23 +243,20 @@ export const ToastIcon: React.FC<
       return (
         <Info
           size={20}
-          color={getIconColorForVariant?.(ToastVariant.INFO) ?? '#fff'}
+          color={getIconColorForVariant?.(ToastVariant.INFO) ?? '#286efa'}
         />
       );
   }
 };
 
 const elevationStyle = {
-  borderCurve: 'continuous' as ViewStyle['borderCurve'],
-  shadowColor: '#000',
+  shadowOpacity: 0.0015 * 4 + 0.1,
+  shadowRadius: 3 * 4,
   shadowOffset: {
+    height: 4,
     width: 0,
-    height: 7,
   },
-  shadowOpacity: 0.43,
-  shadowRadius: 9.51,
-
-  elevation: 15,
+  elevation: 4,
 };
 
 export default Toast;

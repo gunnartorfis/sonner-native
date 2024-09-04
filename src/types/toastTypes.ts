@@ -1,3 +1,5 @@
+import type { TextStyle, ViewStyle } from 'react-native';
+
 export type ToastProps = {
   id: string;
   title: string;
@@ -6,12 +8,18 @@ export type ToastProps = {
   variant: 'success' | 'error' | 'info';
   action?: ToastAction;
   onHide?: () => void;
+  style?: ViewStyle;
   className?: string;
+  containerStyle?: ViewStyle;
   containerClassName?: string;
   getIconColorForVariant?: (variant: ToastVariant) => string;
+  titleStyle?: TextStyle;
   titleClassName?: string;
+  descriptionStyle?: TextStyle;
   descriptionClassName?: string;
+  actionStyle?: ViewStyle;
   actionClassName?: string;
+  actionLabelStyle?: TextStyle;
   actionLabelClassName?: string;
   closeIconColor?: string;
   promiseOptions?: PromiseOptions;
@@ -31,8 +39,11 @@ export type ToastProviderProps = {
   duration?: number;
   position?: ToastPosition;
   maxToasts?: number;
+  rootStyle?: ViewStyle;
   rootClassName?: string;
+  toastContainerStyle?: ViewStyle;
   toastContainerClassName?: string;
+  toastContentStyle?: ViewStyle;
   toastContentClassName?: string;
   swipToDismissDirection?: ToastSwipeDirection;
 } & Pick<
@@ -41,6 +52,10 @@ export type ToastProviderProps = {
   | 'actionLabelClassName'
   | 'descriptionClassName'
   | 'titleClassName'
+  | 'actionStyle'
+  | 'actionLabelStyle'
+  | 'descriptionStyle'
+  | 'titleStyle'
   | 'getIconColorForVariant'
   | 'closeIconColor'
 >;

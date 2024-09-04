@@ -1,4 +1,4 @@
-import { getToastContext } from '@/components/toast/ToastProvider';
+import { getToastContext } from '@/components/toast/Toaster';
 import { ToastVariant, type ToastFunction } from '@/types/toastTypes';
 
 const toast: ToastFunction = (title, options) => {
