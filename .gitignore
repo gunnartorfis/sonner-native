@@ -83,3 +83,5 @@ android/generated
 
 example/ios
 example/android
+
+docs/.envrc

@@ -10,7 +10,7 @@ import { toast } from 'react-native-reanimated-toasts';
 toast('This is a basic toast message.');
 ```
 
-Alternatively, you can pass an object as the second argument with additional options, which will override any options provided to [`<Toaster />`](/toaster) if specified.
+Alternatively, you can pass an object as the second argument with additional options, which will override any options provided to the Toaster component if specified.
 
 ```jsx
 import { toast } from 'react-native-reanimated-toasts';

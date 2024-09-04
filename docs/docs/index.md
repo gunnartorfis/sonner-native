@@ -39,7 +39,37 @@ To use this package, **you also need to install its peer dependencies**. Check o
 
 ## Getting started
 
-Check out the [Showing a toast](/usage) section to see how to use the package.
+### In your App.tsx/entry point
+
+```typescript
+import { Toaster } from 'react-native-reanimated-toasts';
+
+function App() {
+  return (
+    <View>
+      <NavigationContainer>...</NavigationContainer>
+      <Toaster />
+    </View>
+  );
+}
+```
+
+### Show a toast
+
+```typescript
+import { toast } from 'react-native-reanimated-toasts';
+
+function SomeComponent() {
+  return (
+    <Button
+      title="Show Toast"
+      onPress={() => toast('Hello, World!')}
+    />
+  );
+}
+```
+
+Check out the [Showing a toast](usage) section to see more details on how to use the package.
 
 ## Examples
 

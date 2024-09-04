@@ -4,7 +4,6 @@ Animated, customizable Toasts for React Native
 
 ![preview](https://github.com/user-attachments/assets/b0a95d89-3895-4d95-8a87-262fb7209805)
 
-
 ## Installation
 
 ```sh
@@ -45,7 +44,7 @@ function SomeComponent() {
 
 ## Documentation
 
-For more advanced usage, check out the [documentation](https://xx.com)
+For more advanced usage, check out the [documentation](https://gunnartorfis.github.io/react-native-reanimated-toasts/)
 
 ## Contributing
 
