@@ -5,12 +5,12 @@ import { ActivityIndicator, Pressable, View, Text } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { cn } from '@/utils/tailwind-utils';
 import { ToastVariant, type ToastProps } from '@/types/toastTypes';
-import { useToastContext } from '@/components/toast/ToastContext';
 import {
   ANIMATION_DURATION,
   useToastLayoutAnimations,
 } from '@/components/toast/toastAnimations';
 import { ToastSwipeHandler } from '@/components/toast/ToastSwipeHandler';
+import { useToastContext } from '@/components/toast/ToastContext';
 
 const Toast: React.FC<ToastProps> = ({
   id,
