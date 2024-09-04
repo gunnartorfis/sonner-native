@@ -110,7 +110,8 @@
     "react-native-svg": ">=15.0.0"
   },
   "workspaces": [
-    "example"
+    "example",
+    "docs"
   ],
   "packageManager": "yarn@3.6.1",
   "jest": {
