@@ -6,8 +6,9 @@ Animated, customizable Toasts for React Native
 
 ## Features
 
-- Multiple variants, including `success`, `error`, `warning`
+- Multiple variants, including `success`, `error`, `warning`, `custom`
 - Promise option with built in loading state
+- Custom JSX with the custom variant
 - Top or bottom positions
 - Title and description
 - Action button with callback
@@ -17,7 +18,7 @@ Animated, customizable Toasts for React Native
 - Dark mode support
 - Works with Expo
 - NativeWind support
-- Customizable
+- Customizable, styles & className props
 - Works outside of React components
 
 ## Installation
