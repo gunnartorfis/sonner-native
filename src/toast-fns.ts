@@ -1,16 +1,8 @@
 import { getToastContext } from './toaster';
-import {
-  ToastVariant,
-  type ToastFunction,
-  type ToastUpdateFunction,
-} from './types';
+import { ToastVariant, type ToastFunction } from './types';
 
 export const toast: ToastFunction = (title, options) => {
   return getToastContext().addToast(title, options);
-};
-
-export const updateToast: ToastUpdateFunction = (id, options) => {
-  return getToastContext().updateToast(id, options);
 };
 
 toast.success = (title, options = {}) => {

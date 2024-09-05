@@ -63,7 +63,6 @@ export type ToastProviderProps = {
 
 export type ToastContextType = {
   addToast: ToastFunctionBase;
-  updateToast: ToastUpdateFunction;
   duration: number;
   position: ToastPosition;
   swipToDismissDirection: ToastSwipeDirection;
@@ -88,6 +87,7 @@ type PromiseOptions = {
 };
 
 export type ToastFunctionOptions = {
+  id?: string; // optional id to update existing toast
   action?: ToastAction;
   variant?: ToastVariant;
   description?: string;
@@ -97,16 +97,19 @@ export type ToastFunctionOptions = {
 };
 
 export type ToastFunctionBase = {
-  (title: string, options?: Omit<ToastProps, 'title' | 'id'>): string;
+  (
+    title: string,
+    options?: Omit<ToastProps, 'title' | 'id'> & {
+      id?: string; // optional id to update existing toast
+    }
+  ): string;
 };
 
-export type ToastUpdateFunction = (
-  id: string,
-  newToast: Omit<ToastProps, 'id'>
-) => void;
 export type ToastFunctionWithVariant = (
   title: string,
-  options?: Omit<ToastProps, 'variant' | 'title' | 'id'>
+  options?: Omit<ToastProps, 'variant' | 'title' | 'id'> & {
+    id?: string; // optional id to update existing toast
+  }
 ) => string;
 export type ToastFunctionPromise = <T>(
   promise: Promise<T>,
