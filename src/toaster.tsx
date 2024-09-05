@@ -43,7 +43,6 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
 }) => {
   const [toasts, setToasts] = React.useState<ToastProps[]>([]);
   const { top, bottom } = useSafeAreaInsets();
-  console.log(top, bottom, position);
 
   addToastHandler = (title, options?: ToastFunctionOptions) => {
     const id = uuidv4();
