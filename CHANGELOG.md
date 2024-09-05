@@ -1,5 +1,12 @@
 
 
+## [0.3.7](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.3.6...v0.3.7) (2024-09-05)
+
+
+### Bug Fixes
+
+* android tweaks ([f14f59e](https://github.com/gunnartorfis/react-native-reanimated-toasts/commit/f14f59e28fe5e248052286a5a39f678dd5538644))
+
 ## [0.3.6](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.3.5...v0.3.6) (2024-09-05)
 
 
