@@ -7,6 +7,7 @@ import { useToastContext } from './context';
 import { ToastSwipeHandler } from './gestures';
 import { type ToastProps } from './types';
 import { useColors } from './use-colors';
+import { toast } from 'src/toast-fns';
 
 export const Toast: React.FC<ToastProps> = ({
   id,
@@ -53,17 +54,15 @@ export const Toast: React.FC<ToastProps> = ({
       try {
         isResolvingPromise.current = true;
         promiseOptions.promise.then((data) => {
-          addToast(promiseOptions.success(data) ?? 'Success', {
+          toast.success(promiseOptions.success(data) ?? 'Success', {
             id,
-            variant: 'success',
             promiseOptions: undefined,
           });
           isResolvingPromise.current = false;
         });
       } catch (error) {
-        addToast(promiseOptions.error ?? 'Error', {
+        toast.error(promiseOptions.error ?? 'Error', {
           id,
-          variant: 'error',
           promiseOptions: undefined,
         });
         isResolvingPromise.current = false;

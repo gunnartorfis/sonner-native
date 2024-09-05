@@ -7,13 +7,13 @@ import { toastDefaultValues } from './constants';
 import { ToastContext } from './context';
 import { Toast } from './toast';
 import {
-  type ToastFunctionBase,
+  type ToastFunctionContext,
   type ToastFunctionOptions,
   type ToastProps,
   type ToastProviderProps,
 } from './types';
 
-let addToastHandler: ToastFunctionBase;
+let addToastHandler: ToastFunctionContext;
 
 export const Toaster: React.FC<ToastProviderProps> = (props) => {
   return (

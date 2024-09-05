@@ -4,32 +4,22 @@ import { toast } from 'react-native-reanimated-toasts';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const ToastDemo: React.FC = () => {
-  const [variant, setVariant] = React.useState<'success' | 'error' | 'info'>(
-    'info'
-  );
   const [toastId, setToastId] = React.useState<string | null>(null);
 
   return (
     <SafeAreaView>
-      <Text>Selected variant: {variant}</Text>
-      <View className="flex flex-row items-center justify-between mb-12">
-        <Button title="Success" onPress={() => setVariant('success')} />
-        <Button title="Info" onPress={() => setVariant('info')} />
-        <Button title="Error" onPress={() => setVariant('error')} />
-      </View>
       <Button
         title={toastId ? 'Update toast' : 'Show toast'}
         onPress={() => {
           if (toastId) {
-            toast('Updated!', {
+            toast.success('Updated!', {
               id: toastId,
               onHide: () => {
                 setToastId(null);
               },
             });
           } else {
-            const id = toast('Changes saved', {
-              variant,
+            const id = toast.success('Changes saved', {
               onHide: () => {
                 setToastId(null);
               },
@@ -41,16 +31,15 @@ export const ToastDemo: React.FC = () => {
       <Button
         title="Show toast with description"
         onPress={() => {
-          toast('Changes saved', {
+          toast.success('Changes saved', {
             description: 'Your changes have been saved successfully',
-            variant,
           });
         }}
       />
       <Button
         title="Show toast with description and action"
         onPress={() => {
-          toast('Changes saved', {
+          toast.success('Changes saved', {
             action: {
               label: 'See changes',
               onPress: () => {
@@ -59,7 +48,6 @@ export const ToastDemo: React.FC = () => {
             },
             description:
               'Your changes have been saved successfully. This might go into a newline but we handle that by wrapping the text.',
-            variant,
           });
         }}
       />
@@ -137,7 +125,5 @@ export const ToastDemo: React.FC = () => {
 };
 
 const handleToast = () => {
-  toast('I am outside!', {
-    variant: 'success',
-  });
+  toast.info('I am outside!');
 };

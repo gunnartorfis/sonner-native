@@ -89,6 +89,15 @@ export type ToastFunctionOptions = {
 export type ToastFunctionBase = {
   (
     title: string,
+    options?: Omit<ToastProps, 'title' | 'id' | 'variant'> & {
+      id?: string; // optional id to update existing toast
+    }
+  ): string;
+};
+
+export type ToastFunctionContext = {
+  (
+    title: string,
     options?: Omit<ToastProps, 'title' | 'id'> & {
       id?: string; // optional id to update existing toast
     }
