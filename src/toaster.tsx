@@ -48,7 +48,7 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
     (title, options?: ToastFunctionOptions) => {
       const id = uuidv4();
       setToasts((currentToasts) => {
-        const newToasts = [
+        const newToasts: ToastProps[] = [
           ...currentToasts,
           {
             ...options,

@@ -35,7 +35,7 @@ toast.info = (title: string, options = {}) => {
 };
 
 toast.promise = (promise, options) => {
-  const toastId = getToastContext().addToast(options.loading, {
+  return getToastContext().addToast(options.loading, {
     ...options,
     variant: ToastVariant.INFO,
     promiseOptions: {
@@ -43,6 +43,11 @@ toast.promise = (promise, options) => {
       ...options,
     },
   });
+};
 
-  return toastId;
+toast.custom = (element, options) => {
+  return getToastContext().addToast('', {
+    element,
+    ...options,
+  });
 };

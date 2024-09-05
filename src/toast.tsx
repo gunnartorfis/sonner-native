@@ -11,6 +11,7 @@ import { useColors } from './use-colors';
 export const Toast: React.FC<ToastProps> = ({
   id,
   title,
+  element,
   description,
   duration: durationProps,
   variant,
@@ -90,6 +91,10 @@ export const Toast: React.FC<ToastProps> = ({
       }
     };
   }, [duration, id, onHide, promiseOptions, updateToast]);
+
+  if (element) {
+    return element;
+  }
 
   return (
     <ToastSwipeHandler

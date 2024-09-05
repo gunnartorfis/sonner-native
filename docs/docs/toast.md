@@ -91,3 +91,16 @@ updateToast(toastId, {
   duration: 5000,
 });
 ```
+
+### Custom JSX
+
+You can pass custom JSX elements to the toast function to render more complex content:
+
+```jsx
+toast.custom(
+  <View>
+    <Text>Custom toast content</Text>
+    <Button title="Close" onPress={() => toast.dismiss()} />
+  </View>
+);
+```

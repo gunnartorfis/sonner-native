@@ -3,6 +3,7 @@ import type { TextStyle, ViewStyle } from 'react-native';
 export type ToastProps = {
   id: string;
   title: string;
+  element?: React.ReactElement;
   description?: string;
   duration?: number;
   variant?: ToastVariant;
@@ -92,6 +93,7 @@ export type ToastFunctionOptions = {
   description?: string;
   duration?: number;
   promiseOptions?: PromiseOptions;
+  element?: React.ReactElement;
 };
 
 export type ToastFunctionBase = {
@@ -110,10 +112,15 @@ export type ToastFunctionPromise = <T>(
   promise: Promise<T>,
   options: Omit<PromiseOptions, 'promise'>
 ) => string;
+export type ToastFunctionCustom = (
+  element: React.ReactElement,
+  options?: Pick<ToastFunctionOptions, 'duration'>
+) => string;
 
 export type ToastFunction = ToastFunctionBase & {
   success: ToastFunctionWithVariant;
   error: ToastFunctionWithVariant;
   info: ToastFunctionWithVariant;
   promise: ToastFunctionPromise;
+  custom: ToastFunctionCustom;
 };
