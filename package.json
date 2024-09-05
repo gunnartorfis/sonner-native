@@ -111,6 +111,11 @@
     "react-native-screens": ">=3.31.1",
     "react-native-svg": ">=15.6.0"
   },
+  "peerDependenciesMeta": {
+    "nativewind": {
+      "optional": true
+    }
+  },
   "workspaces": [
     "example",
     "docs"

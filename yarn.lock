@@ -7103,7 +7103,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^2.0.0, clsx@npm:^2.1.0":
+"clsx@npm:^2.0.0":
   version: 2.1.1
   resolution: "clsx@npm:2.1.1"
   checksum: acd3e1ab9d8a433ecb3cc2f6a05ab95fe50b4a3cfc5ba47abb6cbf3754585fcb87b84e90c822a1f256c4198e3b41c7f6c391577ffc8678ad587fc0976b24fd57
@@ -8544,7 +8544,6 @@ __metadata:
     "@docusaurus/tsconfig": 3.5.2
     "@docusaurus/types": 3.5.2
     "@mdx-js/react": ^3.0.0
-    clsx: ^2.0.0
     prism-react-renderer: ^2.3.0
     react: ^18.0.0
     react-dom: ^18.0.0
@@ -17780,7 +17779,6 @@ __metadata:
     "@expo/metro-runtime": ~3.2.3
     "@react-navigation/native": ^6.0.8
     "@react-navigation/native-stack": ^6.9.12
-    clsx: ^2.1.0
     expo: ~51.0.32
     expo-status-bar: ~1.12.1
     lucide-react-native: ^0.438.0
@@ -17811,7 +17809,6 @@ __metadata:
     "@types/jest": ^29.5.5
     "@types/react": ^18.2.44
     "@types/uuid": ^10.0.0
-    clsx: ^2.1.0
     commitlint: ^19.4.1
     del-cli: ^5.1.0
     eslint: ^8.51.0
@@ -17833,7 +17830,6 @@ __metadata:
     typescript: ^5.5.4
     uuid: 3.4.0
   peerDependencies:
-    clsx: ^2.1.0
     lucide-react-native: ">=0"
     nativewind: "*"
     react: "*"
@@ -17843,6 +17839,9 @@ __metadata:
     react-native-safe-area-context: ">=4.10.5"
     react-native-screens: ">=3.31.1"
     react-native-svg: ">=15.6.0"
+  peerDependenciesMeta:
+    nativewind:
+      optional: true
   languageName: unknown
   linkType: soft
 
