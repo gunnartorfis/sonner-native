@@ -13,7 +13,6 @@
     "@expo/metro-runtime": "~3.2.3",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.9.12",
-    "clsx": "^2.1.0",
     "expo": "~51.0.32",
     "expo-status-bar": "~1.12.1",
     "lucide-react-native": "^0.438.0",

@@ -77,7 +77,6 @@
     "@types/jest": "^29.5.5",
     "@types/react": "^18.2.44",
     "@types/uuid": "^10.0.0",
-    "clsx": "^2.1.0",
     "commitlint": "^19.4.1",
     "del-cli": "^5.1.0",
     "eslint": "^8.51.0",
@@ -102,7 +101,6 @@
     "@types/react": "^18.2.44"
   },
   "peerDependencies": {
-    "clsx": "^2.1.0",
     "lucide-react-native": ">=0",
     "nativewind": "*",
     "react": "*",
