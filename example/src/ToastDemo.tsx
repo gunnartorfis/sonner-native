@@ -1,4 +1,4 @@
-import { Button, Text, View } from 'react-native';
+import { Button, Pressable, Text, View } from 'react-native';
 import * as React from 'react';
 import {
   toast,
@@ -80,6 +80,57 @@ export const ToastDemo: React.FC = () => {
               loading: 'Loading...',
               success: (result) => `Promise resolved: ${result}`,
               error: 'Promise failed',
+            }
+          );
+        }}
+      />
+      <Button
+        title="Custom JSX"
+        onPress={() => {
+          toast.custom(
+            <View
+              style={{
+                width: '80%',
+                backgroundColor: '#26252A',
+                paddingLeft: 24,
+                paddingRight: 8,
+                paddingVertical: 8,
+                borderRadius: 999,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                borderCurve: 'continuous',
+              }}
+            >
+              <Text
+                style={{
+                  color: '#fff',
+                  fontWeight: '600',
+                }}
+              >
+                Custom JSX
+              </Text>
+              <Pressable
+                style={{
+                  backgroundColor: '#40424B',
+                  borderWidth: 1,
+                  borderColor: '#55555C',
+                  borderRadius: 999,
+                  padding: 8,
+                }}
+              >
+                <Text
+                  style={{
+                    color: '#fff',
+                    fontWeight: '600',
+                  }}
+                >
+                  Press me
+                </Text>
+              </Pressable>
+            </View>,
+            {
+              duration: 30000,
             }
           );
         }}
