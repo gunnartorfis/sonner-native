@@ -18230,7 +18230,7 @@ __metadata:
     expo-status-bar: ~1.12.1
     lucide-react-native: ^0.438.0
     nativewind: 4.0.36
-    react: 18.2.0
+    react: 18.3.1
     react-dom: 18.2.0
     react-native: 0.74.5
     react-native-builder-bob: ^0.30.0
@@ -18266,7 +18266,7 @@ __metadata:
     lucide-react-native: ^0.438.0
     nativewind: next
     prettier: ^3.0.3
-    react: 18.2.0
+    react: 18.3.1
     react-native: 0.74.5
     react-native-builder-bob: ^0.30.0
     react-native-gesture-handler: ~2.16.1
@@ -18500,16 +18500,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.2.0":
-  version: 18.2.0
-  resolution: "react@npm:18.2.0"
-  dependencies:
-    loose-envify: ^1.1.0
-  checksum: 88e38092da8839b830cda6feef2e8505dec8ace60579e46aa5490fc3dc9bba0bd50336507dc166f43e3afc1c42939c09fe33b25fae889d6f402721dcd78fca1b
-  languageName: node
-  linkType: hard
-
-"react@npm:^18.0.0":
+"react@npm:18.3.1, react@npm:^18.0.0":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
   dependencies:
