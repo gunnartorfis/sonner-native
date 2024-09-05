@@ -78,7 +78,7 @@
     "@types/react": "^18.2.44",
     "@types/uuid": "^10.0.0",
     "clsx": "^2.1.0",
-    "commitlint": "^17.0.2",
+    "commitlint": "^19.4.1",
     "del-cli": "^5.1.0",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
