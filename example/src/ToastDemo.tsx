@@ -62,11 +62,13 @@ export const ToastDemo: React.FC = () => {
                 console.log('Action pressed');
               },
             },
-            description: 'Your changes have been saved successfully',
+            description:
+              'Your changes have been saved successfully. This might go into a newline but we handle that by wrapping the text.',
             variant,
           });
         }}
       />
+      <Button title="Show outside of a React component" onPress={handleToast} />
       <Button
         title="Toast with a promise"
         onPress={() => {
@@ -137,4 +139,10 @@ export const ToastDemo: React.FC = () => {
       />
     </SafeAreaView>
   );
+};
+
+const handleToast = () => {
+  toast('I am outside!', {
+    variant: ToastVariant.SUCCESS,
+  });
 };

@@ -4,6 +4,22 @@ Animated, customizable Toasts for React Native
 
 ![preview](https://github.com/user-attachments/assets/b0a95d89-3895-4d95-8a87-262fb7209805)
 
+## Features
+
+- Multiple variants, including `success`, `error`, `warning`
+- Promise option with built in loading state
+- Top or bottom positions
+- Title and description
+- Action button with callback
+- Custom icons
+- Dismissable with swipe, configurable left or up
+- Highly performant using Reanimated 3
+- Dark mode support
+- Works with Expo
+- NativeWind support
+- Customizable
+- Works outside of React components
+
 ## Installation
 
 ```sh
