@@ -1,3 +1,4 @@
+import { useColors } from './use-colors';
 import { ANIMATION_DURATION, useToastLayoutAnimations } from './animations';
 import { useToastContext } from './context';
 import { ToastSwipeHandler } from './gestures';
@@ -33,6 +34,8 @@ export const Toast: React.FC<ToastProps> = ({
 }) => {
   const { duration: durationContext, updateToast } = useToastContext();
   const duration = durationProps ?? durationContext;
+
+  const colors = useColors();
 
   const isDragging = React.useRef(false);
   const timer = React.useRef<NodeJS.Timeout>();
@@ -109,7 +112,7 @@ export const Toast: React.FC<ToastProps> = ({
             borderRadius: 16,
             marginBottom: 16,
             marginHorizontal: 16,
-            backgroundColor: '#fff',
+            backgroundColor: colors['background-primary'],
             borderCurve: 'continuous',
           },
           style,
@@ -138,7 +141,7 @@ export const Toast: React.FC<ToastProps> = ({
                 {
                   fontWeight: '600',
                   lineHeight: 20,
-                  color: '#232020',
+                  color: colors['text-primary'],
                 },
                 titleStyle,
               ]}
@@ -153,7 +156,7 @@ export const Toast: React.FC<ToastProps> = ({
                     fontSize: 14,
                     lineHeight: 20,
                     marginTop: 2,
-                    color: '#4f4a4a',
+                    color: colors['text-tertiary'],
                   },
                   descriptionStyle,
                 ]}
@@ -178,11 +181,11 @@ export const Toast: React.FC<ToastProps> = ({
                     {
                       borderRadius: 999,
                       borderWidth: 1,
-                      borderColor: '#e6e3e3',
+                      borderColor: colors['border-secondary'],
                       paddingHorizontal: 8,
                       paddingVertical: 4,
                       borderCurve: 'continuous',
-                      backgroundColor: '#f7f7f7',
+                      backgroundColor: colors['background-secondary'],
                     },
                     actionStyle,
                   ]}
@@ -194,7 +197,7 @@ export const Toast: React.FC<ToastProps> = ({
                         fontSize: 14,
                         lineHeight: 20,
                         fontWeight: '600',
-                        color: '##232020',
+                        color: colors['text-primary'],
                       },
                       actionLabelStyle,
                     ]}
@@ -207,7 +210,7 @@ export const Toast: React.FC<ToastProps> = ({
             ) : null}
           </View>
           <Pressable onPress={onHide} hitSlop={10}>
-            <X size={20} color={closeIconColor ?? '#3f3b3b'} />
+            <X size={20} color={closeIconColor ?? colors['text-secondary']} />
           </Pressable>
         </View>
       </Animated.View>
@@ -218,19 +221,22 @@ export const Toast: React.FC<ToastProps> = ({
 export const ToastIcon: React.FC<
   Pick<ToastProps, 'variant' | 'getIconColorForVariant'>
 > = ({ variant, getIconColorForVariant: getIconColorForVariant }) => {
+  const colors = useColors();
   switch (variant) {
     case 'success':
       return (
         <CircleCheck
           size={20}
-          color={getIconColorForVariant?.(ToastVariant.SUCCESS) ?? '#3c8643'}
+          color={
+            getIconColorForVariant?.(ToastVariant.SUCCESS) ?? colors.success
+          }
         />
       );
     case 'error':
       return (
         <CircleX
           size={20}
-          color={getIconColorForVariant?.(ToastVariant.SUCCESS) ?? '#ff3a41'}
+          color={getIconColorForVariant?.(ToastVariant.SUCCESS) ?? colors.error}
         />
       );
     default:
@@ -238,7 +244,7 @@ export const ToastIcon: React.FC<
       return (
         <Info
           size={20}
-          color={getIconColorForVariant?.(ToastVariant.INFO) ?? '#286efa'}
+          color={getIconColorForVariant?.(ToastVariant.INFO) ?? colors.info}
         />
       );
   }
