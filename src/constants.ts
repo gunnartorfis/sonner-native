@@ -1,8 +1,4 @@
-import {
-  ToastPosition,
-  ToastSwipeDirection,
-  ToastVariant,
-} from '../types/toastTypes';
+import { ToastPosition, ToastSwipeDirection, ToastVariant } from './types';
 
 export const toastDefaultValues = {
   duration: 3000,

@@ -1,16 +1,13 @@
-import {
-  ANIMATION_DURATION,
-  useToastLayoutAnimations,
-} from '../toast/toastAnimations';
-import { useToastContext } from './ToastContext';
-import { ToastSwipeHandler } from './ToastSwipeHandler';
-import { ToastVariant, type ToastProps } from '../../types/toastTypes';
+import { ANIMATION_DURATION, useToastLayoutAnimations } from './animations';
+import { useToastContext } from './context';
+import { ToastSwipeHandler } from './gestures';
+import { ToastVariant, type ToastProps } from './types';
 import { CircleCheck, CircleX, Info, X } from 'lucide-react-native';
 import * as React from 'react';
 import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-const Toast: React.FC<ToastProps> = ({
+export const Toast: React.FC<ToastProps> = ({
   id,
   title,
   description,
@@ -256,5 +253,3 @@ const elevationStyle = {
   },
   elevation: 4,
 };
-
-export default Toast;

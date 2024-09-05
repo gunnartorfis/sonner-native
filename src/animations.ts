@@ -1,5 +1,5 @@
-import { useToastContext } from './ToastContext';
-import { ToastPosition } from '../../types/toastTypes';
+import { useToastContext } from './context';
+import { ToastPosition } from './types';
 import React from 'react';
 import { Easing, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';

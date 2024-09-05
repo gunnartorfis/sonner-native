@@ -1,4 +1,4 @@
-import { ToastContext } from './ToastContext';
+import { ToastContext } from './context';
 import {
   ToastPosition,
   type ToastFunctionBase,
@@ -6,14 +6,14 @@ import {
   type ToastProps,
   type ToastProviderProps,
   type ToastUpdateFunction,
-} from '../../types/toastTypes';
-import { toastDefaultValues } from '../../utils/toastConstants';
+} from './types';
+import { toastDefaultValues } from './constants';
 import * as React from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FullWindowOverlay } from 'react-native-screens';
 import { v4 as uuidv4 } from 'uuid';
-import Toast from './Toast';
+import { Toast } from './toast';
 
 let addToastHandler: ToastFunctionBase;
 let updateToastHandler: ToastUpdateFunction;

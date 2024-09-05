@@ -1,11 +1,11 @@
-import { getToastContext } from '../components/toast/Toaster';
+import { getToastContext } from './toaster';
 import {
   ToastVariant,
   type ToastFunction,
   type ToastUpdateFunction,
-} from '../types/toastTypes';
+} from './types';
 
-const toast: ToastFunction = (title, options) => {
+export const toast: ToastFunction = (title, options) => {
   return getToastContext().addToast(title, options);
 };
 
@@ -46,5 +46,3 @@ toast.promise = (promise, options) => {
 
   return toastId;
 };
-
-export default toast;
