@@ -1,4 +1,8 @@
-# Showing a toast
+---
+sidebar_position: 2
+---
+
+# toast()
 
 ## Basic toast
 
@@ -74,8 +78,6 @@ const toastId = toast.promise(fetchData(), {
 ```
 
 In this example, the toast.promise function will display a "Loading data..." message while the fetchData promise is in progress, and update the message to the success or error text based on the promise's outcome.
-
-## Other
 
 ### Updating existing toasts
 

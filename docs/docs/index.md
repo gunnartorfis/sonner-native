@@ -69,8 +69,6 @@ function SomeComponent() {
 }
 ```
 
-Check out the [Showing a toast](usage) section to see more details on how to use the package.
-
 ## Examples
 
 An example can be found in the [`example`](https://github.com/gunnartorfis/react-native-reanimated-toasts/tree/main/example) workspace.

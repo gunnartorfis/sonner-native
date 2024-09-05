@@ -5,8 +5,8 @@ import { ToastDemoScreen } from 'example/src/ToastDemoScreen';
 import * as React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
-  ToastPosition,
   Toaster,
+  ToastPosition,
   ToastSwipeDirection,
 } from 'react-native-reanimated-toasts';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
