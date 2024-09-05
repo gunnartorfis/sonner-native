@@ -5,9 +5,11 @@ export const toastDefaultValues: {
   position: ToastPosition;
   swipeToDismissDirection: ToastSwipeDirection;
   variant: ToastVariant;
+  maxToasts: number;
 } = {
   duration: 3000,
   position: 'top-center',
   swipeToDismissDirection: 'up',
   variant: 'info',
+  maxToasts: 3,
 };

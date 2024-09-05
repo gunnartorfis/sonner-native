@@ -24,16 +24,16 @@ export const Toaster: React.FC<ToastProviderProps> = (props) => {
 };
 
 export const ToasterUI: React.FC<ToastProviderProps> = ({
-  duration,
-  position,
-  maxToasts = 3,
+  duration = toastDefaultValues.duration,
+  position = toastDefaultValues.position,
+  maxToasts = toastDefaultValues.maxToasts,
+  swipToDismissDirection = toastDefaultValues.swipeToDismissDirection,
   rootStyle,
   rootClassName,
   toastContainerClassName,
   toastContainerStyle,
   toastContentClassName,
   toastContentStyle,
-  swipToDismissDirection,
   ...props
 }) => {
   const [toasts, setToasts] = React.useState<ToastProps[]>([]);
