@@ -17849,7 +17849,7 @@ __metadata:
     react-native-builder-bob: ^0.30.0
     react-native-gesture-handler: ~2.16.1
     react-native-reanimated: ~3.10.1
-    react-native-safe-area-context: 4.10.1
+    react-native-safe-area-context: 4.10.5
     react-native-screens: 3.31.1
     react-native-svg: 15.2.0
     react-native-web: ~0.19.10
@@ -17884,7 +17884,7 @@ __metadata:
     react-native-builder-bob: ^0.30.0
     react-native-gesture-handler: ~2.16.1
     react-native-reanimated: ~3.10.1
-    react-native-safe-area-context: 4.10.1
+    react-native-safe-area-context: 4.10.5
     react-native-screens: 3.31.1
     react-native-svg: ^15.6.0
     release-it: ^17.6.0
@@ -17898,7 +17898,7 @@ __metadata:
     react-native: "*"
     react-native-gesture-handler: ">=2.16.1"
     react-native-reanimated: ">=3.10.1"
-    react-native-safe-area-context: ">=4.10.1"
+    react-native-safe-area-context: ">=4.10.5"
     react-native-screens: ">=3.31.1"
     react-native-svg: ">=15.6.0"
   languageName: unknown
@@ -17924,13 +17924,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-safe-area-context@npm:4.10.1":
-  version: 4.10.1
-  resolution: "react-native-safe-area-context@npm:4.10.1"
+"react-native-safe-area-context@npm:4.10.5":
+  version: 4.10.5
+  resolution: "react-native-safe-area-context@npm:4.10.5"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: a0f31a66f0aba7050cfdc34512349f49dd65349d53407d461196fa70010f65aca7310212d5c7c47078745db6e02975a4d97881d0340160d40e0feb5a4a5d9de2
+  checksum: 94e049a5579e8cbe6d08a6da89efc948ff20042c7c08670341ec3629752fa40d0b1f14471860a18fdfc121fbdee1b58d582704f3fd2dc612890a0bd002f908a1
   languageName: node
   linkType: hard
 
