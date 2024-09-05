@@ -4,6 +4,7 @@
   "description": "Animated, customizable Toasts for React Native",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
+  "types": "./lib/typescript/commonjs/src/index.d.ts",
   "module": "./lib/module/index.js",
   "exports": {
     ".": {
