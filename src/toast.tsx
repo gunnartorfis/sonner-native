@@ -44,6 +44,10 @@ export const Toast: React.FC<ToastProps> = ({
   const isResolvingPromise = React.useRef(false);
 
   React.useEffect(() => {
+    if (isResolvingPromise.current) {
+      return;
+    }
+
     if (promiseOptions?.promise) {
       try {
         isResolvingPromise.current = true;
@@ -67,21 +71,30 @@ export const Toast: React.FC<ToastProps> = ({
       return;
     }
 
-    timerStart.current = Date.now();
-    timer.current = setTimeout(() => {
-      if (!isDragging.current) {
-        onHide?.();
+    // Start the timer only if it hasn't been started yet
+    if (!timerStart.current) {
+      timerStart.current = Date.now();
+      timer.current = setTimeout(() => {
+        if (!isDragging.current) {
+          onHide?.(id);
+        }
+      }, ANIMATION_DURATION + duration);
+    }
+
+    // Cleanup function to clear the timer if it's still the same timer
+    return () => {
+      if (timer.current) {
+        clearTimeout(timer.current);
+        timer.current = undefined;
         timerStart.current = undefined;
       }
-    }, ANIMATION_DURATION + duration); // Auto-hide after 3 seconds
-
-    return () => clearTimeout(timer.current);
+    };
   }, [duration, id, onHide, promiseOptions, updateToast]);
 
   return (
     <ToastSwipeHandler
       onRemove={() => {
-        onHide?.();
+        onHide?.(id);
       }}
       onBegin={() => {
         isDragging.current = true;
@@ -92,10 +105,10 @@ export const Toast: React.FC<ToastProps> = ({
 
         if (timeElapsed < duration) {
           timer.current = setTimeout(() => {
-            onHide?.();
+            onHide?.(id);
           }, duration - timeElapsed);
         } else {
-          onHide?.();
+          onHide?.(id);
         }
       }}
       enabled={!promiseOptions}
@@ -208,7 +221,7 @@ export const Toast: React.FC<ToastProps> = ({
               </View>
             ) : null}
           </View>
-          <Pressable onPress={onHide} hitSlop={10}>
+          <Pressable onPress={() => onHide?.(id)} hitSlop={10}>
             <X size={20} color={closeIconColor ?? colors['text-secondary']} />
           </Pressable>
         </View>

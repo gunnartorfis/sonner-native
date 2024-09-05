@@ -7,7 +7,7 @@ export type ToastProps = {
   duration?: number;
   variant?: ToastVariant;
   action?: ToastAction;
-  onHide?: () => void;
+  onHide?: (id: string) => void;
   style?: ViewStyle;
   className?: string;
   containerStyle?: ViewStyle;

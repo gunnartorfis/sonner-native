@@ -44,35 +44,38 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
   const [toasts, setToasts] = React.useState<ToastProps[]>([]);
   const { top, bottom } = useSafeAreaInsets();
 
-  addToastHandler = (title, options?: ToastFunctionOptions) => {
-    const id = uuidv4();
-    setToasts((currentToasts) => {
-      const newToasts = [
-        ...currentToasts,
-        {
-          ...options,
-          id,
-          title,
-          variant: options?.variant ?? toastDefaultValues.variant,
-        },
-      ];
+  addToastHandler = React.useCallback(
+    (title, options?: ToastFunctionOptions) => {
+      const id = uuidv4();
+      setToasts((currentToasts) => {
+        const newToasts = [
+          ...currentToasts,
+          {
+            ...options,
+            id,
+            title,
+            variant: options?.variant ?? toastDefaultValues.variant,
+          },
+        ];
 
-      if (newToasts.length > maxToasts) {
-        newToasts.shift();
-      }
-      return newToasts;
-    });
+        if (newToasts.length > maxToasts) {
+          newToasts.shift();
+        }
+        return newToasts;
+      });
 
-    return id;
-  };
+      return id;
+    },
+    [maxToasts]
+  );
 
-  const removeToast = (id: string) => {
+  const removeToast = React.useCallback((id: string) => {
     setToasts((currentToasts) =>
       currentToasts.filter((toast) => toast.id !== id)
     );
-  };
+  }, []);
 
-  updateToastHandler = (id, newToast) => {
+  updateToastHandler = React.useCallback((id, newToast) => {
     setToasts((currentToasts) =>
       currentToasts.map((toast) => {
         if (toast.id === id) {
@@ -85,7 +88,7 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
         return toast;
       })
     );
-  };
+  }, []);
 
   const value = React.useMemo(
     () => ({
@@ -120,9 +123,17 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
       return { top: 40 };
     }
 
-    console.warn('Invalid position value');
     return {};
   }, [position, bottom, top]);
+
+  const onHide = React.useCallback<
+    NonNullable<React.ComponentProps<typeof Toast>['onHide']>
+  >(
+    (id) => {
+      removeToast(id);
+    },
+    [removeToast]
+  );
 
   return (
     <ToastContext.Provider value={value}>
@@ -143,10 +154,7 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
             <Toast
               key={toast.id}
               {...toast}
-              onHide={() => {
-                removeToast(toast.id);
-                toast.onHide?.();
-              }}
+              onHide={onHide}
               className={toastContentClassName}
               style={toastContentStyle}
               containerStyle={toastContainerStyle}
