@@ -1,10 +1,16 @@
 import { Button, Text, View } from 'react-native';
 import * as React from 'react';
-import { toast, ToastVariant } from 'react-native-reanimated-toasts';
+import {
+  toast,
+  ToastVariant,
+  updateToast,
+} from 'react-native-reanimated-toasts';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const ToastDemo: React.FC = () => {
   const [variant, setVariant] = React.useState<ToastVariant>(ToastVariant.INFO);
+  const [toastId, setToastId] = React.useState<string | null>(null);
+
   return (
     <SafeAreaView>
       <Text>Selected variant: {variant}</Text>
@@ -17,11 +23,24 @@ export const ToastDemo: React.FC = () => {
         <Button title="Error" onPress={() => setVariant(ToastVariant.ERROR)} />
       </View>
       <Button
-        title="Show toast"
+        title={toastId ? 'Update toast' : 'Show toast'}
         onPress={() => {
-          toast('Changes saved', {
-            variant,
-          });
+          if (toastId) {
+            updateToast(toastId, {
+              title: 'Updated!',
+              onHide: () => {
+                setToastId(null);
+              },
+            });
+          } else {
+            const id = toast('Changes saved', {
+              variant,
+              onHide: () => {
+                setToastId(null);
+              },
+            });
+            setToastId(id);
+          }
         }}
       />
       <Button

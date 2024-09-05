@@ -6,8 +6,7 @@ import {
 } from '../types/toastTypes';
 
 const toast: ToastFunction = (title, options) => {
-  const { addToast } = getToastContext();
-  return addToast(title, options);
+  return getToastContext().addToast(title, options);
 };
 
 export const updateToast: ToastUpdateFunction = (id, options) => {
@@ -15,41 +14,33 @@ export const updateToast: ToastUpdateFunction = (id, options) => {
 };
 
 toast.success = (title, options = {}) => {
-  const { addToast } = getToastContext();
-  return addToast(title, {
+  return getToastContext().addToast(title, {
     ...options,
     variant: ToastVariant.SUCCESS,
   });
 };
 
 toast.error = (title: string, options = {}) => {
-  const { addToast } = getToastContext();
-  return addToast(title, {
+  return getToastContext().addToast(title, {
     ...options,
     variant: ToastVariant.ERROR,
   });
 };
 
 toast.info = (title: string, options = {}) => {
-  const { addToast } = getToastContext();
-  return addToast(title, {
+  return getToastContext().addToast(title, {
     ...options,
     variant: ToastVariant.INFO,
   });
 };
 
 toast.promise = (promise, options) => {
-  const { addToast } = getToastContext();
-  const { error, loading, success } = options;
-
-  const toastId = addToast(loading, {
+  const toastId = getToastContext().addToast(options.loading, {
     ...options,
     variant: ToastVariant.INFO,
     promiseOptions: {
       promise,
-      error,
-      success,
-      loading,
+      ...options,
     },
   });
 

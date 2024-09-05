@@ -42,12 +42,10 @@ export const Toaster: React.FC<ToastProviderProps> = ({
       const newToasts = [
         ...currentToasts,
         {
+          ...options,
           id,
           title,
-          description: options?.description,
           variant: options?.variant ?? toastDefaultValues.variant,
-          action: options?.action,
-          promiseOptions: options?.promiseOptions,
         },
       ];
 
@@ -73,6 +71,7 @@ export const Toaster: React.FC<ToastProviderProps> = ({
           return {
             ...toast,
             ...newToast,
+            id,
           };
         }
         return toast;
@@ -92,10 +91,11 @@ export const Toaster: React.FC<ToastProviderProps> = ({
     [duration, position, swipToDismissDirection]
   );
 
-  const positionedToasts =
-    position === ToastPosition.BOTTOM_CENTER
+  const positionedToasts = React.useMemo(() => {
+    return position === ToastPosition.BOTTOM_CENTER
       ? toasts
       : toasts.slice().reverse();
+  }, [position, toasts]);
 
   return (
     <FullWindowOverlay>
@@ -128,7 +128,10 @@ export const Toaster: React.FC<ToastProviderProps> = ({
               <Toast
                 key={toast.id}
                 {...toast}
-                onHide={() => removeToast(toast.id)}
+                onHide={() => {
+                  removeToast(toast.id);
+                  toast.onHide?.();
+                }}
                 className={toastContentClassName}
                 style={toastContentStyle}
                 containerStyle={toastContainerStyle}

@@ -51,7 +51,6 @@ const Toast: React.FC<ToastProps> = ({
             title: promiseOptions.success(data) ?? 'Success',
             variant: ToastVariant.SUCCESS,
             promiseOptions: undefined,
-            id,
           });
           isResolvingPromise.current = false;
         });
@@ -59,7 +58,6 @@ const Toast: React.FC<ToastProps> = ({
         updateToast(id, {
           title: promiseOptions.error ?? 'Success',
           variant: ToastVariant.SUCCESS,
-          id,
           promiseOptions: undefined,
         });
         isResolvingPromise.current = false;

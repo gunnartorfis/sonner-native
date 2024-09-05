@@ -5,7 +5,7 @@ export type ToastProps = {
   title: string;
   description?: string;
   duration?: number;
-  variant: 'success' | 'error' | 'info';
+  variant?: ToastVariant;
   action?: ToastAction;
   onHide?: () => void;
   style?: ViewStyle;
@@ -95,12 +95,16 @@ export type ToastFunctionOptions = {
 };
 
 export type ToastFunctionBase = {
-  (title: string, options?: ToastFunctionOptions): string;
+  (title: string, options?: Omit<ToastProps, 'title' | 'id'>): string;
 };
-export type ToastUpdateFunction = (id: string, newToast: ToastProps) => void;
+
+export type ToastUpdateFunction = (
+  id: string,
+  newToast: Omit<ToastProps, 'id'>
+) => void;
 export type ToastFunctionWithVariant = (
   title: string,
-  options?: Omit<ToastFunctionOptions, 'variant'>
+  options?: Omit<ToastProps, 'variant' | 'title' | 'id'>
 ) => string;
 export type ToastFunctionPromise = <T>(
   promise: Promise<T>,
