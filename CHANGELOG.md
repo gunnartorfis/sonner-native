@@ -1,5 +1,7 @@
 
 
+## [0.3.8](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.3.7...v0.3.8) (2024-09-05)
+
 ## [0.3.7](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.3.6...v0.3.7) (2024-09-05)
 
 
