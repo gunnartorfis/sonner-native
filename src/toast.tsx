@@ -7,7 +7,7 @@ import { useToastContext } from './context';
 import { ToastSwipeHandler } from './gestures';
 import { type ToastProps } from './types';
 import { useColors } from './use-colors';
-import { toast } from 'src/toast-fns';
+import { toast } from './toast-fns';
 
 export const Toast: React.FC<ToastProps> = ({
   id,

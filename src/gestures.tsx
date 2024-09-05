@@ -10,7 +10,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { easeInOutCircFn } from 'src/easings';
+import { easeInOutCircFn } from './easings';
 import { useToastContext } from './context';
 
 const { width: WINDOW_WIDTH } = Dimensions.get('window');

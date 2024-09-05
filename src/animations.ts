@@ -1,6 +1,6 @@
 import React from 'react';
 import { withTiming } from 'react-native-reanimated';
-import { easeInOutCubic, easeOutCirc } from 'src/easings';
+import { easeInOutCubic, easeOutCirc } from './easings';
 import { useToastContext } from './context';
 import type { ToastPosition } from './types';
 
