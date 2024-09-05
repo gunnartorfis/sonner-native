@@ -1,11 +1,10 @@
 import React from 'react';
-import { Easing, withTiming } from 'react-native-reanimated';
+import { withTiming } from 'react-native-reanimated';
+import { easeInOutCubic, easeOutCirc } from 'src/easings';
 import { useToastContext } from './context';
 import { ToastPosition } from './types';
 
 export const ANIMATION_DURATION = 300;
-const easing = Easing.inOut(Easing.ease);
-const animationOptions = { duration: ANIMATION_DURATION, easing };
 
 export const useToastLayoutAnimations = () => {
   const { position } = useToastContext();
@@ -33,11 +32,11 @@ export const getToastEntering = ({ position }: GetToastAnimationParams) => {
   'worklet';
 
   const animations = {
-    opacity: withTiming(1, animationOptions),
+    opacity: withTiming(1, { easing: easeOutCirc }),
     transform: [
-      { scale: withTiming(1, animationOptions) },
+      { scale: withTiming(1, { easing: easeOutCirc }) },
       {
-        translateY: withTiming(0, animationOptions),
+        translateY: withTiming(0, { easing: easeOutCirc }),
       },
     ],
   };
@@ -62,13 +61,12 @@ export const getToastExiting = ({ position }: GetToastAnimationParams) => {
   'worklet';
 
   const animations = {
-    opacity: withTiming(0, animationOptions),
+    opacity: withTiming(0, { easing: easeInOutCubic }),
     transform: [
-      { scale: withTiming(0, animationOptions) },
       {
         translateY: withTiming(
-          position === ToastPosition.TOP_CENTER ? 100 : -100,
-          animationOptions
+          position === ToastPosition.TOP_CENTER ? -150 : 150,
+          { easing: easeInOutCubic }
         ),
       },
     ],
@@ -77,7 +75,6 @@ export const getToastExiting = ({ position }: GetToastAnimationParams) => {
   const initialValues = {
     opacity: 1,
     transform: [
-      { scale: 1 },
       {
         translateY: 0,
       },

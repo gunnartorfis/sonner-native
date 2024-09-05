@@ -10,7 +10,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { ANIMATION_DURATION } from './animations';
+import { easeInOutCircFn } from 'src/easings';
 import { useToastContext } from './context';
 import { ToastSwipeDirection } from './types';
 
@@ -115,7 +115,7 @@ export const ToastSwipeHandler: React.FC<
           style,
         ]}
         className={className}
-        layout={LinearTransition.duration(ANIMATION_DURATION)}
+        layout={LinearTransition.easing(easeInOutCircFn)}
       >
         {children}
       </Animated.View>
