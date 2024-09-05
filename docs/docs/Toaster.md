@@ -28,12 +28,12 @@ export default function App() {
 
 ## Props
 
-| Prop                     | Type                  | Default                    | Description                                                 |
-| ------------------------ | --------------------- | -------------------------- | ----------------------------------------------------------- |
-| `duration`               | `number`              | `3000` (ms)                | Duration each toast is visible before auto-dismissal.       |
-| `position`               | `ToastPosition`       | `ToastPosition.TOP_CENTER` | The position of the toasts (`top-center`, `bottom-center`). |
-| `maxToasts`              | `number`              | `3`                        | Maximum number of toasts to show at once.                   |
-| `swipToDismissDirection` | `ToastSwipeDirection` | `ToastSwipeDirection.UP    | Swipe direction to dismiss (`left`, `up`).                  |
+| Prop                     | Type                  | Default      | Description                                                 |
+| ------------------------ | --------------------- | ------------ | ----------------------------------------------------------- |
+| `duration`               | `number`              | `3000` (ms)  | Duration each toast is visible before auto-dismissal.       |
+| `position`               | `ToastPosition`       | `top-center` | The position of the toasts (`top-center`, `bottom-center`). |
+| `maxToasts`              | `number`              | `3`          | Maximum number of toasts to show at once.                   |
+| `swipToDismissDirection` | `ToastSwipeDirection` | `up`         | Swipe direction to dismiss (`left`, `up`).                  |
 
 ### Style related props
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { withTiming } from 'react-native-reanimated';
 import { easeInOutCubic, easeOutCirc } from 'src/easings';
 import { useToastContext } from './context';
-import { ToastPosition } from './types';
+import type { ToastPosition } from './types';
 
 export const ANIMATION_DURATION = 300;
 
@@ -46,7 +46,7 @@ export const getToastEntering = ({ position }: GetToastAnimationParams) => {
     transform: [
       { scale: 0 },
       {
-        translateY: position === ToastPosition.TOP_CENTER ? -50 : 50,
+        translateY: position === 'top-center' ? -50 : 50,
       },
     ],
   };
@@ -64,10 +64,9 @@ export const getToastExiting = ({ position }: GetToastAnimationParams) => {
     opacity: withTiming(0, { easing: easeInOutCubic }),
     transform: [
       {
-        translateY: withTiming(
-          position === ToastPosition.TOP_CENTER ? -150 : 150,
-          { easing: easeInOutCubic }
-        ),
+        translateY: withTiming(position === 'top-center' ? -150 : 150, {
+          easing: easeInOutCubic,
+        }),
       },
     ],
   };

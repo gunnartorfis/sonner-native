@@ -5,7 +5,7 @@ import Animated from 'react-native-reanimated';
 import { ANIMATION_DURATION, useToastLayoutAnimations } from './animations';
 import { useToastContext } from './context';
 import { ToastSwipeHandler } from './gestures';
-import { ToastVariant, type ToastProps } from './types';
+import { type ToastProps } from './types';
 import { useColors } from './use-colors';
 
 export const Toast: React.FC<ToastProps> = ({
@@ -55,7 +55,7 @@ export const Toast: React.FC<ToastProps> = ({
         promiseOptions.promise.then((data) => {
           addToast(promiseOptions.success(data) ?? 'Success', {
             id,
-            variant: ToastVariant.SUCCESS,
+            variant: 'success',
             promiseOptions: undefined,
           });
           isResolvingPromise.current = false;
@@ -63,7 +63,7 @@ export const Toast: React.FC<ToastProps> = ({
       } catch (error) {
         addToast(promiseOptions.error ?? 'Error', {
           id,
-          variant: ToastVariant.ERROR,
+          variant: 'error',
           promiseOptions: undefined,
         });
         isResolvingPromise.current = false;
@@ -244,16 +244,14 @@ export const ToastIcon: React.FC<
       return (
         <CircleCheck
           size={20}
-          color={
-            getIconColorForVariant?.(ToastVariant.SUCCESS) ?? colors.success
-          }
+          color={getIconColorForVariant?.(variant) ?? colors.success}
         />
       );
     case 'error':
       return (
         <CircleX
           size={20}
-          color={getIconColorForVariant?.(ToastVariant.SUCCESS) ?? colors.error}
+          color={getIconColorForVariant?.(variant) ?? colors.error}
         />
       );
     default:
@@ -261,7 +259,7 @@ export const ToastIcon: React.FC<
       return (
         <Info
           size={20}
-          color={getIconColorForVariant?.(ToastVariant.INFO) ?? colors.info}
+          color={getIconColorForVariant?.('info') ?? colors.info}
         />
       );
   }

@@ -12,9 +12,6 @@ import Animated, {
 } from 'react-native-reanimated';
 import { easeInOutCircFn } from 'src/easings';
 import { useToastContext } from './context';
-import { ToastSwipeDirection } from './types';
-
-const { LEFT, UP } = ToastSwipeDirection;
 
 const { width: WINDOW_WIDTH } = Dimensions.get('window');
 
@@ -53,9 +50,9 @@ export const ToastSwipeHandler: React.FC<
         return;
       }
 
-      if (direction === LEFT && event.translationX < 0) {
+      if (direction === 'left' && event.translationX < 0) {
         translate.value = event.translationX;
-      } else if (direction === UP) {
+      } else if (direction === 'up') {
         translate.value = event.translationY;
       }
     })
@@ -64,7 +61,7 @@ export const ToastSwipeHandler: React.FC<
         return;
       }
 
-      const threshold = direction === LEFT ? -WINDOW_WIDTH * 0.25 : -16;
+      const threshold = direction === 'left' ? -WINDOW_WIDTH * 0.25 : -16;
       const shouldDismiss = translate.value < threshold;
 
       if (shouldDismiss) {
@@ -90,13 +87,13 @@ export const ToastSwipeHandler: React.FC<
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [
-        direction === LEFT
+        direction === 'left'
           ? { translateX: translate.value }
           : { translateY: translate.value },
       ],
       opacity: interpolate(
         translate.value,
-        [0, direction === LEFT ? -WINDOW_WIDTH : -60],
+        [0, direction === 'left' ? -WINDOW_WIDTH : -60],
         [1, 0]
       ),
     };

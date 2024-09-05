@@ -1,8 +1,13 @@
-import { ToastPosition, ToastSwipeDirection, ToastVariant } from './types';
+import type { ToastPosition, ToastSwipeDirection, ToastVariant } from './types';
 
-export const toastDefaultValues = {
+export const toastDefaultValues: {
+  duration: number;
+  position: ToastPosition;
+  swipeToDismissDirection: ToastSwipeDirection;
+  variant: ToastVariant;
+} = {
   duration: 3000,
-  position: ToastPosition.TOP_CENTER,
-  swipeToDismissDirection: ToastSwipeDirection.UP,
-  variant: ToastVariant.INFO,
+  position: 'top-center',
+  swipeToDismissDirection: 'up',
+  variant: 'info',
 };

@@ -7,7 +7,6 @@ import { toastDefaultValues } from './constants';
 import { ToastContext } from './context';
 import { Toast } from './toast';
 import {
-  ToastPosition,
   type ToastFunctionBase,
   type ToastFunctionOptions,
   type ToastProps,
@@ -15,8 +14,6 @@ import {
 } from './types';
 
 let addToastHandler: ToastFunctionBase;
-
-const { TOP_CENTER, BOTTOM_CENTER } = ToastPosition;
 
 export const Toaster: React.FC<ToastProviderProps> = (props) => {
   return (
@@ -102,20 +99,18 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
   );
 
   const positionedToasts = React.useMemo(() => {
-    return position === ToastPosition.BOTTOM_CENTER
-      ? toasts
-      : toasts.slice().reverse();
+    return position === 'bottom-center' ? toasts : toasts.slice().reverse();
   }, [position, toasts]);
 
   const insetValues = React.useMemo(() => {
-    if (position === BOTTOM_CENTER) {
+    if (position === 'bottom-center') {
       if (bottom > 0) {
         return { bottom };
       }
       return { bottom: 40 };
     }
 
-    if (position === TOP_CENTER) {
+    if (position === 'top-center') {
       if (top > 0) {
         return { top };
       }

@@ -1,22 +1,21 @@
 import { Button, Pressable, Text, View } from 'react-native';
 import * as React from 'react';
-import { toast, ToastVariant } from 'react-native-reanimated-toasts';
+import { toast } from 'react-native-reanimated-toasts';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const ToastDemo: React.FC = () => {
-  const [variant, setVariant] = React.useState<ToastVariant>(ToastVariant.INFO);
+  const [variant, setVariant] = React.useState<'success' | 'error' | 'info'>(
+    'info'
+  );
   const [toastId, setToastId] = React.useState<string | null>(null);
 
   return (
     <SafeAreaView>
       <Text>Selected variant: {variant}</Text>
       <View className="flex flex-row items-center justify-between mb-12">
-        <Button
-          title="Success"
-          onPress={() => setVariant(ToastVariant.SUCCESS)}
-        />
-        <Button title="Info" onPress={() => setVariant(ToastVariant.INFO)} />
-        <Button title="Error" onPress={() => setVariant(ToastVariant.ERROR)} />
+        <Button title="Success" onPress={() => setVariant('success')} />
+        <Button title="Info" onPress={() => setVariant('info')} />
+        <Button title="Error" onPress={() => setVariant('error')} />
       </View>
       <Button
         title={toastId ? 'Update toast' : 'Show toast'}
@@ -139,6 +138,6 @@ export const ToastDemo: React.FC = () => {
 
 const handleToast = () => {
   toast('I am outside!', {
-    variant: ToastVariant.SUCCESS,
+    variant: 'success',
   });
 };

@@ -4,11 +4,7 @@ import { ToastDemoModal } from 'example/src/ToastDemoModal';
 import { ToastDemoScreen } from 'example/src/ToastDemoScreen';
 import * as React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import {
-  Toaster,
-  ToastPosition,
-  ToastSwipeDirection,
-} from 'react-native-reanimated-toasts';
+import { Toaster } from 'react-native-reanimated-toasts';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import '../global.css';
 
@@ -31,9 +27,9 @@ const App: React.FC = () => {
           </Stack.Navigator>
         </NavigationContainer>
         <Toaster
-          position={ToastPosition.TOP_CENTER}
+          position="top-center"
           duration={3000}
-          swipToDismissDirection={ToastSwipeDirection.UP}
+          swipToDismissDirection="up"
           maxToasts={4}
         />
       </GestureHandlerRootView>

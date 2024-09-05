@@ -26,15 +26,9 @@ export type ToastProps = {
   promiseOptions?: PromiseOptions;
 };
 
-export enum ToastPosition {
-  TOP_CENTER = 'top-center',
-  BOTTOM_CENTER = 'bottom-center',
-}
+export type ToastPosition = 'top-center' | 'bottom-center';
 
-export enum ToastSwipeDirection {
-  LEFT = 'left',
-  UP = 'up',
-}
+export type ToastSwipeDirection = 'left' | 'up';
 
 export type ToastProviderProps = {
   duration?: number;
@@ -68,11 +62,7 @@ export type ToastContextType = {
   swipToDismissDirection: ToastSwipeDirection;
 };
 
-export enum ToastVariant {
-  SUCCESS = 'success',
-  ERROR = 'error',
-  INFO = 'info',
-}
+export type ToastVariant = 'success' | 'error' | 'info';
 
 export type ToastAction = {
   label: string;
