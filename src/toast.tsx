@@ -33,7 +33,7 @@ export const Toast: React.FC<ToastProps> = ({
   closeIconColor,
   promiseOptions,
 }) => {
-  const { duration: durationContext, updateToast } = useToastContext();
+  const { duration: durationContext, addToast } = useToastContext();
   const duration = durationProps ?? durationContext;
 
   const colors = useColors();
@@ -53,17 +53,17 @@ export const Toast: React.FC<ToastProps> = ({
       try {
         isResolvingPromise.current = true;
         promiseOptions.promise.then((data) => {
-          updateToast(id, {
-            title: promiseOptions.success(data) ?? 'Success',
+          addToast(promiseOptions.success(data) ?? 'Success', {
+            id,
             variant: ToastVariant.SUCCESS,
             promiseOptions: undefined,
           });
           isResolvingPromise.current = false;
         });
       } catch (error) {
-        updateToast(id, {
-          title: promiseOptions.error ?? 'Success',
-          variant: ToastVariant.SUCCESS,
+        addToast(promiseOptions.error ?? 'Error', {
+          id,
+          variant: ToastVariant.ERROR,
           promiseOptions: undefined,
         });
         isResolvingPromise.current = false;
@@ -90,7 +90,7 @@ export const Toast: React.FC<ToastProps> = ({
         timerStart.current = undefined;
       }
     };
-  }, [duration, id, onHide, promiseOptions, updateToast]);
+  }, [duration, id, onHide, promiseOptions, addToast]);
 
   if (element) {
     return element;

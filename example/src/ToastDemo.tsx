@@ -1,10 +1,6 @@
 import { Button, Pressable, Text, View } from 'react-native';
 import * as React from 'react';
-import {
-  toast,
-  ToastVariant,
-  updateToast,
-} from 'react-native-reanimated-toasts';
+import { toast, ToastVariant } from 'react-native-reanimated-toasts';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const ToastDemo: React.FC = () => {
@@ -26,8 +22,8 @@ export const ToastDemo: React.FC = () => {
         title={toastId ? 'Update toast' : 'Show toast'}
         onPress={() => {
           if (toastId) {
-            updateToast(toastId, {
-              title: 'Updated!',
+            toast('Updated!', {
+              id: toastId,
               onHide: () => {
                 setToastId(null);
               },

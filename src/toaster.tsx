@@ -12,11 +12,9 @@ import {
   type ToastFunctionOptions,
   type ToastProps,
   type ToastProviderProps,
-  type ToastUpdateFunction,
 } from './types';
 
 let addToastHandler: ToastFunctionBase;
-let updateToastHandler: ToastUpdateFunction;
 
 const { TOP_CENTER, BOTTOM_CENTER } = ToastPosition;
 
@@ -47,16 +45,33 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
   addToastHandler = React.useCallback(
     (title, options?: ToastFunctionOptions) => {
       const id = uuidv4();
+      const newToast = {
+        ...options,
+        id: options?.id ?? id,
+        title,
+        variant: options?.variant ?? toastDefaultValues.variant,
+      };
+
+      if (options?.id) {
+        // we're updating
+        setToasts((currentToasts) =>
+          currentToasts.map((toast) => {
+            if (toast.id === options.id) {
+              return {
+                ...toast,
+                ...newToast,
+                id: options.id,
+              };
+            }
+            return toast;
+          })
+        );
+
+        return options.id;
+      }
+
       setToasts((currentToasts) => {
-        const newToasts: ToastProps[] = [
-          ...currentToasts,
-          {
-            ...options,
-            id,
-            title,
-            variant: options?.variant ?? toastDefaultValues.variant,
-          },
-        ];
+        const newToasts: ToastProps[] = [...currentToasts, newToast];
 
         if (newToasts.length > maxToasts) {
           newToasts.shift();
@@ -75,25 +90,9 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
     );
   }, []);
 
-  updateToastHandler = React.useCallback((id, newToast) => {
-    setToasts((currentToasts) =>
-      currentToasts.map((toast) => {
-        if (toast.id === id) {
-          return {
-            ...toast,
-            ...newToast,
-            id,
-          };
-        }
-        return toast;
-      })
-    );
-  }, []);
-
   const value = React.useMemo(
     () => ({
       addToast: addToastHandler,
-      updateToast: updateToastHandler,
       duration: duration ?? toastDefaultValues.duration,
       position: position ?? toastDefaultValues.position,
       swipToDismissDirection:
@@ -169,8 +168,8 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
 };
 
 export const getToastContext = () => {
-  if (!addToastHandler || !updateToastHandler) {
+  if (!addToastHandler) {
     throw new Error('ToastContext is not initialized');
   }
-  return { addToast: addToastHandler, updateToast: updateToastHandler };
+  return { addToast: addToastHandler };
 };
