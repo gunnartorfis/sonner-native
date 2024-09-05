@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FullWindowOverlay } from 'react-native-screens';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,11 +16,15 @@ import {
 let addToastHandler: ToastFunctionContext;
 
 export const Toaster: React.FC<ToastProviderProps> = (props) => {
-  return (
-    <FullWindowOverlay>
-      <ToasterUI {...props} />
-    </FullWindowOverlay>
-  );
+  if (Platform.OS === 'ios') {
+    return (
+      <FullWindowOverlay>
+        <ToasterUI {...props} />
+      </FullWindowOverlay>
+    );
+  }
+
+  return <ToasterUI {...props} />;
 };
 
 export const ToasterUI: React.FC<ToastProviderProps> = ({
