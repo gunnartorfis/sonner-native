@@ -1,6 +1,6 @@
 {
   "name": "react-native-reanimated-toasts",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Animated, customizable Toasts for React Native",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
