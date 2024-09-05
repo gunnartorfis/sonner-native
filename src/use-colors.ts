@@ -27,8 +27,6 @@ const dark: typeof light = {
 export const useColors = () => {
   const scheme = useColorScheme();
 
-  console.log(scheme);
-
   if (scheme === 'dark') {
     return dark;
   }
