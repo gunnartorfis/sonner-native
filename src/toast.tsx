@@ -1,12 +1,12 @@
-import { useColors } from './use-colors';
-import { ANIMATION_DURATION, useToastLayoutAnimations } from './animations';
-import { useToastContext } from './context';
-import { ToastSwipeHandler } from './gestures';
-import { ToastVariant, type ToastProps } from './types';
 import { CircleCheck, CircleX, Info, X } from 'lucide-react-native';
 import * as React from 'react';
 import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 import Animated from 'react-native-reanimated';
+import { ANIMATION_DURATION, useToastLayoutAnimations } from './animations';
+import { useToastContext } from './context';
+import { ToastSwipeHandler } from './gestures';
+import { ToastVariant, type ToastProps } from './types';
+import { useColors } from './use-colors';
 
 export const Toast: React.FC<ToastProps> = ({
   id,
@@ -36,6 +36,7 @@ export const Toast: React.FC<ToastProps> = ({
   const duration = durationProps ?? durationContext;
 
   const colors = useColors();
+  const { entering, exiting } = useToastLayoutAnimations();
 
   const isDragging = React.useRef(false);
   const timer = React.useRef<NodeJS.Timeout>();
@@ -77,8 +78,6 @@ export const Toast: React.FC<ToastProps> = ({
     return () => clearTimeout(timer.current);
   }, [duration, id, onHide, promiseOptions, updateToast]);
 
-  const { entering, exiting } = useToastLayoutAnimations();
-
   return (
     <ToastSwipeHandler
       onRemove={() => {
@@ -107,15 +106,15 @@ export const Toast: React.FC<ToastProps> = ({
         className={className}
         style={[
           elevationStyle,
+          style,
           {
+            justifyContent: 'center',
             padding: 16,
             borderRadius: 16,
-            marginBottom: 16,
             marginHorizontal: 16,
             backgroundColor: colors['background-primary'],
             borderCurve: 'continuous',
           },
-          style,
         ]}
         entering={entering}
         exiting={exiting}

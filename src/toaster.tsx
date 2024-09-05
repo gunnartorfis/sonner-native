@@ -1,4 +1,11 @@
+import * as React from 'react';
+import { View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FullWindowOverlay } from 'react-native-screens';
+import { v4 as uuidv4 } from 'uuid';
+import { toastDefaultValues } from './constants';
 import { ToastContext } from './context';
+import { Toast } from './toast';
 import {
   ToastPosition,
   type ToastFunctionBase,
@@ -7,20 +14,21 @@ import {
   type ToastProviderProps,
   type ToastUpdateFunction,
 } from './types';
-import { toastDefaultValues } from './constants';
-import * as React from 'react';
-import { View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { FullWindowOverlay } from 'react-native-screens';
-import { v4 as uuidv4 } from 'uuid';
-import { Toast } from './toast';
 
 let addToastHandler: ToastFunctionBase;
 let updateToastHandler: ToastUpdateFunction;
 
 const { TOP_CENTER, BOTTOM_CENTER } = ToastPosition;
 
-export const Toaster: React.FC<ToastProviderProps> = ({
+export const Toaster: React.FC<ToastProviderProps> = (props) => {
+  return (
+    <FullWindowOverlay>
+      <ToasterUI {...props} />
+    </FullWindowOverlay>
+  );
+};
+
+export const ToasterUI: React.FC<ToastProviderProps> = ({
   duration,
   position,
   maxToasts = 3,
@@ -35,6 +43,7 @@ export const Toaster: React.FC<ToastProviderProps> = ({
 }) => {
   const [toasts, setToasts] = React.useState<ToastProps[]>([]);
   const { top, bottom } = useSafeAreaInsets();
+  console.log(top, bottom, position);
 
   addToastHandler = (title, options?: ToastFunctionOptions) => {
     const id = uuidv4();
@@ -97,52 +106,58 @@ export const Toaster: React.FC<ToastProviderProps> = ({
       : toasts.slice().reverse();
   }, [position, toasts]);
 
+  const insetValues = React.useMemo(() => {
+    if (position === BOTTOM_CENTER) {
+      if (bottom > 0) {
+        return { bottom };
+      }
+      return { bottom: 40 };
+    }
+
+    if (position === TOP_CENTER) {
+      if (top > 0) {
+        return { top };
+      }
+      return { top: 40 };
+    }
+
+    console.warn('Invalid position value');
+    return {};
+  }, [position, bottom, top]);
+
   return (
-    <FullWindowOverlay>
-      <ToastContext.Provider value={value}>
-        <View
-          style={[
-            {
-              position: 'absolute',
-              width: '100%',
-              alignItems: 'center',
-              bottom:
-                position === BOTTOM_CENTER && bottom > 0
-                  ? 0
-                  : position === BOTTOM_CENTER && bottom === 0
-                    ? 40
-                    : undefined,
-              top:
-                position === TOP_CENTER && top > 0
-                  ? 0
-                  : position === TOP_CENTER && top === 0
-                    ? 40
-                    : undefined,
-            },
-            rootStyle,
-          ]}
-          className={rootClassName}
-        >
-          {positionedToasts.map((toast) => {
-            return (
-              <Toast
-                key={toast.id}
-                {...toast}
-                onHide={() => {
-                  removeToast(toast.id);
-                  toast.onHide?.();
-                }}
-                className={toastContentClassName}
-                style={toastContentStyle}
-                containerStyle={toastContainerStyle}
-                containerClassName={toastContainerClassName}
-                {...props}
-              />
-            );
-          })}
-        </View>
-      </ToastContext.Provider>
-    </FullWindowOverlay>
+    <ToastContext.Provider value={value}>
+      <View
+        style={[
+          {
+            position: 'absolute',
+            width: '100%',
+            alignItems: 'center',
+          },
+          insetValues,
+          rootStyle,
+        ]}
+        className={rootClassName}
+      >
+        {positionedToasts.map((toast) => {
+          return (
+            <Toast
+              key={toast.id}
+              {...toast}
+              onHide={() => {
+                removeToast(toast.id);
+                toast.onHide?.();
+              }}
+              className={toastContentClassName}
+              style={toastContentStyle}
+              containerStyle={toastContainerStyle}
+              containerClassName={toastContainerClassName}
+              {...props}
+            />
+          );
+        })}
+      </View>
+    </ToastContext.Provider>
   );
 };
 

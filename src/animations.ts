@@ -1,8 +1,7 @@
-import { useToastContext } from './context';
-import { ToastPosition } from './types';
 import React from 'react';
 import { Easing, withTiming } from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useToastContext } from './context';
+import { ToastPosition } from './types';
 
 export const ANIMATION_DURATION = 300;
 const easing = Easing.inOut(Easing.ease);
@@ -10,32 +9,27 @@ const animationOptions = { duration: ANIMATION_DURATION, easing };
 
 export const useToastLayoutAnimations = () => {
   const { position } = useToastContext();
-  const insets = useSafeAreaInsets();
 
   return React.useMemo(
     () => ({
       entering: () => {
         'worklet';
-        return getToastEntering({ position, insets });
+        return getToastEntering({ position });
       },
       exiting: () => {
         'worklet';
-        return getToastExiting({ position, insets });
+        return getToastExiting({ position });
       },
     }),
-    [insets, position]
+    [position]
   );
 };
 
 type GetToastAnimationParams = {
   position: ToastPosition;
-  insets: ReturnType<typeof useSafeAreaInsets>;
 };
 
-export const getToastEntering = ({
-  position,
-  insets,
-}: GetToastAnimationParams) => {
+export const getToastEntering = ({ position }: GetToastAnimationParams) => {
   'worklet';
 
   const animations = {
@@ -43,10 +37,7 @@ export const getToastEntering = ({
     transform: [
       { scale: withTiming(1, animationOptions) },
       {
-        translateY: withTiming(
-          position === ToastPosition.TOP_CENTER ? insets.top : -insets.bottom,
-          animationOptions
-        ),
+        translateY: withTiming(0, animationOptions),
       },
     ],
   };
@@ -67,10 +58,7 @@ export const getToastEntering = ({
   };
 };
 
-export const getToastExiting = ({
-  position,
-  insets,
-}: GetToastAnimationParams) => {
+export const getToastExiting = ({ position }: GetToastAnimationParams) => {
   'worklet';
 
   const animations = {
@@ -91,8 +79,7 @@ export const getToastExiting = ({
     transform: [
       { scale: 1 },
       {
-        translateY:
-          position === ToastPosition.TOP_CENTER ? insets.top : -insets.bottom,
+        translateY: 0,
       },
     ],
   };

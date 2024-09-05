@@ -1,6 +1,3 @@
-import { ANIMATION_DURATION } from './animations';
-import { useToastContext } from './context';
-import { ToastSwipeDirection } from './types';
 import * as React from 'react';
 import { Dimensions, type ViewStyle } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
@@ -13,6 +10,9 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import { ANIMATION_DURATION } from './animations';
+import { useToastContext } from './context';
+import { ToastSwipeDirection } from './types';
 
 const { LEFT, UP } = ToastSwipeDirection;
 
@@ -105,7 +105,15 @@ export const ToastSwipeHandler: React.FC<
   return (
     <GestureDetector gesture={pan}>
       <Animated.View
-        style={[animatedStyle, { width: '100%' }, style]}
+        style={[
+          animatedStyle,
+          {
+            width: '100%',
+            justifyContent: 'center',
+            marginBottom: 16,
+          },
+          style,
+        ]}
         className={className}
         layout={LinearTransition.duration(ANIMATION_DURATION)}
       >
