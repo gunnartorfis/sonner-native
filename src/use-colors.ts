@@ -1,4 +1,5 @@
 import { useColorScheme } from 'react-native';
+import { useToastContext } from './context';
 
 const light = {
   'background-primary': '#fff',
@@ -25,11 +26,14 @@ const dark: typeof light = {
 };
 
 export const useColors = () => {
+  const { invert } = useToastContext();
   const scheme = useColorScheme();
 
   if (scheme === 'dark') {
+    if (invert) return light;
     return dark;
   }
 
+  if (invert) return dark;
   return light;
 };

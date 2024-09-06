@@ -1,7 +1,9 @@
-import { type ToastContextType } from './types';
 import * as React from 'react';
+import { type ToasterContextType } from './types';
 
-export const ToastContext = React.createContext<ToastContextType | null>(null);
+export const ToastContext = React.createContext<ToasterContextType | null>(
+  null
+);
 
 export const useToastContext = () => {
   const context = React.useContext(ToastContext);

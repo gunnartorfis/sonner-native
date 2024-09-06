@@ -7,15 +7,17 @@ import { toastDefaultValues } from './constants';
 import { ToastContext } from './context';
 import { Toast } from './toast';
 import {
-  type ToastFunctionContext,
-  type ToastFunctionOptions,
+  toast,
+  type AddToastContextHandler,
+  type ToasterContextType,
+  type ToasterProps,
   type ToastProps,
-  type ToastProviderProps,
 } from './types';
 
-let addToastHandler: ToastFunctionContext;
+let addToastHandler: AddToastContextHandler;
+let dismissToastHandler: typeof toast.dismiss;
 
-export const Toaster: React.FC<ToastProviderProps> = (props) => {
+export const Toaster: React.FC<ToasterProps> = (props) => {
   if (Platform.OS === 'ios') {
     return (
       <FullWindowOverlay>
@@ -27,44 +29,45 @@ export const Toaster: React.FC<ToastProviderProps> = (props) => {
   return <ToasterUI {...props} />;
 };
 
-export const ToasterUI: React.FC<ToastProviderProps> = ({
+export const ToasterUI: React.FC<ToasterProps> = ({
   duration = toastDefaultValues.duration,
   position = toastDefaultValues.position,
-  maxToasts = toastDefaultValues.maxToasts,
+  visibleToasts = toastDefaultValues.visibleToasts,
   swipToDismissDirection = toastDefaultValues.swipeToDismissDirection,
-  rootStyle,
-  rootClassName,
-  toastContainerClassName,
-  toastContainerStyle,
-  toastContentClassName,
-  toastContentStyle,
+  closeButton,
+  style,
+  className,
+  unstyled,
+  invert,
+  toastOptions,
+  icons,
   ...props
 }) => {
   const [toasts, setToasts] = React.useState<ToastProps[]>([]);
   const { top, bottom } = useSafeAreaInsets();
 
   addToastHandler = React.useCallback(
-    (title, options?: ToastFunctionOptions) => {
+    (options) => {
       const id = uuidv4();
-      const newToast = {
+      const newToast: ToastProps = {
         ...options,
         id: options?.id ?? id,
-        title,
-        variant: options?.variant ?? toastDefaultValues.variant,
+        variant: options.variant ?? toastDefaultValues.variant,
       };
 
       if (options?.id) {
         // we're updating
         setToasts((currentToasts) =>
-          currentToasts.map((toast) => {
-            if (toast.id === options.id) {
+          currentToasts.map((currentToast) => {
+            if (currentToast.id === options.id) {
               return {
-                ...toast,
+                ...currentToast,
                 ...newToast,
+                duration: options.duration ?? duration,
                 id: options.id,
               };
             }
-            return toast;
+            return currentToast;
           })
         );
 
@@ -74,7 +77,7 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
       setToasts((currentToasts) => {
         const newToasts: ToastProps[] = [...currentToasts, newToast];
 
-        if (newToasts.length > maxToasts) {
+        if (newToasts.length > visibleToasts) {
           newToasts.shift();
         }
         return newToasts;
@@ -82,24 +85,77 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
 
       return id;
     },
-    [maxToasts]
+    [visibleToasts, duration]
   );
 
-  const removeToast = React.useCallback((id: string) => {
-    setToasts((currentToasts) =>
-      currentToasts.filter((toast) => toast.id !== id)
-    );
-  }, []);
+  const dismissToast = React.useCallback<
+    (
+      id: string | undefined,
+      origin?: 'onDismiss' | 'onAutoClose'
+    ) => string | undefined
+  >(
+    (id, origin) => {
+      if (!id) {
+        toasts.forEach((currentToast) => {
+          if (origin === 'onDismiss') {
+            currentToast.onDismiss?.(currentToast.id);
+          } else {
+            currentToast.onAutoClose?.(currentToast.id);
+          }
+        });
+        setToasts([]);
+        return;
+      }
 
-  const value = React.useMemo(
+      setToasts((currentToasts) =>
+        currentToasts.filter((currentToast) => currentToast.id !== id)
+      );
+
+      const toastForCallback = toasts.find(
+        (currentToast) => currentToast.id === id
+      );
+      if (origin === 'onDismiss') {
+        toastForCallback?.onDismiss?.(id);
+      } else {
+        toastForCallback?.onAutoClose?.(id);
+      }
+
+      return id;
+    },
+    [toasts]
+  );
+
+  dismissToastHandler = React.useCallback<typeof toast.dismiss>(
+    (id) => {
+      return dismissToast(id);
+    },
+    [dismissToast]
+  );
+
+  const value = React.useMemo<ToasterContextType>(
     () => ({
-      addToast: addToastHandler,
       duration: duration ?? toastDefaultValues.duration,
       position: position ?? toastDefaultValues.position,
       swipToDismissDirection:
         swipToDismissDirection ?? toastDefaultValues.swipeToDismissDirection,
+      closeButton: closeButton ?? toastDefaultValues.closeButton,
+      unstyled: unstyled ?? toastDefaultValues.unstyled,
+      addToast: addToastHandler,
+      invert: invert ?? toastDefaultValues.invert,
+      styles: toastOptions?.styles ?? {},
+      classNames: toastOptions?.classNames ?? {},
+      icons: icons ?? {},
     }),
-    [duration, position, swipToDismissDirection]
+    [
+      duration,
+      position,
+      swipToDismissDirection,
+      closeButton,
+      unstyled,
+      invert,
+      toastOptions,
+      icons,
+    ]
   );
 
   const positionedToasts = React.useMemo(() => {
@@ -124,13 +180,22 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
     return {};
   }, [position, bottom, top]);
 
-  const onHide = React.useCallback<
-    NonNullable<React.ComponentProps<typeof Toast>['onHide']>
+  const onDismiss = React.useCallback<
+    NonNullable<React.ComponentProps<typeof Toast>['onDismiss']>
   >(
     (id) => {
-      removeToast(id);
+      dismissToast(id, 'onDismiss');
     },
-    [removeToast]
+    [dismissToast]
+  );
+
+  const onAutoClose = React.useCallback<
+    NonNullable<React.ComponentProps<typeof Toast>['onDismiss']>
+  >(
+    (id) => {
+      dismissToast(id, 'onAutoClose');
+    },
+    [dismissToast]
   );
 
   return (
@@ -143,20 +208,17 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
             alignItems: 'center',
           },
           insetValues,
-          rootStyle,
+          style,
         ]}
-        className={rootClassName}
+        className={className}
       >
-        {positionedToasts.map((toast) => {
+        {positionedToasts.map((positionedToast) => {
           return (
             <Toast
-              key={toast.id}
-              {...toast}
-              onHide={onHide}
-              className={toastContentClassName}
-              style={toastContentStyle}
-              containerStyle={toastContainerStyle}
-              containerClassName={toastContainerClassName}
+              key={positionedToast.id}
+              {...positionedToast}
+              onDismiss={onDismiss}
+              onAutoClose={onAutoClose}
               {...props}
             />
           );
@@ -167,8 +229,8 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
 };
 
 export const getToastContext = () => {
-  if (!addToastHandler) {
+  if (!addToastHandler || !dismissToastHandler) {
     throw new Error('ToastContext is not initialized');
   }
-  return { addToast: addToastHandler };
+  return { addToast: addToastHandler, dismissToast: dismissToastHandler };
 };

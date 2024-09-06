@@ -79,19 +79,6 @@ const toastId = toast.promise(fetchData(), {
 
 In this example, the toast.promise function will display a "Loading data..." message while the fetchData promise is in progress, and update the message to the success or error text based on the promise's outcome.
 
-### Updating existing toasts
-
-You can update an existing toast by using the updateToast function, which takes the toast's unique identifier and the new toast options:
-
-```jsx
-const toastId = toast('Hello');
-
-updateToast(toastId, {
-  description: 'Updated error message',
-  duration: 5000,
-});
-```
-
 ### Custom JSX
 
 You can pass custom JSX elements to the toast function to render more complex content:
@@ -103,4 +90,35 @@ toast.custom(
     <Button title="Close" onPress={() => toast.dismiss()} />
   </View>
 );
+```
+
+### Updating existing toasts
+
+You can update an existing toast by using the toast function, passing the toast ID in the options object:
+
+```jsx
+const id = toast('Hello');
+
+toast.success('Updated!', {
+  id,
+});
+```
+
+### Dismissing toasts
+
+To dismiss a toast, call toast.dismiss with the toast ID:
+
+```jsx
+const id = toast('Hello');
+
+toast.dismiss(id);
+```
+
+You can also dismiss all toasts by calling toast.dismiss() without an ID:
+
+```jsx
+toast('Hello');
+toast('World');
+
+toast.dismiss();
 ```

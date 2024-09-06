@@ -7,35 +7,42 @@ import { useToastContext } from './context';
 import { ToastSwipeHandler } from './gestures';
 import { type ToastProps } from './types';
 import { useColors } from './use-colors';
-import { toast } from './toast-fns';
+import { toastDefaultValues } from 'src/constants';
+import { cn } from 'src/tailwind-utils';
 
 export const Toast: React.FC<ToastProps> = ({
   id,
   title,
-  element,
+  jsx,
   description,
+  icon,
   duration: durationProps,
   variant,
   action,
-  onHide,
+  onDismiss,
+  onAutoClose,
+  dismissible = toastDefaultValues.dismissible,
+  closeButton: closeButtonProps,
   style,
   className,
-  containerClassName,
-  containerStyle,
-  actionClassName,
-  actionStyle,
-  actionLabelClassName,
-  actionLabelStyle,
-  titleClassName,
-  titleStyle,
-  descriptionClassName,
-  descriptionStyle,
-  getIconColorForVariant: getIconColorForVariant,
-  closeIconColor,
+  classNames,
+  styles,
   promiseOptions,
+  unstyled: unstyledProps,
 }) => {
-  const { duration: durationContext, addToast } = useToastContext();
-  const duration = durationProps ?? durationContext;
+  const {
+    duration: durationCtx,
+    addToast,
+    closeButton: closeButtonCtx,
+    unstyled: unstyledCtx,
+    styles: stylesCtx,
+    classNames: classNamesCtx,
+    icons,
+  } = useToastContext();
+
+  const unstyled = unstyledProps ?? unstyledCtx;
+  const duration = durationProps ?? durationCtx;
+  const closeButton = closeButtonProps ?? closeButtonCtx;
 
   const colors = useColors();
   const { entering, exiting } = useToastLayoutAnimations();
@@ -54,15 +61,19 @@ export const Toast: React.FC<ToastProps> = ({
       try {
         isResolvingPromise.current = true;
         promiseOptions.promise.then((data) => {
-          toast.success(promiseOptions.success(data) ?? 'Success', {
+          addToast({
+            title: promiseOptions.success(data) ?? 'Success',
             id,
+            variant: 'success',
             promiseOptions: undefined,
           });
           isResolvingPromise.current = false;
         });
       } catch (error) {
-        toast.error(promiseOptions.error ?? 'Error', {
+        addToast({
+          title: promiseOptions.error ?? 'Error',
           id,
+          variant: 'error',
           promiseOptions: undefined,
         });
         isResolvingPromise.current = false;
@@ -71,12 +82,16 @@ export const Toast: React.FC<ToastProps> = ({
       return;
     }
 
+    if (duration === Infinity) {
+      return;
+    }
+
     // Start the timer only if it hasn't been started yet
     if (!timerStart.current) {
       timerStart.current = Date.now();
       timer.current = setTimeout(() => {
         if (!isDragging.current) {
-          onHide?.(id);
+          onAutoClose?.(id);
         }
       }, ANIMATION_DURATION + duration);
     }
@@ -89,16 +104,16 @@ export const Toast: React.FC<ToastProps> = ({
         timerStart.current = undefined;
       }
     };
-  }, [duration, id, onHide, promiseOptions, addToast]);
+  }, [duration, id, onDismiss, promiseOptions, addToast, onAutoClose]);
 
-  if (element) {
-    return element;
+  if (jsx) {
+    return jsx;
   }
 
   return (
     <ToastSwipeHandler
       onRemove={() => {
-        onHide?.(id);
+        onDismiss?.(id);
       }}
       onBegin={() => {
         isDragging.current = true;
@@ -109,158 +124,185 @@ export const Toast: React.FC<ToastProps> = ({
 
         if (timeElapsed < duration) {
           timer.current = setTimeout(() => {
-            onHide?.(id);
+            onDismiss?.(id);
           }, duration - timeElapsed);
         } else {
-          onHide?.(id);
+          onDismiss?.(id);
         }
       }}
-      enabled={!promiseOptions}
-      style={containerStyle}
-      className={containerClassName}
+      enabled={!promiseOptions && dismissible}
+      style={[stylesCtx.toastContainer, styles?.toastContainer]}
+      className={cn(classNamesCtx.toastContainer, classNames?.toastContainer)}
+      unstyled={unstyled}
     >
       <Animated.View
-        className={className}
+        className={cn(className, classNamesCtx.toast, classNames?.toast)}
         style={[
-          elevationStyle,
+          unstyled ? undefined : elevationStyle,
+          stylesCtx.toast,
+          styles?.toast,
           style,
-          {
-            justifyContent: 'center',
-            padding: 16,
-            borderRadius: 16,
-            marginHorizontal: 16,
-            backgroundColor: colors['background-primary'],
-            borderCurve: 'continuous',
-          },
+          unstyled
+            ? undefined
+            : {
+                justifyContent: 'center',
+                padding: 16,
+                borderRadius: 16,
+                marginHorizontal: 16,
+                backgroundColor: colors['background-primary'],
+                borderCurve: 'continuous',
+              },
         ]}
         entering={entering}
         exiting={exiting}
       >
         <View
-          style={{
-            flexDirection: 'row',
-            gap: 16,
-            alignItems: description?.length === 0 ? 'center' : undefined,
-          }}
+          style={[
+            unstyled
+              ? undefined
+              : {
+                  flexDirection: 'row',
+                  gap: 16,
+                  alignItems: description?.length === 0 ? 'center' : undefined,
+                },
+            stylesCtx.toastContent,
+            styles?.toastContent,
+          ]}
+          className={cn(classNamesCtx.toastContent, classNames?.toastContent)}
         >
           {promiseOptions ? (
             <ActivityIndicator />
+          ) : icon || variant in icons ? (
+            icons[variant]
           ) : (
-            <ToastIcon
-              variant={variant}
-              getIconColorForVariant={getIconColorForVariant}
-            />
+            <ToastIcon variant={variant} />
           )}
           <View style={{ flex: 1 }}>
             <Text
               style={[
-                {
-                  fontWeight: '600',
-                  lineHeight: 20,
-                  color: colors['text-primary'],
-                },
-                titleStyle,
+                unstyled
+                  ? undefined
+                  : {
+                      fontWeight: '600',
+                      lineHeight: 20,
+                      color: colors['text-primary'],
+                    },
+                stylesCtx.title,
+                styles?.title,
               ]}
-              className={titleClassName}
+              className={cn(classNamesCtx.title, classNames?.title)}
             >
               {title}
             </Text>
             {description ? (
               <Text
                 style={[
-                  {
-                    fontSize: 14,
-                    lineHeight: 20,
-                    marginTop: 2,
-                    color: colors['text-tertiary'],
-                  },
-                  descriptionStyle,
+                  unstyled
+                    ? undefined
+                    : {
+                        fontSize: 14,
+                        lineHeight: 20,
+                        marginTop: 2,
+                        color: colors['text-tertiary'],
+                      },
+                  stylesCtx.description,
+                  styles?.description,
                 ]}
-                className={descriptionClassName}
+                className={cn(
+                  classNamesCtx.description,
+                  classNames?.description
+                )}
               >
                 {description}
               </Text>
             ) : null}
             {action ? (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 16,
-                  marginTop: 16,
-                }}
-              >
-                <Pressable
-                  onPress={action.onPress}
-                  className={actionClassName}
-                  style={[
-                    {
-                      borderRadius: 999,
-                      borderWidth: 1,
-                      borderColor: colors['border-secondary'],
-                      paddingHorizontal: 8,
-                      paddingVertical: 4,
-                      borderCurve: 'continuous',
-                      backgroundColor: colors['background-secondary'],
-                    },
-                    actionStyle,
-                  ]}
-                >
-                  <Text
-                    numberOfLines={1}
-                    style={[
-                      {
-                        fontSize: 14,
-                        lineHeight: 20,
-                        fontWeight: '600',
-                        color: colors['text-primary'],
+              <Pressable
+                onPress={action.onPress}
+                className={cn(
+                  classNamesCtx.actionButton,
+                  classNames?.actionButton
+                )}
+                style={[
+                  unstyled
+                    ? undefined
+                    : {
+                        marginTop: 16,
+                        flexGrow: 0,
+                        alignSelf: 'flex-start',
+                        borderRadius: 999,
+                        borderWidth: 1,
+                        borderColor: colors['border-secondary'],
+                        paddingHorizontal: 8,
+                        paddingVertical: 4,
+                        borderCurve: 'continuous',
+                        backgroundColor: colors['background-secondary'],
                       },
-                      actionLabelStyle,
-                    ]}
-                    className={actionLabelClassName}
-                  >
-                    {action.label}
-                  </Text>
-                </Pressable>
-              </View>
+                  stylesCtx?.actionButton,
+                  styles?.actionButton,
+                ]}
+              >
+                <Text
+                  numberOfLines={1}
+                  style={[
+                    unstyled
+                      ? undefined
+                      : {
+                          fontSize: 14,
+                          lineHeight: 20,
+                          fontWeight: '600',
+                          alignSelf: 'flex-start',
+                          color: colors['text-primary'],
+                        },
+                    stylesCtx.actionButtonText,
+                    styles?.actionButtonText,
+                  ]}
+                  className={cn(
+                    classNamesCtx?.actionButtonText,
+                    classNames?.actionButtonText
+                  )}
+                >
+                  {action.label}
+                </Text>
+              </Pressable>
             ) : null}
           </View>
-          <Pressable onPress={() => onHide?.(id)} hitSlop={10}>
-            <X size={20} color={closeIconColor ?? colors['text-secondary']} />
-          </Pressable>
+          {closeButton && dismissible ? (
+            <Pressable
+              onPress={() => onDismiss?.(id)}
+              hitSlop={10}
+              style={[stylesCtx?.closeButton, styles?.closeButton]}
+              className={cn(classNamesCtx.closeButton, classNames?.closeButton)}
+            >
+              <X
+                size={20}
+                color={colors['text-secondary']}
+                style={[stylesCtx.closeButtonIcon, styles?.closeButtonIcon]}
+                className={cn(
+                  classNamesCtx.closeButtonIcon,
+                  classNames?.closeButtonIcon
+                )}
+              />
+            </Pressable>
+          ) : null}
         </View>
       </Animated.View>
     </ToastSwipeHandler>
   );
 };
 
-export const ToastIcon: React.FC<
-  Pick<ToastProps, 'variant' | 'getIconColorForVariant'>
-> = ({ variant, getIconColorForVariant: getIconColorForVariant }) => {
+export const ToastIcon: React.FC<Pick<ToastProps, 'variant'>> = ({
+  variant,
+}) => {
   const colors = useColors();
   switch (variant) {
     case 'success':
-      return (
-        <CircleCheck
-          size={20}
-          color={getIconColorForVariant?.(variant) ?? colors.success}
-        />
-      );
+      return <CircleCheck size={20} color={colors.success} />;
     case 'error':
-      return (
-        <CircleX
-          size={20}
-          color={getIconColorForVariant?.(variant) ?? colors.error}
-        />
-      );
+      return <CircleX size={20} color={colors.error} />;
     default:
     case 'info':
-      return (
-        <Info
-          size={20}
-          color={getIconColorForVariant?.('info') ?? colors.info}
-        />
-      );
+      return <Info size={20} color={colors.info} />;
   }
 };
 

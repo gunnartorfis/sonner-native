@@ -7,6 +7,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Toaster } from 'react-native-reanimated-toasts';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import '../global.css';
+import { Text } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +31,11 @@ const App: React.FC = () => {
           position="top-center"
           duration={3000}
           swipToDismissDirection="up"
-          maxToasts={4}
+          visibleToasts={4}
+          closeButton
+          icons={{
+            error: <Text>💥</Text>,
+          }}
         />
       </GestureHandlerRootView>
     </SafeAreaProvider>

@@ -15,6 +15,7 @@ Animated, customizable Toasts for React Native
 - Action button with a callback
 - Custom icons
 - Optionally dismissable with swipe, configurable left or up
+- Dismissable with toast.dismiss(), one or all toasts
 - Highly performant using Reanimated 3, 60 FPS
 - Dark mode built-in
 - Works with Expo
@@ -23,14 +24,15 @@ Animated, customizable Toasts for React Native
 - Works outside of React components
 
 ## Showcase
+
 <img width="416" alt="Screenshot 2024-09-06 at 16 33 10" src="https://github.com/user-attachments/assets/fb986f0f-6f5a-4716-9633-6dfe492a9e9c">
 <img width="388" alt="Screenshot 2024-09-06 at 16 32 27" src="https://github.com/user-attachments/assets/8fa438c4-3c65-4f8f-ad15-52cc24e1faf5">
 <img width="392" alt="Screenshot 2024-09-06 at 16 32 33" src="https://github.com/user-attachments/assets/fe43bc29-5d25-4e32-a88c-bba6e58a6eda">
 <img width="388" alt="Screenshot 2024-09-06 at 16 32 39" src="https://github.com/user-attachments/assets/ead85100-b52e-433a-b8b8-9416cfb79b63">
 <img width="406" alt="Screenshot 2024-09-06 at 16 33 04" src="https://github.com/user-attachments/assets/bbc20957-160f-43c1-b317-b64512ec7cef">
 
-
 ## Expo Snack
+
 https://snack.expo.dev/@gunnartorfis/react-native-reanimated-toasts
 
 ## Installation

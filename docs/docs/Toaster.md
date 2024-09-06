@@ -32,26 +32,25 @@ export default function App() {
 | ------------------------ | --------------------- | ------------ | ----------------------------------------------------------- |
 | `duration`               | `number`              | `3000` (ms)  | Duration each toast is visible before auto-dismissal.       |
 | `position`               | `ToastPosition`       | `top-center` | The position of the toasts (`top-center`, `bottom-center`). |
-| `maxToasts`              | `number`              | `3`          | Maximum number of toasts to show at once.                   |
+| `visibleToasts`          | `number`              | `3`          | Maximum number of toasts to show at once.                   |
 | `swipToDismissDirection` | `ToastSwipeDirection` | `up`         | Swipe direction to dismiss (`left`, `up`).                  |
 
 ### Style related props
 
-| Prop                      | Type                                | Default     | Description                                                                 |
-| ------------------------- | ----------------------------------- | ----------- | --------------------------------------------------------------------------- |
-| `rootStyle`               | `ViewStyle`                         | `undefined` | Style for the root container.                                               |
-| `rootClassName`           | `string`                            | `undefined` | `NativeWind` class names for root container styling.                        |
-| `toastContainerStyle`     | `ViewStyle`                         | `undefined` | Style for the toast container (wrapper for individual toasts).              |
-| `toastContainerClassName` | `string`                            | `undefined` | `NativeWind` class names for the toast container.                           |
-| `toastContentStyle`       | `ViewStyle`                         | `undefined` | Style for individual toast content.                                         |
-| `toastContentClassName`   | `string`                            | `undefined` | `NativeWind` class names for individual toast content.                      |
-| `actionClassName`         | `string`                            | `undefined` | `NativeWind` class names for the toast action button.                       |
-| `actionLabelClassName`    | `string`                            | `undefined` | `NativeWind` class names for the toast action label.                        |
-| `descriptionClassName`    | `string`                            | `undefined` | `NativeWind` class names for the toast description.                         |
-| `titleClassName`          | `string`                            | `undefined` | `NativeWind` class names for the toast title.                               |
-| `actionStyle`             | `ViewStyle`                         | `undefined` | Style for the toast action button.                                          |
-| `actionLabelStyle`        | `TextStyle`                         | `undefined` | Style for the toast action label.                                           |
-| `descriptionStyle`        | `TextStyle`                         | `undefined` | Style for the toast description.                                            |
-| `titleStyle`              | `TextStyle`                         | `undefined` | Style for the toast title.                                                  |
-| `getIconColorForVariant`  | `(variant: ToastVariant) => string` | `undefined` | Function to return the icon color based on toast variant (`success`, etc.). |
-| `closeIconColor`          | `string`                            | `undefined` | Color for the toast's close icon.                                           |
+| Prop                      | Type        | Default     | Description                                                    |
+| ------------------------- | ----------- | ----------- | -------------------------------------------------------------- |
+| `rootStyle`               | `ViewStyle` | `undefined` | Style for the root container.                                  |
+| `rootClassName`           | `string`    | `undefined` | `NativeWind` class names for root container styling.           |
+| `toastContainerStyle`     | `ViewStyle` | `undefined` | Style for the toast container (wrapper for individual toasts). |
+| `toastContainerClassName` | `string`    | `undefined` | `NativeWind` class names for the toast container.              |
+| `toastContentStyle`       | `ViewStyle` | `undefined` | Style for individual toast content.                            |
+| `toastContentClassName`   | `string`    | `undefined` | `NativeWind` class names for individual toast content.         |
+| `actionClassName`         | `string`    | `undefined` | `NativeWind` class names for the toast action button.          |
+| `actionLabelClassName`    | `string`    | `undefined` | `NativeWind` class names for the toast action label.           |
+| `descriptionClassName`    | `string`    | `undefined` | `NativeWind` class names for the toast description.            |
+| `titleClassName`          | `string`    | `undefined` | `NativeWind` class names for the toast title.                  |
+| `actionStyle`             | `ViewStyle` | `undefined` | Style for the toast action button.                             |
+| `actionLabelStyle`        | `TextStyle` | `undefined` | Style for the toast action label.                              |
+| `descriptionStyle`        | `TextStyle` | `undefined` | Style for the toast description.                               |
+| `titleStyle`              | `TextStyle` | `undefined` | Style for the toast title.                                     |
+| `closeIconColor`          | `string`    | `undefined` | Color for the toast's close icon.                              |

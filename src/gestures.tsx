@@ -17,11 +17,12 @@ const { width: WINDOW_WIDTH } = Dimensions.get('window');
 
 type ToastSwipeHandlerProps = {
   onRemove: () => void;
-  style?: ViewStyle;
+  style?: ViewStyle | (ViewStyle | undefined)[];
   className?: string;
   onBegin: () => void;
   onFinalize: () => void;
   enabled?: boolean;
+  unstyled?: boolean;
 };
 
 export const ToastSwipeHandler: React.FC<
@@ -34,6 +35,7 @@ export const ToastSwipeHandler: React.FC<
   onBegin,
   onFinalize,
   enabled,
+  unstyled,
 }) => {
   const translate = useSharedValue(0);
   const { swipToDismissDirection: direction } = useToastContext();
@@ -104,11 +106,13 @@ export const ToastSwipeHandler: React.FC<
       <Animated.View
         style={[
           animatedStyle,
-          {
-            width: '100%',
-            justifyContent: 'center',
-            marginBottom: 16,
-          },
+          unstyled
+            ? undefined
+            : {
+                justifyContent: 'center',
+                marginBottom: 16,
+              },
+          { width: '100%' },
           style,
         ]}
         className={className}
