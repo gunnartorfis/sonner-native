@@ -31,6 +31,7 @@ export const Toast: React.FC<ToastProps> = ({
     duration: durationCtx,
     addToast,
     closeButton: closeButtonCtx,
+    unstyled,
   } = useToastContext();
   const duration = durationProps ?? durationCtx;
   const closeButton = closeButtonProps ?? closeButtonCtx;
@@ -126,40 +127,48 @@ export const Toast: React.FC<ToastProps> = ({
       <Animated.View
         className={className}
         style={[
-          elevationStyle,
+          unstyled ? undefined : elevationStyle,
           style,
-          {
-            justifyContent: 'center',
-            padding: 16,
-            borderRadius: 16,
-            marginHorizontal: 16,
-            backgroundColor: colors['background-primary'],
-            borderCurve: 'continuous',
-          },
+          unstyled
+            ? undefined
+            : {
+                justifyContent: 'center',
+                padding: 16,
+                borderRadius: 16,
+                marginHorizontal: 16,
+                backgroundColor: colors['background-primary'],
+                borderCurve: 'continuous',
+              },
         ]}
         entering={entering}
         exiting={exiting}
       >
         <View
-          style={{
-            flexDirection: 'row',
-            gap: 16,
-            alignItems: description?.length === 0 ? 'center' : undefined,
-          }}
+          style={
+            unstyled
+              ? undefined
+              : {
+                  flexDirection: 'row',
+                  gap: 16,
+                  alignItems: description?.length === 0 ? 'center' : undefined,
+                }
+          }
         >
           {promiseOptions ? (
             <ActivityIndicator />
           ) : (
             <ToastIcon variant={variant} />
           )}
-          <View style={{ flex: 1 }}>
+          <View style={unstyled ? undefined : { flex: 1 }}>
             <Text
               style={[
-                {
-                  fontWeight: '600',
-                  lineHeight: 20,
-                  color: colors['text-primary'],
-                },
+                unstyled
+                  ? undefined
+                  : {
+                      fontWeight: '600',
+                      lineHeight: 20,
+                      color: colors['text-primary'],
+                    },
                 styles?.title,
               ]}
               className={classNames?.title}
@@ -169,12 +178,14 @@ export const Toast: React.FC<ToastProps> = ({
             {description ? (
               <Text
                 style={[
-                  {
-                    fontSize: 14,
-                    lineHeight: 20,
-                    marginTop: 2,
-                    color: colors['text-tertiary'],
-                  },
+                  unstyled
+                    ? undefined
+                    : {
+                        fontSize: 14,
+                        lineHeight: 20,
+                        marginTop: 2,
+                        color: colors['text-tertiary'],
+                      },
                   styles?.description,
                 ]}
                 className={classNames?.description}
@@ -184,38 +195,46 @@ export const Toast: React.FC<ToastProps> = ({
             ) : null}
             {action ? (
               <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 16,
-                  marginTop: 16,
-                }}
+                style={
+                  unstyled
+                    ? undefined
+                    : {
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 16,
+                        marginTop: 16,
+                      }
+                }
               >
                 <Pressable
                   onPress={action.onPress}
                   className={classNames?.actionButton}
                   style={[
-                    {
-                      borderRadius: 999,
-                      borderWidth: 1,
-                      borderColor: colors['border-secondary'],
-                      paddingHorizontal: 8,
-                      paddingVertical: 4,
-                      borderCurve: 'continuous',
-                      backgroundColor: colors['background-secondary'],
-                    },
+                    unstyled
+                      ? undefined
+                      : {
+                          borderRadius: 999,
+                          borderWidth: 1,
+                          borderColor: colors['border-secondary'],
+                          paddingHorizontal: 8,
+                          paddingVertical: 4,
+                          borderCurve: 'continuous',
+                          backgroundColor: colors['background-secondary'],
+                        },
                     styles?.actionButton,
                   ]}
                 >
                   <Text
                     numberOfLines={1}
                     style={[
-                      {
-                        fontSize: 14,
-                        lineHeight: 20,
-                        fontWeight: '600',
-                        color: colors['text-primary'],
-                      },
+                      unstyled
+                        ? undefined
+                        : {
+                            fontSize: 14,
+                            lineHeight: 20,
+                            fontWeight: '600',
+                            color: colors['text-primary'],
+                          },
                       styles?.actionButtonText,
                     ]}
                     className={classNames?.actionButtonText}

@@ -66,10 +66,7 @@ export type ToastProps = StyleProps & {
   cancel?: ToastAction;
   onDismiss?: (id: string) => void;
   onAutoClose?: (id: string) => void;
-  unstyled?: boolean;
   promiseOptions?: PromiseOptions;
-  style?: ViewStyle;
-  className?: string;
   actionButtonStyles?: ViewStyle;
   actionButtonTextStyles?: TextStyle;
   closeButtonStyles?: ViewStyle;
@@ -83,7 +80,7 @@ type ExternalToast = Omit<
   id?: string;
 };
 
-export type ToasterProps = {
+export type ToasterProps = StyleProps & {
   duration?: number;
   theme?: ToastTheme;
   // richColors?: boolean; (false)
@@ -118,7 +115,11 @@ export type AddToastContextHandler = (
 export type ToasterContextType = Required<
   Pick<
     ToasterProps,
-    'duration' | 'swipToDismissDirection' | 'closeButton' | 'position'
+    | 'duration'
+    | 'swipToDismissDirection'
+    | 'closeButton'
+    | 'position'
+    | 'unstyled'
   >
 > & {
   addToast: AddToastContextHandler;

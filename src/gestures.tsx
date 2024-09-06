@@ -36,7 +36,7 @@ export const ToastSwipeHandler: React.FC<
   enabled,
 }) => {
   const translate = useSharedValue(0);
-  const { swipToDismissDirection: direction } = useToastContext();
+  const { swipToDismissDirection: direction, unstyled } = useToastContext();
 
   const pan = Gesture.Pan()
     .onBegin(() => {
@@ -104,11 +104,13 @@ export const ToastSwipeHandler: React.FC<
       <Animated.View
         style={[
           animatedStyle,
-          {
-            width: '100%',
-            justifyContent: 'center',
-            marginBottom: 16,
-          },
+          unstyled
+            ? undefined
+            : {
+                justifyContent: 'center',
+                marginBottom: 16,
+              },
+          { width: '100%' },
           style,
         ]}
         className={className}
