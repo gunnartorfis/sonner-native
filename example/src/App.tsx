@@ -7,6 +7,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Toaster } from 'react-native-reanimated-toasts';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import '../global.css';
+import { Text } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,22 +29,13 @@ const App: React.FC = () => {
         </NavigationContainer>
         <Toaster
           position="top-center"
-          duration={3000}
+          duration={50000}
           swipToDismissDirection="up"
           visibleToasts={4}
           invert
-          toastOptions={{
-            styles: {
-              actionButton: {
-                backgroundColor: 'red',
-              },
-              actionButtonText: {
-                color: 'blue',
-              },
-            },
-            classNames: {
-              toast: 'bg-orange-500',
-            },
+          closeButton
+          icons={{
+            error: <Text>💥</Text>,
           }}
         />
       </GestureHandlerRootView>

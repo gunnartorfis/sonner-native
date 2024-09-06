@@ -1,4 +1,4 @@
-import { Button, Pressable, ScrollView, Text, View } from 'react-native';
+import { Button, Image, Pressable, ScrollView, Text, View } from 'react-native';
 import * as React from 'react';
 import { toast } from 'react-native-reanimated-toasts';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -18,10 +18,16 @@ export const ToastDemo: React.FC = () => {
                 onDismiss: () => {
                   setToastId(null);
                 },
+                onAutoClose: () => {
+                  setToastId(null);
+                },
               });
             } else {
               const id = toast.success('Changes saved', {
                 onDismiss: () => {
+                  setToastId(null);
+                },
+                onAutoClose: () => {
                   setToastId(null);
                 },
               });
@@ -72,6 +78,81 @@ export const ToastDemo: React.FC = () => {
                 error: 'Promise failed',
               }
             );
+          }}
+        />
+        <Button
+          title="Windows XP with styles only"
+          onPress={() => {
+            const id = toast('Blue screen of death', {
+              action: {
+                label: 'OK',
+                onPress: () => {
+                  toast.dismiss(id);
+                },
+              },
+              unstyled: true,
+              icon: (
+                <Image
+                  source={require('../assets/windows-xp.png')}
+                  style={{
+                    width: 40,
+                    height: 40,
+                  }}
+                />
+              ),
+              styles: {
+                toastContainer: {
+                  paddingHorizontal: 16,
+                  marginBottom: 16,
+                },
+                toast: {
+                  backgroundColor: '#ECE9D8',
+                  borderRadius: 3,
+                  padding: 15,
+                  borderColor: '#0055EA',
+                  borderWidth: 2,
+                },
+                toastContent: {
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 16,
+                },
+                title: {
+                  fontSize: 14,
+                  fontWeight: 'light',
+                  fontFamily: 'sans-serif',
+                  color: 'black',
+                  marginBottom: 5,
+                  marginLeft: 4,
+                  textAlign: 'center',
+                },
+                description: {
+                  fontSize: 14,
+                  color: '#000000',
+                  marginBottom: 10,
+                },
+                actionButton: {
+                  borderStyle: 'dashed',
+                  borderColor: 'black',
+                  borderWidth: 2,
+                  borderRadius: 2,
+                  paddingVertical: 6,
+                  paddingHorizontal: 10,
+                  marginTop: 8,
+                  alignSelf: 'center',
+                },
+                actionButtonText: {
+                  fontSize: 14,
+                  color: 'black',
+                  textAlign: 'center',
+                },
+                closeButton: {
+                  backgroundColor: '#DD3C14',
+                  borderRadius: 2,
+                  alignSelf: 'flex-start',
+                },
+              },
+            });
           }}
         />
         <Button
@@ -130,7 +211,13 @@ export const ToastDemo: React.FC = () => {
           disabled={!toastId}
           onPress={() => toast.dismiss(toastId!)}
         />
-        <Button title="Dismiss all toasts" onPress={() => toast.dismiss()} />
+        <Button
+          title="Dismiss all toasts"
+          onPress={() => {
+            toast.dismiss();
+            setToastId(null);
+          }}
+        />
         <Button
           title="Non-dismissible"
           onPress={() =>
@@ -156,10 +243,10 @@ export const ToastDemo: React.FC = () => {
           }}
         />
         <Button
-          title="Custom icon"
-          onPress={() =>
-            toast.success('Custom icon', { icon: <Text>🚀</Text> })
-          }
+          title="Custom icon in Toaster"
+          onPress={() => {
+            toast.error('Custom icon');
+          }}
         />
       </ScrollView>
     </SafeAreaView>
