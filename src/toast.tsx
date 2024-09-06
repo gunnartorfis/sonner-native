@@ -15,6 +15,7 @@ export const Toast: React.FC<ToastProps> = ({
   title,
   jsx,
   description,
+  icon,
   duration: durationProps,
   variant,
   action,
@@ -160,7 +161,7 @@ export const Toast: React.FC<ToastProps> = ({
           {promiseOptions ? (
             <ActivityIndicator />
           ) : (
-            <ToastIcon variant={variant} />
+            icon || <ToastIcon variant={variant} />
           )}
           <View style={unstyled ? undefined : { flex: 1 }}>
             <Text

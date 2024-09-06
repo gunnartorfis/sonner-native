@@ -155,6 +155,12 @@ export const ToastDemo: React.FC = () => {
             setToastId(id);
           }}
         />
+        <Button
+          title="Custom icon"
+          onPress={() =>
+            toast.success('Custom icon', { icon: <Text>🚀</Text> })
+          }
+        />
       </ScrollView>
     </SafeAreaView>
   );
