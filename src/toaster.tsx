@@ -86,17 +86,49 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     [visibleToasts]
   );
 
-  dismissToastHandler = React.useCallback<typeof toast.dismiss>((id) => {
-    if (!id) {
-      setToasts([]);
-      return;
-    }
+  const dismissToast = React.useCallback<
+    (
+      id: string | undefined,
+      origin?: 'onDismiss' | 'onAutoClose'
+    ) => string | undefined
+  >(
+    (id, origin) => {
+      if (!id) {
+        toasts.forEach((currentToast) => {
+          if (origin === 'onDismiss') {
+            currentToast.onDismiss?.(currentToast.id);
+          } else {
+            currentToast.onAutoClose?.(currentToast.id);
+          }
+        });
+        setToasts([]);
+        return;
+      }
 
-    setToasts((currentToasts) =>
-      currentToasts.filter((currentToast) => currentToast.id !== id)
-    );
-    return id;
-  }, []);
+      setToasts((currentToasts) =>
+        currentToasts.filter((currentToast) => currentToast.id !== id)
+      );
+
+      const toastForCallback = toasts.find(
+        (currentToast) => currentToast.id === id
+      );
+      if (origin === 'onDismiss') {
+        toastForCallback?.onDismiss?.(id);
+      } else {
+        toastForCallback?.onAutoClose?.(id);
+      }
+
+      return id;
+    },
+    [toasts]
+  );
+
+  dismissToastHandler = React.useCallback<typeof toast.dismiss>(
+    (id) => {
+      return dismissToast(id);
+    },
+    [dismissToast]
+  );
 
   const value = React.useMemo<ToasterContextType>(
     () => ({
@@ -146,9 +178,21 @@ export const ToasterUI: React.FC<ToasterProps> = ({
 
   const onDismiss = React.useCallback<
     NonNullable<React.ComponentProps<typeof Toast>['onDismiss']>
-  >((id) => {
-    dismissToastHandler(id);
-  }, []);
+  >(
+    (id) => {
+      dismissToast(id, 'onDismiss');
+    },
+    [dismissToast]
+  );
+
+  const onAutoClose = React.useCallback<
+    NonNullable<React.ComponentProps<typeof Toast>['onDismiss']>
+  >(
+    (id) => {
+      dismissToast(id, 'onAutoClose');
+    },
+    [dismissToast]
+  );
 
   return (
     <ToastContext.Provider value={value}>
@@ -170,7 +214,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
               key={positionedToast.id}
               {...positionedToast}
               onDismiss={onDismiss}
-              onAutoClose={onDismiss}
+              onAutoClose={onAutoClose}
               {...props}
             />
           );
