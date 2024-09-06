@@ -17,6 +17,7 @@ export const Toast: React.FC<ToastProps> = ({
   variant,
   action,
   onDismiss,
+  onAutoClose,
   style,
   className,
   containerClassName,
@@ -77,7 +78,7 @@ export const Toast: React.FC<ToastProps> = ({
       timerStart.current = Date.now();
       timer.current = setTimeout(() => {
         if (!isDragging.current) {
-          onDismiss?.(id);
+          onAutoClose?.(id);
         }
       }, ANIMATION_DURATION + duration);
     }
@@ -90,7 +91,7 @@ export const Toast: React.FC<ToastProps> = ({
         timerStart.current = undefined;
       }
     };
-  }, [duration, id, onDismiss, promiseOptions, addToast]);
+  }, [duration, id, onDismiss, promiseOptions, addToast, onAutoClose]);
 
   if (element) {
     return element;
