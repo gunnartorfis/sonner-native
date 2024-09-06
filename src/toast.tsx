@@ -18,6 +18,7 @@ export const Toast: React.FC<ToastProps> = ({
   action,
   onDismiss,
   onAutoClose,
+  closeButton: closeButtonProps,
   style,
   className,
   containerClassName,
@@ -34,8 +35,13 @@ export const Toast: React.FC<ToastProps> = ({
   closeIconColor,
   promiseOptions,
 }) => {
-  const { duration: durationContext, addToast } = useToastContext();
-  const duration = durationProps ?? durationContext;
+  const {
+    duration: durationCtx,
+    addToast,
+    closeButton: closeButtonCtx,
+  } = useToastContext();
+  const duration = durationProps ?? durationCtx;
+  const closeButton = closeButtonProps ?? closeButtonCtx;
 
   const colors = useColors();
   const { entering, exiting } = useToastLayoutAnimations();
@@ -227,9 +233,11 @@ export const Toast: React.FC<ToastProps> = ({
               </View>
             ) : null}
           </View>
-          <Pressable onPress={() => onDismiss?.(id)} hitSlop={10}>
-            <X size={20} color={closeIconColor ?? colors['text-secondary']} />
-          </Pressable>
+          {closeButton ? (
+            <Pressable onPress={() => onDismiss?.(id)} hitSlop={10}>
+              <X size={20} color={closeIconColor ?? colors['text-secondary']} />
+            </Pressable>
+          ) : null}
         </View>
       </Animated.View>
     </ToastSwipeHandler>

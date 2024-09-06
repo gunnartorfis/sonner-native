@@ -33,6 +33,7 @@ export const ToastDemo: React.FC = () => {
         onPress={() => {
           toast.success('Changes saved', {
             description: 'Your changes have been saved successfully',
+            closeButton: true,
           });
         }}
       />

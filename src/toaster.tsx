@@ -32,6 +32,7 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
   position = toastDefaultValues.position,
   maxToasts = toastDefaultValues.maxToasts,
   swipToDismissDirection = toastDefaultValues.swipeToDismissDirection,
+  closeButton,
   rootStyle,
   rootClassName,
   toastContainerClassName,
@@ -98,8 +99,9 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
       position: position ?? toastDefaultValues.position,
       swipToDismissDirection:
         swipToDismissDirection ?? toastDefaultValues.swipeToDismissDirection,
+      closeButton: closeButton ?? toastDefaultValues.closeButton,
     }),
-    [duration, position, swipToDismissDirection]
+    [closeButton, duration, position, swipToDismissDirection]
   );
 
   const positionedToasts = React.useMemo(() => {

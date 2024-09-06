@@ -8,6 +8,7 @@ export type ToastProps = {
   duration?: number;
   variant?: ToastVariant;
   action?: ToastAction;
+  closeButton?: boolean;
   onDismiss?: (id: string) => void;
   onAutoClose?: (id: string) => void;
   style?: ViewStyle;
@@ -35,6 +36,7 @@ export type ToastProviderProps = {
   duration?: number;
   position?: ToastPosition;
   maxToasts?: number;
+  closeButton?: boolean;
   rootStyle?: ViewStyle;
   rootClassName?: string;
   toastContainerStyle?: ViewStyle;
@@ -61,6 +63,7 @@ export type ToastContextType = {
   duration: number;
   position: ToastPosition;
   swipToDismissDirection: ToastSwipeDirection;
+  closeButton: boolean;
 };
 
 export type ToastVariant = 'success' | 'error' | 'info';
