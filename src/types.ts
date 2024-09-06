@@ -5,20 +5,26 @@ type StyleProps = {
   style?: ViewStyle;
   className?: string;
   classNames?: {
+    toastContainer?: string;
     toast?: string;
+    toastContent?: string;
     title?: string;
     description?: string;
     actionButton?: string;
     actionButtonText?: string;
     closeButton?: string;
+    closeButtonIcon?: string;
   };
   styles?: {
+    toastContainer?: ViewStyle;
     toast?: ViewStyle;
+    toastContent?: ViewStyle;
     title?: TextStyle;
     description?: TextStyle;
     actionButton?: ViewStyle;
     actionButtonText?: TextStyle;
     closeButton?: ViewStyle;
+    closeButtonIcon?: ViewStyle;
   };
 };
 
@@ -113,6 +119,7 @@ export type ToasterContextType = Required<
     | 'invert'
     | 'styles'
     | 'classNames'
+    | 'icons'
   >
 > & {
   addToast: AddToastContextHandler;

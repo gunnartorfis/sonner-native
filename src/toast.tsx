@@ -37,6 +37,7 @@ export const Toast: React.FC<ToastProps> = ({
     styles: stylesCtx,
     classNames: classNamesCtx,
   } = useToastContext();
+
   const duration = durationProps ?? durationCtx;
   const closeButton = closeButtonProps ?? closeButtonCtx;
 
@@ -127,11 +128,15 @@ export const Toast: React.FC<ToastProps> = ({
         }
       }}
       enabled={!promiseOptions && dismissible}
+      style={[stylesCtx.toastContainer, styles?.toastContainer]}
+      className={cn(classNamesCtx.toastContainer, classNames?.toastContainer)}
     >
       <Animated.View
-        className={className}
+        className={cn(className, classNamesCtx.toast, classNames?.toast)}
         style={[
           unstyled ? undefined : elevationStyle,
+          stylesCtx.toast,
+          styles?.toast,
           style,
           unstyled
             ? undefined
@@ -148,22 +153,25 @@ export const Toast: React.FC<ToastProps> = ({
         exiting={exiting}
       >
         <View
-          style={
+          style={[
             unstyled
               ? undefined
               : {
                   flexDirection: 'row',
                   gap: 16,
                   alignItems: description?.length === 0 ? 'center' : undefined,
-                }
-          }
+                },
+            stylesCtx.toastContent,
+            styles?.toastContent,
+          ]}
+          className={cn(classNamesCtx.toastContent, classNames?.toastContent)}
         >
           {promiseOptions ? (
             <ActivityIndicator />
           ) : (
             icon || <ToastIcon variant={variant} />
           )}
-          <View style={unstyled ? undefined : { flex: 1 }}>
+          <View style={{ flex: 1 }}>
             <Text
               style={[
                 unstyled
@@ -173,9 +181,10 @@ export const Toast: React.FC<ToastProps> = ({
                       lineHeight: 20,
                       color: colors['text-primary'],
                     },
+                stylesCtx.title,
                 styles?.title,
               ]}
-              className={classNames?.title}
+              className={cn(classNamesCtx.title, classNames?.title)}
             >
               {title}
             </Text>
@@ -190,76 +199,84 @@ export const Toast: React.FC<ToastProps> = ({
                         marginTop: 2,
                         color: colors['text-tertiary'],
                       },
+                  stylesCtx.description,
                   styles?.description,
                 ]}
-                className={classNames?.description}
+                className={cn(
+                  classNamesCtx.description,
+                  classNames?.description
+                )}
               >
                 {description}
               </Text>
             ) : null}
             {action ? (
-              <View
-                style={
+              <Pressable
+                onPress={action.onPress}
+                className={cn(
+                  classNamesCtx.actionButton,
+                  classNames?.actionButton
+                )}
+                style={[
                   unstyled
                     ? undefined
                     : {
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: 16,
                         marginTop: 16,
-                      }
-                }
+                        flexGrow: 0,
+                        alignSelf: 'flex-start',
+                        borderRadius: 999,
+                        borderWidth: 1,
+                        borderColor: colors['border-secondary'],
+                        paddingHorizontal: 8,
+                        paddingVertical: 4,
+                        borderCurve: 'continuous',
+                        backgroundColor: colors['background-secondary'],
+                      },
+                  stylesCtx?.actionButton,
+                  styles?.actionButton,
+                ]}
               >
-                <Pressable
-                  onPress={action.onPress}
-                  className={cn(
-                    classNamesCtx.actionButton,
-                    classNames?.actionButton
-                  )}
+                <Text
+                  numberOfLines={1}
                   style={[
                     unstyled
                       ? undefined
                       : {
-                          borderRadius: 999,
-                          borderWidth: 1,
-                          borderColor: colors['border-secondary'],
-                          paddingHorizontal: 8,
-                          paddingVertical: 4,
-                          borderCurve: 'continuous',
-                          backgroundColor: colors['background-secondary'],
+                          fontSize: 14,
+                          lineHeight: 20,
+                          fontWeight: '600',
+                          alignSelf: 'flex-start',
+                          color: colors['text-primary'],
                         },
-                    stylesCtx?.actionButton,
-                    styles?.actionButton,
+                    stylesCtx.actionButtonText,
+                    styles?.actionButtonText,
                   ]}
+                  className={cn(
+                    classNamesCtx?.actionButtonText,
+                    classNames?.actionButtonText
+                  )}
                 >
-                  <Text
-                    numberOfLines={1}
-                    style={[
-                      unstyled
-                        ? undefined
-                        : {
-                            fontSize: 14,
-                            lineHeight: 20,
-                            fontWeight: '600',
-                            color: colors['text-primary'],
-                          },
-                      stylesCtx.actionButtonText,
-                      styles?.actionButtonText,
-                    ]}
-                    className={cn(
-                      classNamesCtx?.actionButtonText,
-                      classNames?.actionButtonText
-                    )}
-                  >
-                    {action.label}
-                  </Text>
-                </Pressable>
-              </View>
+                  {action.label}
+                </Text>
+              </Pressable>
             ) : null}
           </View>
           {closeButton && dismissible ? (
-            <Pressable onPress={() => onDismiss?.(id)} hitSlop={10}>
-              <X size={20} color={colors['text-secondary']} />
+            <Pressable
+              onPress={() => onDismiss?.(id)}
+              hitSlop={10}
+              style={[stylesCtx?.closeButton, styles?.closeButton]}
+              className={cn(classNamesCtx.closeButton, classNames?.closeButton)}
+            >
+              <X
+                size={20}
+                color={colors['text-secondary']}
+                style={[stylesCtx.closeButtonIcon, styles?.closeButtonIcon]}
+                className={cn(
+                  classNamesCtx.closeButtonIcon,
+                  classNames?.closeButtonIcon
+                )}
+              />
             </Pressable>
           ) : null}
         </View>

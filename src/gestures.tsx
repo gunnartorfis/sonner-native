@@ -17,7 +17,7 @@ const { width: WINDOW_WIDTH } = Dimensions.get('window');
 
 type ToastSwipeHandlerProps = {
   onRemove: () => void;
-  style?: ViewStyle;
+  style?: ViewStyle | (ViewStyle | undefined)[];
   className?: string;
   onBegin: () => void;
   onFinalize: () => void;
