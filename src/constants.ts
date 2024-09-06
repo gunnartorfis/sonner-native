@@ -7,6 +7,7 @@ export const toastDefaultValues: {
   variant: ToastVariant;
   maxToasts: number;
   closeButton: boolean;
+  dismissible: boolean;
 } = {
   duration: 3000,
   position: 'top-center',
@@ -14,4 +15,5 @@ export const toastDefaultValues: {
   variant: 'info',
   maxToasts: 3,
   closeButton: false,
+  dismissible: true,
 };

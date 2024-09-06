@@ -11,6 +11,7 @@ export type ToastProps = {
   closeButton?: boolean;
   onDismiss?: (id: string) => void;
   onAutoClose?: (id: string) => void;
+  dismissible?: boolean;
   style?: ViewStyle;
   className?: string;
   containerStyle?: ViewStyle;
@@ -33,10 +34,8 @@ export type ToastPosition = 'top-center' | 'bottom-center';
 export type ToastSwipeDirection = 'left' | 'up';
 
 export type ToastProviderProps = {
-  duration?: number;
   position?: ToastPosition;
   maxToasts?: number;
-  closeButton?: boolean;
   rootStyle?: ViewStyle;
   rootClassName?: string;
   toastContainerStyle?: ViewStyle;
@@ -56,6 +55,9 @@ export type ToastProviderProps = {
   | 'titleStyle'
   | 'getIconColorForVariant'
   | 'closeIconColor'
+  | 'closeButton'
+  | 'dismissible'
+  | 'duration'
 >;
 
 export type ToastContextType = {
@@ -64,6 +66,7 @@ export type ToastContextType = {
   position: ToastPosition;
   swipToDismissDirection: ToastSwipeDirection;
   closeButton: boolean;
+  dismissible: boolean;
 };
 
 export type ToastVariant = 'success' | 'error' | 'info';

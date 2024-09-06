@@ -18,6 +18,7 @@ export const Toast: React.FC<ToastProps> = ({
   action,
   onDismiss,
   onAutoClose,
+  dismissible: dismissibleProps,
   closeButton: closeButtonProps,
   style,
   className,
@@ -39,9 +40,11 @@ export const Toast: React.FC<ToastProps> = ({
     duration: durationCtx,
     addToast,
     closeButton: closeButtonCtx,
+    dismissible: dismissibleCtx,
   } = useToastContext();
   const duration = durationProps ?? durationCtx;
   const closeButton = closeButtonProps ?? closeButtonCtx;
+  const dismissible = dismissibleProps ?? dismissibleCtx;
 
   const colors = useColors();
   const { entering, exiting } = useToastLayoutAnimations();
@@ -123,7 +126,7 @@ export const Toast: React.FC<ToastProps> = ({
           onDismiss?.(id);
         }
       }}
-      enabled={!promiseOptions}
+      enabled={!promiseOptions && dismissible}
       style={containerStyle}
       className={containerClassName}
     >
@@ -233,7 +236,7 @@ export const Toast: React.FC<ToastProps> = ({
               </View>
             ) : null}
           </View>
-          {closeButton ? (
+          {closeButton && dismissible ? (
             <Pressable onPress={() => onDismiss?.(id)} hitSlop={10}>
               <X size={20} color={closeIconColor ?? colors['text-secondary']} />
             </Pressable>

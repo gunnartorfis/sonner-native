@@ -127,6 +127,12 @@ export const ToastDemo: React.FC = () => {
         onPress={() => toast.dismiss(toastId!)}
       />
       <Button title="Dismiss all toasts" onPress={() => toast.dismiss()} />
+      <Button
+        title="Non-dismissible"
+        onPress={() =>
+          toast.success('Non-dismissible toast', { dismissible: false })
+        }
+      />
     </SafeAreaView>
   );
 };
