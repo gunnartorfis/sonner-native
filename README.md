@@ -6,21 +6,33 @@ Animated, customizable Toasts for React Native
 
 ## Features
 
-- Multiple variants, including `success`, `error`, `warning`, `custom`
-- Promise option with built in loading state
+- API fully matches [Sonner's](https://sonner.emilkowal.ski/)
+- Multiple variants, including `success`, `error`, `warning`, `custom`, `promise`
+- Promise variant with built-in loading state
 - Custom JSX with the custom variant
 - Top or bottom positions
 - Title and description
-- Action button with callback
+- Action button with a callback
 - Custom icons
-- Dismissable with swipe, configurable left or up
-- Dismissable with toast.dismiss(), one or all toasts
-- Highly performant using Reanimated 3
-- Dark mode support
+- Optionally dismissable with swipe, configurable left or up
+- Highly performant using Reanimated 3, 60 FPS
+- Dark mode built-in
 - Works with Expo
-- NativeWind support
+- NativeWind supported
 - Customizable, styles & className props
 - Works outside of React components
+
+## Showcase
+
+<img width="416" alt="Screenshot 2024-09-06 at 16 33 10" src="https://github.com/user-attachments/assets/fb986f0f-6f5a-4716-9633-6dfe492a9e9c">
+<img width="388" alt="Screenshot 2024-09-06 at 16 32 27" src="https://github.com/user-attachments/assets/8fa438c4-3c65-4f8f-ad15-52cc24e1faf5">
+<img width="392" alt="Screenshot 2024-09-06 at 16 32 33" src="https://github.com/user-attachments/assets/fe43bc29-5d25-4e32-a88c-bba6e58a6eda">
+<img width="388" alt="Screenshot 2024-09-06 at 16 32 39" src="https://github.com/user-attachments/assets/ead85100-b52e-433a-b8b8-9416cfb79b63">
+<img width="406" alt="Screenshot 2024-09-06 at 16 33 04" src="https://github.com/user-attachments/assets/bbc20957-160f-43c1-b317-b64512ec7cef">
+
+## Expo Snack
+
+https://snack.expo.dev/@gunnartorfis/react-native-reanimated-toasts
 
 ## Installation
 
@@ -63,6 +75,10 @@ function SomeComponent() {
 ## Documentation
 
 For more advanced usage, check out the [documentation](https://gunnartorfis.github.io/react-native-reanimated-toasts/)
+
+## Recording
+
+https://github.com/user-attachments/assets/ccc428ca-37c3-4589-9e8c-f414c40d764c
 
 ## Contributing
 
