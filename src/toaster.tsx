@@ -40,6 +40,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
   unstyled,
   invert,
   toastOptions,
+  icons,
   ...props
 }) => {
   const [toasts, setToasts] = React.useState<ToastProps[]>([]);
@@ -143,6 +144,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
       invert: invert ?? toastDefaultValues.invert,
       styles: toastOptions?.styles ?? {},
       classNames: toastOptions?.classNames ?? {},
+      icons: icons ?? {},
     }),
     [
       duration,
@@ -152,6 +154,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
       unstyled,
       invert,
       toastOptions,
+      icons,
     ]
   );
 

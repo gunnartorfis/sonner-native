@@ -28,16 +28,19 @@ export const Toast: React.FC<ToastProps> = ({
   classNames,
   styles,
   promiseOptions,
+  unstyled: unstyledProps,
 }) => {
   const {
     duration: durationCtx,
     addToast,
     closeButton: closeButtonCtx,
-    unstyled,
+    unstyled: unstyledCtx,
     styles: stylesCtx,
     classNames: classNamesCtx,
+    icons,
   } = useToastContext();
 
+  const unstyled = unstyledProps ?? unstyledCtx;
   const duration = durationProps ?? durationCtx;
   const closeButton = closeButtonProps ?? closeButtonCtx;
 
@@ -130,6 +133,7 @@ export const Toast: React.FC<ToastProps> = ({
       enabled={!promiseOptions && dismissible}
       style={[stylesCtx.toastContainer, styles?.toastContainer]}
       className={cn(classNamesCtx.toastContainer, classNames?.toastContainer)}
+      unstyled={unstyled}
     >
       <Animated.View
         className={cn(className, classNamesCtx.toast, classNames?.toast)}
@@ -168,8 +172,10 @@ export const Toast: React.FC<ToastProps> = ({
         >
           {promiseOptions ? (
             <ActivityIndicator />
+          ) : icon || variant in icons ? (
+            icons[variant]
           ) : (
-            icon || <ToastIcon variant={variant} />
+            <ToastIcon variant={variant} />
           )}
           <View style={{ flex: 1 }}>
             <Text

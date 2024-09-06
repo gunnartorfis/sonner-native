@@ -22,6 +22,7 @@ type ToastSwipeHandlerProps = {
   onBegin: () => void;
   onFinalize: () => void;
   enabled?: boolean;
+  unstyled?: boolean;
 };
 
 export const ToastSwipeHandler: React.FC<
@@ -34,9 +35,10 @@ export const ToastSwipeHandler: React.FC<
   onBegin,
   onFinalize,
   enabled,
+  unstyled,
 }) => {
   const translate = useSharedValue(0);
-  const { swipToDismissDirection: direction, unstyled } = useToastContext();
+  const { swipToDismissDirection: direction } = useToastContext();
 
   const pan = Gesture.Pan()
     .onBegin(() => {
