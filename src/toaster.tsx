@@ -7,6 +7,7 @@ import { toastDefaultValues } from './constants';
 import { ToastContext } from './context';
 import { Toast } from './toast';
 import {
+  type ToastDismiss,
   type ToastFunctionContext,
   type ToastFunctionOptions,
   type ToastProps,
@@ -14,6 +15,7 @@ import {
 } from './types';
 
 let addToastHandler: ToastFunctionContext;
+let dismissToastHandler: ToastDismiss;
 
 export const Toaster: React.FC<ToastProviderProps> = (props) => {
   if (Platform.OS === 'ios') {
@@ -86,7 +88,11 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
     [maxToasts]
   );
 
-  const removeToast = React.useCallback((id: string) => {
+  dismissToastHandler = React.useCallback<ToastDismiss>((id) => {
+    if (!id) {
+      return setToasts([]);
+    }
+
     setToasts((currentToasts) =>
       currentToasts.filter((toast) => toast.id !== id)
     );
@@ -128,12 +134,9 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
 
   const onDismiss = React.useCallback<
     NonNullable<React.ComponentProps<typeof Toast>['onDismiss']>
-  >(
-    (id) => {
-      removeToast(id);
-    },
-    [removeToast]
-  );
+  >((id) => {
+    dismissToastHandler(id);
+  }, []);
 
   return (
     <ToastContext.Provider value={value}>
@@ -155,6 +158,7 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
               key={toast.id}
               {...toast}
               onDismiss={onDismiss}
+              onAutoClose={onDismiss}
               className={toastContentClassName}
               style={toastContentStyle}
               containerStyle={toastContainerStyle}
@@ -169,8 +173,8 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
 };
 
 export const getToastContext = () => {
-  if (!addToastHandler) {
+  if (!addToastHandler || !dismissToastHandler) {
     throw new Error('ToastContext is not initialized');
   }
-  return { addToast: addToastHandler };
+  return { addToast: addToastHandler, dismissToast: dismissToastHandler };
 };

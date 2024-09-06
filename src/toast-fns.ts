@@ -43,3 +43,7 @@ toast.custom = (element, options) => {
     ...options,
   });
 };
+
+toast.dismiss = (id) => {
+  return getToastContext().dismissToast(id);
+};

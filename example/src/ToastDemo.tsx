@@ -121,6 +121,12 @@ export const ToastDemo: React.FC = () => {
           );
         }}
       />
+      <Button
+        title="Dismiss active toast"
+        disabled={!toastId}
+        onPress={() => toast.dismiss(toastId!)}
+      />
+      <Button title="Dismiss all toasts" onPress={() => toast.dismiss()} />
     </SafeAreaView>
   );
 };

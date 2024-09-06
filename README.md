@@ -14,6 +14,7 @@ Animated, customizable Toasts for React Native
 - Action button with callback
 - Custom icons
 - Dismissable with swipe, configurable left or up
+- Dismissable with toast.dismiss(), one or all toasts
 - Highly performant using Reanimated 3
 - Dark mode support
 - Works with Expo

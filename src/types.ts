@@ -122,6 +122,7 @@ export type ToastFunctionCustom = (
   element: React.ReactElement,
   options?: Pick<ToastFunctionOptions, 'duration'>
 ) => string;
+export type ToastDismiss = (id?: string) => void;
 
 export type ToastFunction = ToastFunctionBase & {
   success: ToastFunctionWithVariant;
@@ -129,4 +130,5 @@ export type ToastFunction = ToastFunctionBase & {
   info: ToastFunctionWithVariant;
   promise: ToastFunctionPromise;
   custom: ToastFunctionCustom;
+  dismiss: ToastDismiss;
 };
