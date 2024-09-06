@@ -9,6 +9,7 @@ export const toastDefaultValues: {
   closeButton: boolean;
   dismissible: boolean;
   unstyled: boolean;
+  invert: boolean;
 } = {
   duration: 3000,
   position: 'top-center',
@@ -18,4 +19,5 @@ export const toastDefaultValues: {
   closeButton: false,
   dismissible: true,
   unstyled: false,
+  invert: false,
 };

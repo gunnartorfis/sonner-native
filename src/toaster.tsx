@@ -38,6 +38,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
   style,
   className,
   unstyled,
+  invert,
   ...props
 }) => {
   const [toasts, setToasts] = React.useState<ToastProps[]>([]);
@@ -105,8 +106,9 @@ export const ToasterUI: React.FC<ToasterProps> = ({
         swipToDismissDirection ?? toastDefaultValues.swipeToDismissDirection,
       closeButton: closeButton ?? toastDefaultValues.closeButton,
       unstyled: unstyled ?? toastDefaultValues.unstyled,
+      invert: invert ?? toastDefaultValues.invert,
     }),
-    [closeButton, duration, position, swipToDismissDirection, unstyled]
+    [closeButton, duration, position, swipToDismissDirection, unstyled, invert]
   );
 
   const positionedToasts = React.useMemo(() => {

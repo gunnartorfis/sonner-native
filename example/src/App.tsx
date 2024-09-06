@@ -31,6 +31,7 @@ const App: React.FC = () => {
           duration={3000}
           swipToDismissDirection="up"
           visibleToasts={4}
+          invert
         />
       </GestureHandlerRootView>
     </SafeAreaProvider>

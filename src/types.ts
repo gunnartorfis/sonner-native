@@ -120,6 +120,7 @@ export type ToasterContextType = Required<
     | 'closeButton'
     | 'position'
     | 'unstyled'
+    | 'invert'
   >
 > & {
   addToast: AddToastContextHandler;
