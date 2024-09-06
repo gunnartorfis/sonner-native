@@ -62,6 +62,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
               return {
                 ...currentToast,
                 ...newToast,
+                duration: options.duration ?? duration,
                 id: options.id,
               };
             }
@@ -83,7 +84,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
 
       return id;
     },
-    [visibleToasts]
+    [visibleToasts, duration]
   );
 
   const dismissToast = React.useCallback<
