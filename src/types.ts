@@ -42,13 +42,6 @@ export type ToastAction = {
   onPress: () => void;
 };
 
-type ToastOptions = StyleProps & {
-  closeButton?: boolean;
-  cancelButtonStyle?: React.CSSProperties;
-  actionButtonStyle?: React.CSSProperties;
-  duration?: number;
-};
-
 export type ToastProps = StyleProps & {
   id: string;
   title: string;
@@ -92,7 +85,7 @@ export type ToasterProps = StyleProps & {
   // dir?: 'ltr' | 'rtl'; (ltr)
   // hotkey?: string; // hotkeys not supported on mobile
   invert?: boolean;
-  toastOptions?: ToastOptions;
+  toastOptions?: StyleProps;
   gap?: number;
   loadingIcon?: React.ReactNode;
   // pauseWhenPageIsHidden?: boolean; (false)
@@ -102,9 +95,6 @@ export type ToasterProps = StyleProps & {
     info?: React.ReactNode;
     loading?: React.ReactNode;
   };
-  style?: ViewStyle;
-  className?: string;
-
   swipToDismissDirection?: ToastSwipeDirection;
 };
 
@@ -121,6 +111,8 @@ export type ToasterContextType = Required<
     | 'position'
     | 'unstyled'
     | 'invert'
+    | 'styles'
+    | 'classNames'
   >
 > & {
   addToast: AddToastContextHandler;

@@ -32,6 +32,19 @@ const App: React.FC = () => {
           swipToDismissDirection="up"
           visibleToasts={4}
           invert
+          toastOptions={{
+            styles: {
+              actionButton: {
+                backgroundColor: 'red',
+              },
+              actionButtonText: {
+                color: 'blue',
+              },
+            },
+            classNames: {
+              toast: 'bg-orange-500',
+            },
+          }}
         />
       </GestureHandlerRootView>
     </SafeAreaProvider>

@@ -8,6 +8,7 @@ import { ToastSwipeHandler } from './gestures';
 import { type ToastProps } from './types';
 import { useColors } from './use-colors';
 import { toastDefaultValues } from 'src/constants';
+import { cn } from 'src/tailwind-utils';
 
 export const Toast: React.FC<ToastProps> = ({
   id,
@@ -32,6 +33,8 @@ export const Toast: React.FC<ToastProps> = ({
     addToast,
     closeButton: closeButtonCtx,
     unstyled,
+    styles: stylesCtx,
+    classNames: classNamesCtx,
   } = useToastContext();
   const duration = durationProps ?? durationCtx;
   const closeButton = closeButtonProps ?? closeButtonCtx;
@@ -208,7 +211,10 @@ export const Toast: React.FC<ToastProps> = ({
               >
                 <Pressable
                   onPress={action.onPress}
-                  className={classNames?.actionButton}
+                  className={cn(
+                    classNamesCtx.actionButton,
+                    classNames?.actionButton
+                  )}
                   style={[
                     unstyled
                       ? undefined
@@ -221,6 +227,7 @@ export const Toast: React.FC<ToastProps> = ({
                           borderCurve: 'continuous',
                           backgroundColor: colors['background-secondary'],
                         },
+                    stylesCtx?.actionButton,
                     styles?.actionButton,
                   ]}
                 >
@@ -235,9 +242,13 @@ export const Toast: React.FC<ToastProps> = ({
                             fontWeight: '600',
                             color: colors['text-primary'],
                           },
+                      stylesCtx.actionButtonText,
                       styles?.actionButtonText,
                     ]}
-                    className={classNames?.actionButtonText}
+                    className={cn(
+                      classNamesCtx?.actionButtonText,
+                      classNames?.actionButtonText
+                    )}
                   >
                     {action.label}
                   </Text>
