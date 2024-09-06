@@ -30,7 +30,7 @@ const App: React.FC = () => {
           position="top-center"
           duration={3000}
           swipToDismissDirection="up"
-          maxToasts={4}
+          visibleToasts={4}
         />
       </GestureHandlerRootView>
     </SafeAreaProvider>

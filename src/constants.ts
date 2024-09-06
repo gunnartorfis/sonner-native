@@ -5,7 +5,7 @@ export const toastDefaultValues: {
   position: ToastPosition;
   swipeToDismissDirection: ToastSwipeDirection;
   variant: ToastVariant;
-  maxToasts: number;
+  visibleToasts: number;
   closeButton: boolean;
   dismissible: boolean;
 } = {
@@ -13,7 +13,7 @@ export const toastDefaultValues: {
   position: 'top-center',
   swipeToDismissDirection: 'up',
   variant: 'info',
-  maxToasts: 3,
+  visibleToasts: 3,
   closeButton: false,
   dismissible: true,
 };

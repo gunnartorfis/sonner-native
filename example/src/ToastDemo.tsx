@@ -68,7 +68,7 @@ export const ToastDemo: React.FC = () => {
               }),
               {
                 loading: 'Loading...',
-                success: (result) => `Promise resolved: ${result}`,
+                success: (result: string) => `Promise resolved: ${result}`,
                 error: 'Promise failed',
               }
             );
@@ -139,18 +139,21 @@ export const ToastDemo: React.FC = () => {
         />
         <Button
           title="Infinity toast"
-          onPress={() =>
-            toast.success('Infinity toast', {
+          onPress={() => {
+            const id = toast.success('Infinity toast', {
               duration: Infinity,
               dismissible: false,
               action: {
                 label: 'Acknowledge',
                 onPress: () => {
-                  console.log('Action pressed');
+                  toast.dismiss(id);
+                  setToastId(null);
                 },
               },
-            })
-          }
+            });
+
+            setToastId(id);
+          }}
         />
       </ScrollView>
     </SafeAreaView>

@@ -7,6 +7,7 @@ import { useToastContext } from './context';
 import { ToastSwipeHandler } from './gestures';
 import { type ToastProps } from './types';
 import { useColors } from './use-colors';
+import { toastDefaultValues } from 'src/constants';
 
 export const Toast: React.FC<ToastProps> = ({
   id,
@@ -18,33 +19,21 @@ export const Toast: React.FC<ToastProps> = ({
   action,
   onDismiss,
   onAutoClose,
-  dismissible: dismissibleProps,
+  dismissible = toastDefaultValues.dismissible,
   closeButton: closeButtonProps,
   style,
   className,
-  containerClassName,
-  containerStyle,
-  actionClassName,
-  actionStyle,
-  actionLabelClassName,
-  actionLabelStyle,
-  titleClassName,
-  titleStyle,
-  descriptionClassName,
-  descriptionStyle,
-  getIconColorForVariant: getIconColorForVariant,
-  closeIconColor,
+  classNames,
+  styles,
   promiseOptions,
 }) => {
   const {
     duration: durationCtx,
     addToast,
     closeButton: closeButtonCtx,
-    dismissible: dismissibleCtx,
   } = useToastContext();
   const duration = durationProps ?? durationCtx;
   const closeButton = closeButtonProps ?? closeButtonCtx;
-  const dismissible = dismissibleProps ?? dismissibleCtx;
 
   const colors = useColors();
   const { entering, exiting } = useToastLayoutAnimations();
@@ -63,7 +52,8 @@ export const Toast: React.FC<ToastProps> = ({
       try {
         isResolvingPromise.current = true;
         promiseOptions.promise.then((data) => {
-          addToast(promiseOptions.success(data) ?? 'Success', {
+          addToast({
+            title: promiseOptions.success(data) ?? 'Success',
             id,
             variant: 'success',
             promiseOptions: undefined,
@@ -71,7 +61,8 @@ export const Toast: React.FC<ToastProps> = ({
           isResolvingPromise.current = false;
         });
       } catch (error) {
-        addToast(promiseOptions.error ?? 'Error', {
+        addToast({
+          title: promiseOptions.error ?? 'Error',
           id,
           variant: 'error',
           promiseOptions: undefined,
@@ -131,8 +122,6 @@ export const Toast: React.FC<ToastProps> = ({
         }
       }}
       enabled={!promiseOptions && dismissible}
-      style={containerStyle}
-      className={containerClassName}
     >
       <Animated.View
         className={className}
@@ -161,10 +150,7 @@ export const Toast: React.FC<ToastProps> = ({
           {promiseOptions ? (
             <ActivityIndicator />
           ) : (
-            <ToastIcon
-              variant={variant}
-              getIconColorForVariant={getIconColorForVariant}
-            />
+            <ToastIcon variant={variant} />
           )}
           <View style={{ flex: 1 }}>
             <Text
@@ -174,9 +160,9 @@ export const Toast: React.FC<ToastProps> = ({
                   lineHeight: 20,
                   color: colors['text-primary'],
                 },
-                titleStyle,
+                styles?.title,
               ]}
-              className={titleClassName}
+              className={classNames?.title}
             >
               {title}
             </Text>
@@ -189,9 +175,9 @@ export const Toast: React.FC<ToastProps> = ({
                     marginTop: 2,
                     color: colors['text-tertiary'],
                   },
-                  descriptionStyle,
+                  styles?.description,
                 ]}
-                className={descriptionClassName}
+                className={classNames?.description}
               >
                 {description}
               </Text>
@@ -207,7 +193,7 @@ export const Toast: React.FC<ToastProps> = ({
               >
                 <Pressable
                   onPress={action.onPress}
-                  className={actionClassName}
+                  className={classNames?.actionButton}
                   style={[
                     {
                       borderRadius: 999,
@@ -218,7 +204,7 @@ export const Toast: React.FC<ToastProps> = ({
                       borderCurve: 'continuous',
                       backgroundColor: colors['background-secondary'],
                     },
-                    actionStyle,
+                    styles?.actionButton,
                   ]}
                 >
                   <Text
@@ -230,9 +216,9 @@ export const Toast: React.FC<ToastProps> = ({
                         fontWeight: '600',
                         color: colors['text-primary'],
                       },
-                      actionLabelStyle,
+                      styles?.actionButtonText,
                     ]}
-                    className={actionLabelClassName}
+                    className={classNames?.actionButtonText}
                   >
                     {action.label}
                   </Text>
@@ -242,7 +228,7 @@ export const Toast: React.FC<ToastProps> = ({
           </View>
           {closeButton && dismissible ? (
             <Pressable onPress={() => onDismiss?.(id)} hitSlop={10}>
-              <X size={20} color={closeIconColor ?? colors['text-secondary']} />
+              <X size={20} color={colors['text-secondary']} />
             </Pressable>
           ) : null}
         </View>
@@ -251,33 +237,18 @@ export const Toast: React.FC<ToastProps> = ({
   );
 };
 
-export const ToastIcon: React.FC<
-  Pick<ToastProps, 'variant' | 'getIconColorForVariant'>
-> = ({ variant, getIconColorForVariant: getIconColorForVariant }) => {
+export const ToastIcon: React.FC<Pick<ToastProps, 'variant'>> = ({
+  variant,
+}) => {
   const colors = useColors();
   switch (variant) {
     case 'success':
-      return (
-        <CircleCheck
-          size={20}
-          color={getIconColorForVariant?.(variant) ?? colors.success}
-        />
-      );
+      return <CircleCheck size={20} color={colors.success} />;
     case 'error':
-      return (
-        <CircleX
-          size={20}
-          color={getIconColorForVariant?.(variant) ?? colors.error}
-        />
-      );
+      return <CircleX size={20} color={colors.error} />;
     default:
     case 'info':
-      return (
-        <Info
-          size={20}
-          color={getIconColorForVariant?.('info') ?? colors.info}
-        />
-      );
+      return <Info size={20} color={colors.info} />;
   }
 };
 
