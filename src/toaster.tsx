@@ -124,8 +124,8 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
     return {};
   }, [position, bottom, top]);
 
-  const onHide = React.useCallback<
-    NonNullable<React.ComponentProps<typeof Toast>['onHide']>
+  const onDismiss = React.useCallback<
+    NonNullable<React.ComponentProps<typeof Toast>['onDismiss']>
   >(
     (id) => {
       removeToast(id);
@@ -152,7 +152,7 @@ export const ToasterUI: React.FC<ToastProviderProps> = ({
             <Toast
               key={toast.id}
               {...toast}
-              onHide={onHide}
+              onDismiss={onDismiss}
               className={toastContentClassName}
               style={toastContentStyle}
               containerStyle={toastContainerStyle}

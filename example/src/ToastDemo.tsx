@@ -14,13 +14,13 @@ export const ToastDemo: React.FC = () => {
           if (toastId) {
             toast.success('Updated!', {
               id: toastId,
-              onHide: () => {
+              onDismiss: () => {
                 setToastId(null);
               },
             });
           } else {
             const id = toast.success('Changes saved', {
-              onHide: () => {
+              onDismiss: () => {
                 setToastId(null);
               },
             });

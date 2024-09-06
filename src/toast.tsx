@@ -16,7 +16,7 @@ export const Toast: React.FC<ToastProps> = ({
   duration: durationProps,
   variant,
   action,
-  onHide,
+  onDismiss,
   style,
   className,
   containerClassName,
@@ -77,7 +77,7 @@ export const Toast: React.FC<ToastProps> = ({
       timerStart.current = Date.now();
       timer.current = setTimeout(() => {
         if (!isDragging.current) {
-          onHide?.(id);
+          onDismiss?.(id);
         }
       }, ANIMATION_DURATION + duration);
     }
@@ -90,7 +90,7 @@ export const Toast: React.FC<ToastProps> = ({
         timerStart.current = undefined;
       }
     };
-  }, [duration, id, onHide, promiseOptions, addToast]);
+  }, [duration, id, onDismiss, promiseOptions, addToast]);
 
   if (element) {
     return element;
@@ -99,7 +99,7 @@ export const Toast: React.FC<ToastProps> = ({
   return (
     <ToastSwipeHandler
       onRemove={() => {
-        onHide?.(id);
+        onDismiss?.(id);
       }}
       onBegin={() => {
         isDragging.current = true;
@@ -110,10 +110,10 @@ export const Toast: React.FC<ToastProps> = ({
 
         if (timeElapsed < duration) {
           timer.current = setTimeout(() => {
-            onHide?.(id);
+            onDismiss?.(id);
           }, duration - timeElapsed);
         } else {
-          onHide?.(id);
+          onDismiss?.(id);
         }
       }}
       enabled={!promiseOptions}
@@ -226,7 +226,7 @@ export const Toast: React.FC<ToastProps> = ({
               </View>
             ) : null}
           </View>
-          <Pressable onPress={() => onHide?.(id)} hitSlop={10}>
+          <Pressable onPress={() => onDismiss?.(id)} hitSlop={10}>
             <X size={20} color={closeIconColor ?? colors['text-secondary']} />
           </Pressable>
         </View>
