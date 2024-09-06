@@ -4,6 +4,9 @@ Animated, customizable Toasts for React Native
 
 ![preview](https://github.com/user-attachments/assets/b0a95d89-3895-4d95-8a87-262fb7209805)
 
+## Expo Snack
+https://snack.expo.dev/@gunnartorfis/react-native-reanimated-toasts
+
 ## Features
 
 - Multiple variants, including `success`, `error`, `warning`, `custom`
