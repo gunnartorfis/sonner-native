@@ -29,10 +29,9 @@ const App: React.FC = () => {
         </NavigationContainer>
         <Toaster
           position="top-center"
-          duration={50000}
+          duration={3000}
           swipToDismissDirection="up"
           visibleToasts={4}
-          invert
           closeButton
           icons={{
             error: <Text>💥</Text>,
