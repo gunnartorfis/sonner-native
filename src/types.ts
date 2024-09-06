@@ -3,7 +3,7 @@ import type { TextStyle, ViewStyle } from 'react-native';
 export type ToastProps = {
   id: string;
   title: string;
-  element?: React.ReactElement;
+  jsx?: React.ReactElement;
   description?: string;
   duration?: number;
   variant?: ToastVariant;
@@ -90,7 +90,7 @@ export type ToastFunctionOptions = {
   description?: string;
   duration?: number;
   promiseOptions?: PromiseOptions;
-  element?: React.ReactElement;
+  jsx?: React.ReactElement;
 };
 
 export type ToastFunctionBase = {
@@ -122,7 +122,7 @@ export type ToastFunctionPromise = <T>(
   options: Omit<PromiseOptions, 'promise'>
 ) => string;
 export type ToastFunctionCustom = (
-  element: React.ReactElement,
+  jsx: React.ReactElement,
   options?: Pick<ToastFunctionOptions, 'duration'>
 ) => string;
 export type ToastDismiss = (id?: string) => void;

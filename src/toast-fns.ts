@@ -37,9 +37,9 @@ toast.promise = (promise, options) => {
   });
 };
 
-toast.custom = (element, options) => {
+toast.custom = (jsx, options) => {
   return getToastContext().addToast('', {
-    element,
+    jsx,
     ...options,
   });
 };

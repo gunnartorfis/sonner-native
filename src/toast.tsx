@@ -11,7 +11,7 @@ import { useColors } from './use-colors';
 export const Toast: React.FC<ToastProps> = ({
   id,
   title,
-  element,
+  jsx,
   description,
   duration: durationProps,
   variant,
@@ -102,8 +102,8 @@ export const Toast: React.FC<ToastProps> = ({
     };
   }, [duration, id, onDismiss, promiseOptions, addToast, onAutoClose]);
 
-  if (element) {
-    return element;
+  if (jsx) {
+    return jsx;
   }
 
   return (
