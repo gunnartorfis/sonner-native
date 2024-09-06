@@ -56,7 +56,7 @@ export type ToastProviderProps = {
 >;
 
 export type ToastContextType = {
-  addToast: ToastFunctionBase;
+  addToast: ToastFunctionContext;
   duration: number;
   position: ToastPosition;
   swipToDismissDirection: ToastSwipeDirection;
