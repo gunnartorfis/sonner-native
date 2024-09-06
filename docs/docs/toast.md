@@ -81,14 +81,13 @@ In this example, the toast.promise function will display a "Loading data..." mes
 
 ### Updating existing toasts
 
-You can update an existing toast by using the updateToast function, which takes the toast's unique identifier and the new toast options:
+You can update an existing toast by using the toast function, passing the toast ID in the options object:
 
 ```jsx
-const toastId = toast('Hello');
+const id = toast('Hello');
 
-updateToast(toastId, {
-  description: 'Updated error message',
-  duration: 5000,
+toast.success('Updated!', {
+  id,
 });
 ```
 
