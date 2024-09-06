@@ -82,6 +82,10 @@ export const Toast: React.FC<ToastProps> = ({
       return;
     }
 
+    if (duration === Infinity) {
+      return;
+    }
+
     // Start the timer only if it hasn't been started yet
     if (!timerStart.current) {
       timerStart.current = Date.now();
