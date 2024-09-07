@@ -254,6 +254,20 @@ export const ToastDemo: React.FC = () => {
           });
         }}
       />
+      <Button
+        title="JSX action"
+        onPress={() => {
+          toast('JSX action', {
+            description: 'This toast has a JSX action',
+            action: (
+              <Button
+                title="Press me"
+                onPress={() => console.log('JSX action')}
+              />
+            ),
+          });
+        }}
+      />
     </ScrollView>
   );
 };
