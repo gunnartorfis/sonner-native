@@ -61,6 +61,19 @@ toast('My action toast', {
 });
 ```
 
+### Cancel
+
+Renders a cancel button with a callback function. The cancel object should contain a label and an `onClick` function. The cancel button and its label can be customized with the `cancelButtonStyles` and `cancelButtonTextStyles` params, respectively.
+
+```jsx
+toast('My cancel toast', {
+  cancel: {
+    label: 'Cancel',
+    onClick: () => console.log('Cancel!'),
+  },
+});
+```
+
 ### Promises
 
 The toast.promise function can be used to display a toast message while a promise is in progress, and update the message based on the promise's success or failure.
@@ -153,20 +166,22 @@ toast.dismiss();
 
 ## API Reference
 
-| Property           |                                              Description                                               |      Default |
-| :----------------- | :----------------------------------------------------------------------------------------------------: | -----------: |
-| description        |                           Toast's description, renders underneath the title.                           |          `-` |
-| closeButton        |                                          Adds a close button.                                          |      `false` |
-| invert             |                                Dark toast in light mode and vice versa.                                |      `false` |
-| important          |                        Control the sensitivity of the toast for screen readers                         |      `false` |
-| duration           |            Time in milliseconds that should elapse before automatically closing the toast.             |       `4000` |
-| position           |                                         Position of the toast.                                         | `top-center` |
-| dismissible        |                     If `false`, it'll prevent the user from dismissing the toast.                      |       `true` |
-| icon               |                      Icon displayed in front of toast's text, aligned vertically.                      |          `-` |
-| action             |                      Renders a primary button, clicking it will close the toast.                       |          `-` |
-| id                 |                                        Custom id for the toast.                                        |          `-` |
-| onDismiss          |       The function gets called when either the close button is clicked, or the toast is swiped.        |          `-` |
-| onAutoClose        | Function that gets called when the toast disappears automatically after it's timeout (duration` prop). |          `-` |
-| unstyled           |                  Removes the default styling, which allows for easier customization.                   |      `false` |
-| actionButtonStyles |                                      Styles for the action button                                      |         `{}` |
-| cancelButtonStyles |                                      Styles for the cancel button                                      |         `{}` |
+| Property               |                                              Description                                               |      Default |
+| :--------------------- | :----------------------------------------------------------------------------------------------------: | -----------: |
+| description            |                           Toast's description, renders underneath the title.                           |          `-` |
+| closeButton            |                                          Adds a close button.                                          |      `false` |
+| invert                 |                                Dark toast in light mode and vice versa.                                |      `false` |
+| important              |                        Control the sensitivity of the toast for screen readers                         |      `false` |
+| duration               |            Time in milliseconds that should elapse before automatically closing the toast.             |       `4000` |
+| position               |                                         Position of the toast.                                         | `top-center` |
+| dismissible            |                     If `false`, it'll prevent the user from dismissing the toast.                      |       `true` |
+| icon                   |                      Icon displayed in front of toast's text, aligned vertically.                      |          `-` |
+| action                 |                      Renders a primary button, clicking it will close the toast.                       |          `-` |
+| id                     |                                        Custom id for the toast.                                        |          `-` |
+| onDismiss              |       The function gets called when either the close button is clicked, or the toast is swiped.        |          `-` |
+| onAutoClose            | Function that gets called when the toast disappears automatically after it's timeout (duration` prop). |          `-` |
+| unstyled               |                  Removes the default styling, which allows for easier customization.                   |      `false` |
+| actionButtonStyles     |                                      Styles for the action button                                      |         `{}` |
+| actionButtonTextStyles |                                   Styles for the action button text                                    |         `{}` |
+| cancelButtonStyles     |                                      Styles for the cancel button                                      |         `{}` |
+| cancelButtonTextStyles |                                   Styles for the cancel button text                                    |         `{}` |

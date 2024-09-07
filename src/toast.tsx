@@ -3,12 +3,12 @@ import * as React from 'react';
 import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { ANIMATION_DURATION, useToastLayoutAnimations } from './animations';
+import { toastDefaultValues } from './constants';
 import { useToastContext } from './context';
 import { ToastSwipeHandler } from './gestures';
+import { cn } from './tailwind-utils';
 import { type ToastProps } from './types';
 import { useColors } from './use-colors';
-import { toastDefaultValues } from './constants';
-import { cn } from './tailwind-utils';
 
 export const Toast: React.FC<ToastProps> = ({
   id,
@@ -19,10 +19,19 @@ export const Toast: React.FC<ToastProps> = ({
   duration: durationProps,
   variant,
   action,
+  cancel,
   onDismiss,
   onAutoClose,
   dismissible = toastDefaultValues.dismissible,
   closeButton: closeButtonProps,
+  actionButtonStyle,
+  actionButtonTextStyle,
+  actionButtonClassName,
+  actionButtonTextClassName,
+  cancelButtonStyle,
+  cancelButtonTextStyle,
+  cancelButtonClassName,
+  cancelButtonTextClassName,
   style,
   className,
   classNames,
@@ -216,62 +225,105 @@ export const Toast: React.FC<ToastProps> = ({
                 {description}
               </Text>
             ) : null}
-            {action ? (
-              <Pressable
-                onPress={action.onPress}
-                className={cn(
-                  classNamesCtx.actionButton,
-                  classNames?.actionButton
-                )}
-                style={[
-                  unstyled
-                    ? undefined
-                    : {
-                        marginTop: 16,
-                        flexGrow: 0,
-                        alignSelf: 'flex-start',
-                        borderRadius: 999,
-                        borderWidth: 1,
-                        borderColor: colors['border-secondary'],
-                        paddingHorizontal: 8,
-                        paddingVertical: 4,
-                        borderCurve: 'continuous',
-                        backgroundColor: colors['background-secondary'],
-                      },
-                  stylesCtx?.actionButton,
-                  styles?.actionButton,
-                ]}
-              >
-                <Text
-                  numberOfLines={1}
+            <View
+              style={[
+                unstyled || (!action && !cancel)
+                  ? undefined
+                  : {
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 16,
+                      marginTop: 16,
+                    },
+                stylesCtx.buttons,
+                styles?.buttons,
+              ]}
+              className={cn(classNamesCtx.buttons, classNames?.buttons)}
+            >
+              {action ? (
+                <Pressable
+                  onPress={action.onPress}
+                  className={actionButtonClassName}
                   style={[
                     unstyled
                       ? undefined
                       : {
-                          fontSize: 14,
-                          lineHeight: 20,
-                          fontWeight: '600',
+                          flexGrow: 0,
                           alignSelf: 'flex-start',
-                          color: colors['text-primary'],
+                          borderRadius: 999,
+                          borderWidth: 1,
+                          borderColor: colors['border-secondary'],
+                          paddingHorizontal: 8,
+                          paddingVertical: 4,
+                          borderCurve: 'continuous',
+                          backgroundColor: colors['background-secondary'],
                         },
-                    stylesCtx.actionButtonText,
-                    styles?.actionButtonText,
+                    actionButtonStyle,
                   ]}
-                  className={cn(
-                    classNamesCtx?.actionButtonText,
-                    classNames?.actionButtonText
-                  )}
                 >
-                  {action.label}
-                </Text>
-              </Pressable>
-            ) : null}
+                  <Text
+                    numberOfLines={1}
+                    style={[
+                      unstyled
+                        ? undefined
+                        : {
+                            fontSize: 14,
+                            lineHeight: 20,
+                            fontWeight: '600',
+                            alignSelf: 'flex-start',
+                            color: colors['text-primary'],
+                          },
+                      actionButtonTextStyle,
+                    ]}
+                    className={actionButtonTextClassName}
+                  >
+                    {action.label}
+                  </Text>
+                </Pressable>
+              ) : null}
+              {cancel ? (
+                <Pressable
+                  onPress={() => {
+                    cancel.onPress();
+                    onDismiss?.(id);
+                  }}
+                  className={cancelButtonClassName}
+                  style={[
+                    unstyled
+                      ? undefined
+                      : {
+                          flexGrow: 0,
+                        },
+                    cancelButtonStyle,
+                  ]}
+                >
+                  <Text
+                    numberOfLines={1}
+                    style={[
+                      unstyled
+                        ? undefined
+                        : {
+                            fontSize: 14,
+                            lineHeight: 20,
+                            fontWeight: '600',
+                            alignSelf: 'flex-start',
+                            color: colors['text-secondary'],
+                          },
+                      cancelButtonTextStyle,
+                    ]}
+                    className={cancelButtonTextClassName}
+                  >
+                    {cancel.label}
+                  </Text>
+                </Pressable>
+              ) : null}
+            </View>
           </View>
           {closeButton && dismissible ? (
             <Pressable
               onPress={() => onDismiss?.(id)}
               hitSlop={10}
-              style={[stylesCtx?.closeButton, styles?.closeButton]}
+              style={[stylesCtx.closeButton, styles?.closeButton]}
               className={cn(classNamesCtx.closeButton, classNames?.closeButton)}
             >
               <X
