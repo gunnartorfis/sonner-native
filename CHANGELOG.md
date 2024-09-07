@@ -1,5 +1,19 @@
 
 
+# [0.5.0](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.4.1...v0.5.0) (2024-09-07)
+
+
+### Bug Fixes
+
+* import path ([74b53b8](https://github.com/gunnartorfis/react-native-reanimated-toasts/commit/74b53b8e3facb7c15ef06b3cfc12028ab2dfdb15))
+
+
+### Features
+
+* action as jsx ([bcca41a](https://github.com/gunnartorfis/react-native-reanimated-toasts/commit/bcca41a45173e7dab64b2770629125ab095f38ff))
+* cancel button ([0c5892b](https://github.com/gunnartorfis/react-native-reanimated-toasts/commit/0c5892b705daed5403f8900e43b7579fd5d6ee52))
+* loading variant ([f05f641](https://github.com/gunnartorfis/react-native-reanimated-toasts/commit/f05f6413531fa4fc2d30869969973b80f96b4688))
+
 ## [0.4.1](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.4.0...v0.4.1) (2024-09-07)
 
 
