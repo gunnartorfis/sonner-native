@@ -32,6 +32,7 @@ export const Toaster: React.FC<ToasterProps> = (props) => {
 export const ToasterUI: React.FC<ToasterProps> = ({
   duration = toastDefaultValues.duration,
   position = toastDefaultValues.position,
+  offset = toastDefaultValues.offset,
   visibleToasts = toastDefaultValues.visibleToasts,
   swipToDismissDirection = toastDefaultValues.swipeToDismissDirection,
   closeButton,
@@ -136,6 +137,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     () => ({
       duration: duration ?? toastDefaultValues.duration,
       position: position ?? toastDefaultValues.position,
+      offset: offset ?? toastDefaultValues.offset,
       swipToDismissDirection:
         swipToDismissDirection ?? toastDefaultValues.swipeToDismissDirection,
       closeButton: closeButton ?? toastDefaultValues.closeButton,
@@ -149,6 +151,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     [
       duration,
       position,
+      offset,
       swipToDismissDirection,
       closeButton,
       unstyled,

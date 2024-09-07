@@ -128,6 +128,7 @@ export type ToasterContextType = Required<
     | 'styles'
     | 'classNames'
     | 'icons'
+    | 'offset'
   >
 > & {
   addToast: AddToastContextHandler;
