@@ -7,8 +7,8 @@ import { useToastContext } from './context';
 import { ToastSwipeHandler } from './gestures';
 import { type ToastProps } from './types';
 import { useColors } from './use-colors';
-import { toastDefaultValues } from 'src/constants';
-import { cn } from 'src/tailwind-utils';
+import { toastDefaultValues } from './constants';
+import { cn } from './tailwind-utils';
 
 export const Toast: React.FC<ToastProps> = ({
   id,
