@@ -19,7 +19,7 @@
 | unstyled           | ✅                | ✅     |
 | actionButtonStyles | ✅                | ✅     |
 | cancelButtonStyles | ✅                | ✅     |
-| cancel             | ❌                | ✅     |
+| cancel             | ✅                | ✅     |
 | action as JSX      | ❌                | ✅     |
 | loading            | ❌                | ✅     |
 | Headless           | ❌                | ✅     |

@@ -10,8 +10,7 @@ type StyleProps = {
     toastContent?: string;
     title?: string;
     description?: string;
-    actionButton?: string;
-    actionButtonText?: string;
+    buttons?: string;
     closeButton?: string;
     closeButtonIcon?: string;
   };
@@ -21,8 +20,7 @@ type StyleProps = {
     toastContent?: ViewStyle;
     title?: TextStyle;
     description?: TextStyle;
-    actionButton?: ViewStyle;
-    actionButtonText?: TextStyle;
+    buttons?: ViewStyle;
     closeButton?: ViewStyle;
     closeButtonIcon?: ViewStyle;
   };
@@ -66,10 +64,14 @@ export type ToastProps = StyleProps & {
   onDismiss?: (id: string) => void;
   onAutoClose?: (id: string) => void;
   promiseOptions?: PromiseOptions;
-  actionButtonStyles?: ViewStyle;
-  actionButtonTextStyles?: TextStyle;
-  closeButtonStyles?: ViewStyle;
-  closeButtonTextStyles?: TextStyle;
+  actionButtonStyle?: ViewStyle;
+  actionButtonTextStyle?: TextStyle;
+  actionButtonClassName?: string;
+  actionButtonTextClassName?: string;
+  cancelButtonStyle?: ViewStyle;
+  cancelButtonTextStyle?: TextStyle;
+  cancelButtonClassName?: string;
+  cancelButtonTextClassName?: string;
 };
 
 type ExternalToast = Omit<

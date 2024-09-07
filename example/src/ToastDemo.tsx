@@ -95,6 +95,21 @@ export const ToastDemo: React.FC = () => {
                 }}
               />
             ),
+            actionButtonStyle: {
+              borderStyle: 'dashed',
+              borderColor: 'black',
+              borderWidth: 2,
+              borderRadius: 2,
+              paddingVertical: 6,
+              paddingHorizontal: 10,
+              marginTop: 8,
+              alignSelf: 'center',
+            },
+            actionButtonTextStyle: {
+              fontSize: 14,
+              color: 'black',
+              textAlign: 'center',
+            },
             styles: {
               toastContainer: {
                 paddingHorizontal: 16,
@@ -125,21 +140,6 @@ export const ToastDemo: React.FC = () => {
                 fontSize: 14,
                 color: '#000000',
                 marginBottom: 10,
-              },
-              actionButton: {
-                borderStyle: 'dashed',
-                borderColor: 'black',
-                borderWidth: 2,
-                borderRadius: 2,
-                paddingVertical: 6,
-                paddingHorizontal: 10,
-                marginTop: 8,
-                alignSelf: 'center',
-              },
-              actionButtonText: {
-                fontSize: 14,
-                color: 'black',
-                textAlign: 'center',
               },
               closeButton: {
                 backgroundColor: '#DD3C14',
@@ -241,6 +241,17 @@ export const ToastDemo: React.FC = () => {
         title="Custom icon in Toaster"
         onPress={() => {
           toast.error('Custom icon');
+        }}
+      />
+      <Button
+        title="Cancel"
+        onPress={() => {
+          toast('My cancel toast', {
+            cancel: {
+              label: 'Cancel',
+              onPress: () => console.log('Cancel!'),
+            },
+          });
         }}
       />
     </ScrollView>
