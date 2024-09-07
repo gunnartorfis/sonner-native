@@ -39,7 +39,7 @@ export type ToastTheme = 'light' | 'dark' | 'system';
 
 export type ToastSwipeDirection = 'left' | 'up';
 
-export type ToastVariant = 'success' | 'error' | 'info';
+export type ToastVariant = 'success' | 'error' | 'info' | 'loading';
 
 export type ToastAction = {
   label: string;
@@ -145,5 +145,6 @@ export declare const toast: ((
     promise: Promise<T>,
     options: Omit<PromiseOptions, 'promise'>
   ) => string;
+  loading: (message: string, data?: ExternalToast) => string;
   dismiss: (id?: string) => string | undefined;
 };

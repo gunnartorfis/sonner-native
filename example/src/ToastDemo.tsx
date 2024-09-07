@@ -268,6 +268,10 @@ export const ToastDemo: React.FC = () => {
           });
         }}
       />
+      <Button
+        title="Loading variant"
+        onPress={() => toast.loading('Loading...')}
+      />
     </ScrollView>
   );
 };

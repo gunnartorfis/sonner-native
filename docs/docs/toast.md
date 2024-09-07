@@ -103,6 +103,14 @@ const toastId = toast.promise(fetchData(), {
 });
 ```
 
+### Loading
+
+The toast.loading function can be used to display a loading message. By default, it renders ActivityIndicator in front of the message.
+
+```jsx
+toast.loading('Loading...');
+```
+
 In this example, the toast.promise function will display a "Loading data..." message while the fetchData promise is in progress, and update the message to the success or error text based on the promise's outcome.
 
 ### Custom JSX

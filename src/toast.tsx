@@ -179,7 +179,7 @@ export const Toast: React.FC<ToastProps> = ({
           ]}
           className={cn(classNamesCtx.toastContent, classNames?.toastContent)}
         >
-          {promiseOptions ? (
+          {promiseOptions || variant === 'loading' ? (
             <ActivityIndicator />
           ) : icon || variant in icons ? (
             icons[variant]
