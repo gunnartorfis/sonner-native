@@ -1,5 +1,12 @@
 
 
+## [0.4.1](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.4.0...v0.4.1) (2024-09-07)
+
+
+### Bug Fixes
+
+* import relative ([98e727b](https://github.com/gunnartorfis/react-native-reanimated-toasts/commit/98e727b905bacfbe5f63d708967ef70964fde291))
+
 # [0.4.0](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.3.9...v0.4.0) (2024-09-06)
 
 
