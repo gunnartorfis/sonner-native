@@ -59,8 +59,8 @@ export type ToastProps = StyleProps & {
   position?: ToastPosition;
   dismissible?: boolean;
   icon?: React.ReactNode;
-  action?: ToastAction;
-  cancel?: ToastAction;
+  action?: ToastAction | React.ReactNode;
+  cancel?: ToastAction | React.ReactNode;
   onDismiss?: (id: string) => void;
   onAutoClose?: (id: string) => void;
   promiseOptions?: PromiseOptions;
@@ -73,6 +73,12 @@ export type ToastProps = StyleProps & {
   cancelButtonClassName?: string;
   cancelButtonTextClassName?: string;
 };
+
+export function isToastAction(
+  action: ToastAction | React.ReactNode
+): action is ToastAction {
+  return (action as ToastAction)?.onClick !== undefined;
+}
 
 type ExternalToast = Omit<
   ToastProps,

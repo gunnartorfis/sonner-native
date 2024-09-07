@@ -7,7 +7,7 @@ import { toastDefaultValues } from './constants';
 import { useToastContext } from './context';
 import { ToastSwipeHandler } from './gestures';
 import { cn } from './tailwind-utils';
-import { type ToastProps } from './types';
+import { isToastAction, type ToastProps } from './types';
 import { useColors } from './use-colors';
 
 export const Toast: React.FC<ToastProps> = ({
@@ -240,7 +240,7 @@ export const Toast: React.FC<ToastProps> = ({
               ]}
               className={cn(classNamesCtx.buttons, classNames?.buttons)}
             >
-              {action ? (
+              {isToastAction(action) ? (
                 <Pressable
                   onPress={action.onClick}
                   className={actionButtonClassName}
@@ -280,8 +280,10 @@ export const Toast: React.FC<ToastProps> = ({
                     {action.label}
                   </Text>
                 </Pressable>
-              ) : null}
-              {cancel ? (
+              ) : (
+                action || undefined
+              )}
+              {isToastAction(cancel) ? (
                 <Pressable
                   onPress={() => {
                     cancel.onClick();
@@ -316,7 +318,9 @@ export const Toast: React.FC<ToastProps> = ({
                     {cancel.label}
                   </Text>
                 </Pressable>
-              ) : null}
+              ) : (
+                cancel || undefined
+              )}
             </View>
           </View>
           {closeButton && dismissible ? (
