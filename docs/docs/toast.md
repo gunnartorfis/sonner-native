@@ -61,6 +61,14 @@ toast('My action toast', {
 });
 ```
 
+action can also be a JSX element:
+
+```jsx
+toast('My action toast', {
+  action: <Button title="Action" onPress={() => console.log('Action!')} />,
+});
+```
+
 ### Cancel
 
 Renders a cancel button with a callback function. The cancel object should contain a label and an `onClick` function. The cancel button and its label can be customized with the `cancelButtonStyles` and `cancelButtonTextStyles` params, respectively.
