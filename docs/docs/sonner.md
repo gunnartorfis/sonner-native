@@ -1,4 +1,4 @@
-# Props Comparison with Sonner
+# Comparison with Sonner
 
 ## toast():
 
