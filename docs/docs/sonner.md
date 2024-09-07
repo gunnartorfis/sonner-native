@@ -21,7 +21,7 @@
 | cancelButtonStyles | ✅                | ✅     |
 | cancel             | ✅                | ✅     |
 | action as JSX      | ✅                | ✅     |
-| loading            | ❌                | ✅     |
+| loading            | ✅                | ✅     |
 | Headless           | ❌                | ✅     |
 | Dynamic position   | ❌                | ✅     |
 | important          | ❌                | ✅     |

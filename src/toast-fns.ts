@@ -54,6 +54,14 @@ toast.custom = (jsx, options) => {
   });
 };
 
+toast.loading = (title, options = {}) => {
+  return getToastContext().addToast({
+    title,
+    variant: 'loading',
+    ...options,
+  });
+};
+
 toast.dismiss = (id) => {
   return getToastContext().dismissToast(id);
 };
