@@ -4,6 +4,8 @@ sidebar_position: 2
 
 # toast()
 
+toast() is used to display a toast message. It can be used outside of React.
+
 ## Basic toast
 
 To display a simple toast message, use the toast() function. You can pass a title and optional settings.
@@ -20,8 +22,11 @@ Alternatively, you can pass an object as the second argument with additional opt
 import { toast } from 'react-native-reanimated-toasts';
 
 toast.success('Operation successful!', {
+  className: 'bg-green-500',
+  style: { backgroundColor: 'blue' }
   description: 'Everything worked as expected.',
-  duration: 3000, // duration in milliseconds
+  duration: 6000,
+  icon: <SomeIcon />
 });
 ```
 
@@ -45,7 +50,7 @@ toast.error('My error toast');
 
 ### Action
 
-Renders a primary button, clicking it will close the toast and run the callback passed via `onClick`. You can prevent the toast from closing by calling `event.preventDefault()` in the `onClick` callback.
+Renders an action button with a callback function. The action object should contain a label and an `onClick` function. The action and its label can be customized with the `actionButtonStyles` and `actionButtonTextStyles` params, respectively.
 
 ```jsx
 toast('My action toast', {
@@ -92,6 +97,8 @@ toast.custom(
 );
 ```
 
+## Other
+
 ### Updating existing toasts
 
 You can update an existing toast by using the toast function, passing the toast ID in the options object:
@@ -101,6 +108,27 @@ const id = toast('Hello');
 
 toast.success('Updated!', {
   id,
+});
+```
+
+### Callbacks
+
+There are two callbacks, `onAutoClose` and `onDismiss`, that can be used to execute code when the toast is auto-closed (after the duration timeout) or manually dismissed, respectively.
+
+```jsx
+toast('Hello', {
+  onAutoClose: () => console.log('Auto-closed!'),
+  onDismiss: () => console.log('Manually dismissed!'),
+});
+```
+
+### Infinite toasts
+
+Pass `duration` as `Infinity` to make the toast stay until manually dismissed:
+
+```jsx
+toast('Hello', {
+  duration: Infinity,
 });
 ```
 
@@ -122,3 +150,23 @@ toast('World');
 
 toast.dismiss();
 ```
+
+## API Reference
+
+| Property           |                                              Description                                               |      Default |
+| :----------------- | :----------------------------------------------------------------------------------------------------: | -----------: |
+| description        |                           Toast's description, renders underneath the title.                           |          `-` |
+| closeButton        |                                          Adds a close button.                                          |      `false` |
+| invert             |                                Dark toast in light mode and vice versa.                                |      `false` |
+| important          |                        Control the sensitivity of the toast for screen readers                         |      `false` |
+| duration           |            Time in milliseconds that should elapse before automatically closing the toast.             |       `4000` |
+| position           |                                         Position of the toast.                                         | `top-center` |
+| dismissible        |                     If `false`, it'll prevent the user from dismissing the toast.                      |       `true` |
+| icon               |                      Icon displayed in front of toast's text, aligned vertically.                      |          `-` |
+| action             |                      Renders a primary button, clicking it will close the toast.                       |          `-` |
+| id                 |                                        Custom id for the toast.                                        |          `-` |
+| onDismiss          |       The function gets called when either the close button is clicked, or the toast is swiped.        |          `-` |
+| onAutoClose        | Function that gets called when the toast disappears automatically after it's timeout (duration` prop). |          `-` |
+| unstyled           |                  Removes the default styling, which allows for easier customization.                   |      `false` |
+| actionButtonStyles |                                      Styles for the action button                                      |         `{}` |
+| cancelButtonStyles |                                      Styles for the cancel button                                      |         `{}` |

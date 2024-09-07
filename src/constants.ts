@@ -11,7 +11,7 @@ export const toastDefaultValues: {
   unstyled: boolean;
   invert: boolean;
 } = {
-  duration: 3000,
+  duration: 4000,
   position: 'top-center',
   swipeToDismissDirection: 'up',
   variant: 'info',

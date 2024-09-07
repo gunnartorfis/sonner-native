@@ -1,176 +1,188 @@
-import { Button, Image, Pressable, ScrollView, Text, View } from 'react-native';
 import * as React from 'react';
+import { Button, Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { toast } from 'react-native-reanimated-toasts';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const ToastDemo: React.FC = () => {
   const [toastId, setToastId] = React.useState<string | null>(null);
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Button
-          title={toastId ? 'Update toast' : 'Show toast'}
-          onPress={() => {
-            if (toastId) {
-              toast.success('Updated!', {
-                id: toastId,
-                onDismiss: () => {
-                  setToastId(null);
-                },
-                onAutoClose: () => {
-                  setToastId(null);
-                },
-              });
-            } else {
-              const id = toast.success('Changes saved', {
-                onDismiss: () => {
-                  setToastId(null);
-                },
-                onAutoClose: () => {
-                  setToastId(null);
-                },
-              });
-              setToastId(id);
+    <ScrollView contentContainerStyle={{ paddingTop: 100 }}>
+      <Button
+        title={toastId ? 'Update toast' : 'Show toast'}
+        onPress={() => {
+          if (toastId) {
+            toast.success('Updated!', {
+              id: toastId,
+              onDismiss: () => {
+                setToastId(null);
+              },
+              onAutoClose: () => {
+                setToastId(null);
+              },
+            });
+          } else {
+            const id = toast.success('Changes saved', {
+              onDismiss: () => {
+                setToastId(null);
+              },
+              onAutoClose: () => {
+                setToastId(null);
+              },
+            });
+            setToastId(id);
+          }
+        }}
+      />
+      <Button
+        title="Show toast with description"
+        onPress={() => {
+          toast.success('Changes saved', {
+            description: 'Your changes have been saved successfully',
+            closeButton: true,
+          });
+        }}
+      />
+      <Button
+        title="Show toast with description and action"
+        onPress={() => {
+          toast.success('Changes saved', {
+            action: {
+              label: 'See changes',
+              onPress: () => {
+                console.log('Action pressed');
+              },
+            },
+            description:
+              'Your changes have been saved successfully. This might go into a newline but we handle that by wrapping the text.',
+          });
+        }}
+      />
+      <Button title="Show outside of a React component" onPress={handleToast} />
+      <Button
+        title="Toast with a promise"
+        onPress={() => {
+          toast.promise(
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve('Promise resolved');
+              }, 7000);
+            }),
+            {
+              loading: 'Loading...',
+              success: (result: string) => `Promise resolved: ${result}`,
+              error: 'Promise failed',
             }
-          }}
-        />
-        <Button
-          title="Show toast with description"
-          onPress={() => {
-            toast.success('Changes saved', {
-              description: 'Your changes have been saved successfully',
-              closeButton: true,
-            });
-          }}
-        />
-        <Button
-          title="Show toast with description and action"
-          onPress={() => {
-            toast.success('Changes saved', {
-              action: {
-                label: 'See changes',
-                onPress: () => {
-                  console.log('Action pressed');
-                },
+          );
+        }}
+      />
+      <Button
+        title="Windows XP with styles only"
+        onPress={() => {
+          const id = toast('Blue screen of death', {
+            action: {
+              label: 'OK',
+              onPress: () => {
+                toast.dismiss(id);
               },
-              description:
-                'Your changes have been saved successfully. This might go into a newline but we handle that by wrapping the text.',
-            });
-          }}
-        />
-        <Button
-          title="Show outside of a React component"
-          onPress={handleToast}
-        />
-        <Button
-          title="Toast with a promise"
-          onPress={() => {
-            toast.promise(
-              new Promise((resolve) => {
-                setTimeout(() => {
-                  resolve('Promise resolved');
-                }, 7000);
-              }),
-              {
-                loading: 'Loading...',
-                success: (result: string) => `Promise resolved: ${result}`,
-                error: 'Promise failed',
-              }
-            );
-          }}
-        />
-        <Button
-          title="Windows XP with styles only"
-          onPress={() => {
-            const id = toast('Blue screen of death', {
-              action: {
-                label: 'OK',
-                onPress: () => {
-                  toast.dismiss(id);
-                },
-              },
-              unstyled: true,
-              icon: (
-                <Image
-                  source={require('../assets/windows-xp.png')}
-                  style={{
-                    width: 40,
-                    height: 40,
-                  }}
-                />
-              ),
-              styles: {
-                toastContainer: {
-                  paddingHorizontal: 16,
-                  marginBottom: 16,
-                },
-                toast: {
-                  backgroundColor: '#ECE9D8',
-                  borderRadius: 3,
-                  padding: 15,
-                  borderColor: '#0055EA',
-                  borderWidth: 2,
-                },
-                toastContent: {
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 16,
-                },
-                title: {
-                  fontSize: 14,
-                  fontWeight: 'light',
-                  fontFamily: 'sans-serif',
-                  color: 'black',
-                  marginBottom: 5,
-                  marginLeft: 4,
-                  textAlign: 'center',
-                },
-                description: {
-                  fontSize: 14,
-                  color: '#000000',
-                  marginBottom: 10,
-                },
-                actionButton: {
-                  borderStyle: 'dashed',
-                  borderColor: 'black',
-                  borderWidth: 2,
-                  borderRadius: 2,
-                  paddingVertical: 6,
-                  paddingHorizontal: 10,
-                  marginTop: 8,
-                  alignSelf: 'center',
-                },
-                actionButtonText: {
-                  fontSize: 14,
-                  color: 'black',
-                  textAlign: 'center',
-                },
-                closeButton: {
-                  backgroundColor: '#DD3C14',
-                  borderRadius: 2,
-                  alignSelf: 'flex-start',
-                },
-              },
-            });
-          }}
-        />
-        <Button
-          title="Custom JSX"
-          onPress={() => {
-            toast.custom(
-              <View
+            },
+            unstyled: true,
+            icon: (
+              <Image
+                source={require('../assets/windows-xp.png')}
                 style={{
-                  width: '80%',
-                  backgroundColor: '#26252A',
-                  paddingLeft: 24,
-                  paddingRight: 8,
-                  paddingVertical: 8,
+                  width: 40,
+                  height: 40,
+                }}
+              />
+            ),
+            styles: {
+              toastContainer: {
+                paddingHorizontal: 16,
+                marginBottom: 16,
+              },
+              toast: {
+                backgroundColor: '#ECE9D8',
+                borderRadius: 3,
+                padding: 15,
+                borderColor: '#0055EA',
+                borderWidth: 2,
+              },
+              toastContent: {
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 16,
+              },
+              title: {
+                fontSize: 14,
+                fontWeight: 'light',
+                fontFamily: 'sans-serif',
+                color: 'black',
+                marginBottom: 5,
+                marginLeft: 4,
+                textAlign: 'center',
+              },
+              description: {
+                fontSize: 14,
+                color: '#000000',
+                marginBottom: 10,
+              },
+              actionButton: {
+                borderStyle: 'dashed',
+                borderColor: 'black',
+                borderWidth: 2,
+                borderRadius: 2,
+                paddingVertical: 6,
+                paddingHorizontal: 10,
+                marginTop: 8,
+                alignSelf: 'center',
+              },
+              actionButtonText: {
+                fontSize: 14,
+                color: 'black',
+                textAlign: 'center',
+              },
+              closeButton: {
+                backgroundColor: '#DD3C14',
+                borderRadius: 2,
+                alignSelf: 'flex-start',
+              },
+            },
+          });
+        }}
+      />
+      <Button
+        title="Custom JSX"
+        onPress={() => {
+          toast.custom(
+            <View
+              style={{
+                width: '80%',
+                backgroundColor: '#26252A',
+                paddingLeft: 24,
+                paddingRight: 8,
+                paddingVertical: 8,
+                borderRadius: 999,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                borderCurve: 'continuous',
+              }}
+            >
+              <Text
+                style={{
+                  color: '#fff',
+                  fontWeight: '600',
+                }}
+              >
+                Custom JSX
+              </Text>
+              <Pressable
+                style={{
+                  backgroundColor: '#40424B',
+                  borderWidth: 1,
+                  borderColor: '#55555C',
                   borderRadius: 999,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  borderCurve: 'continuous',
+                  padding: 8,
                 }}
               >
                 <Text
@@ -179,77 +191,59 @@ export const ToastDemo: React.FC = () => {
                     fontWeight: '600',
                   }}
                 >
-                  Custom JSX
+                  Press me
                 </Text>
-                <Pressable
-                  style={{
-                    backgroundColor: '#40424B',
-                    borderWidth: 1,
-                    borderColor: '#55555C',
-                    borderRadius: 999,
-                    padding: 8,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: '#fff',
-                      fontWeight: '600',
-                    }}
-                  >
-                    Press me
-                  </Text>
-                </Pressable>
-              </View>,
-              {
-                duration: 30000,
-              }
-            );
-          }}
-        />
-        <Button
-          title="Dismiss active toast"
-          disabled={!toastId}
-          onPress={() => toast.dismiss(toastId!)}
-        />
-        <Button
-          title="Dismiss all toasts"
-          onPress={() => {
-            toast.dismiss();
-            setToastId(null);
-          }}
-        />
-        <Button
-          title="Non-dismissible"
-          onPress={() =>
-            toast.success('Non-dismissible toast', { dismissible: false })
-          }
-        />
-        <Button
-          title="Infinity toast"
-          onPress={() => {
-            const id = toast.success('Infinity toast', {
-              duration: Infinity,
-              dismissible: false,
-              action: {
-                label: 'Acknowledge',
-                onPress: () => {
-                  toast.dismiss(id);
-                  setToastId(null);
-                },
+              </Pressable>
+            </View>,
+            {
+              duration: 30000,
+            }
+          );
+        }}
+      />
+      <Button
+        title="Dismiss active toast"
+        disabled={!toastId}
+        onPress={() => toast.dismiss(toastId!)}
+      />
+      <Button
+        title="Dismiss all toasts"
+        onPress={() => {
+          toast.dismiss();
+          setToastId(null);
+        }}
+      />
+      <Button
+        title="Non-dismissible"
+        onPress={() =>
+          toast.success('Non-dismissible toast', { dismissible: false })
+        }
+      />
+      <Button
+        title="Infinity toast"
+        onPress={() => {
+          const id = toast.success('Infinity toast', {
+            duration: Infinity,
+            dismissible: false,
+            action: {
+              label: 'Acknowledge',
+              onPress: () => {
+                toast.dismiss(id);
+                setToastId(null);
               },
-            });
+            },
+          });
 
-            setToastId(id);
-          }}
-        />
-        <Button
-          title="Custom icon in Toaster"
-          onPress={() => {
-            toast.error('Custom icon');
-          }}
-        />
-      </ScrollView>
-    </SafeAreaView>
+          setToastId(id);
+        }}
+      />
+      <Button
+        title="Custom icon in Toaster"
+        onPress={() => {
+          toast.error('Custom icon');
+        }}
+      />
+    </ScrollView>
   );
 };
 

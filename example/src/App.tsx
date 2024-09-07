@@ -16,7 +16,7 @@ const App: React.FC = () => {
     <SafeAreaProvider>
       <GestureHandlerRootView>
         <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator screenOptions={{}}>
             <Stack.Screen name="ToastDemo" component={ToastDemoScreen} />
             <Stack.Screen
               name="ToastDemoModal"
@@ -29,13 +29,14 @@ const App: React.FC = () => {
         </NavigationContainer>
         <Toaster
           position="top-center"
-          duration={3000}
+          duration={30000}
           swipToDismissDirection="up"
           visibleToasts={4}
           closeButton
           icons={{
             error: <Text>💥</Text>,
           }}
+          toastOptions={{}}
         />
       </GestureHandlerRootView>
     </SafeAreaProvider>

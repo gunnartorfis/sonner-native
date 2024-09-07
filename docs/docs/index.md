@@ -4,24 +4,28 @@ sidebar_position: 1
 
 # Introduction
 
-**An incredibly fast and flexible way of building calendars in React Native.**
+**react-native-reanimated-toasts** is a highly customizable and performant toast library for React Native, built with Reanimated 3. It provides a simple API to display toast notifications with various options and configurations.
 
 ![Preview](/img/preview.png)
 
 ## Features
 
-- Multiple variants, including `success`, `error`, `warning`
-- Promise option with built in loading state
+- API fully matches [Sonner's](https://sonner.emilkowal.ski/)
+- Multiple variants, including `success`, `error`, `warning`, `custom`, `promise`
+- Promise variant with built-in loading state
+- Custom JSX with the custom variant
 - Top or bottom positions
 - Title and description
-- Action button with callback
+- Action button with a callback
 - Custom icons
-- Dismissable with swipe, configurable left or up
-- Highly performant using Reanimated 3
-- Dark mode support
+- Optionally dismissable with swipe, configurable left or up
+- Dismissable with toast.dismiss(), one or all toasts
+- Highly performant using Reanimated 3, 60 FPS
+- Dark mode built-in
 - Works with Expo
-- NativeWind support
-- Customizable
+- NativeWind supported
+- Customizable, styles & className props
+- Works outside of React components
 
 ## Installation
 
@@ -36,6 +40,7 @@ To use this package, **you also need to install its peer dependencies**. Check o
 - [React Native Reanimated](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started)
 - [React Native Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/docs/)
 - [React Native Safe Area Context](https://docs.expo.dev/versions/latest/sdk/safe-area-context/)
+- [React Native SVG](https://github.com/software-mansion/react-native-svg)
 
 ## Getting started
 
@@ -71,4 +76,4 @@ function SomeComponent() {
 
 ## Examples
 
-An example can be found in the [`example`](https://github.com/gunnartorfis/react-native-reanimated-toasts/tree/main/example) workspace.
+An example can be found in the [`example`](https://github.com/gunnartorfis/react-native-reanimated-toasts/tree/main/example) folder.

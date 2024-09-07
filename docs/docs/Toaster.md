@@ -26,31 +26,43 @@ export default function App() {
 }
 ```
 
-## Props
+## Customization
 
-| Prop                     | Type                  | Default      | Description                                                 |
-| ------------------------ | --------------------- | ------------ | ----------------------------------------------------------- |
-| `duration`               | `number`              | `3000` (ms)  | Duration each toast is visible before auto-dismissal.       |
-| `position`               | `ToastPosition`       | `top-center` | The position of the toasts (`top-center`, `bottom-center`). |
-| `visibleToasts`          | `number`              | `3`          | Maximum number of toasts to show at once.                   |
-| `swipToDismissDirection` | `ToastSwipeDirection` | `up`         | Swipe direction to dismiss (`left`, `up`).                  |
+The Toaster component can provide default styles for all toasts, but individual toasts can also be customized. The Toaster component accepts a number of props to customize the appearance and behavior of the toasts.
 
-### Style related props
+### Position
 
-| Prop                      | Type        | Default     | Description                                                    |
-| ------------------------- | ----------- | ----------- | -------------------------------------------------------------- |
-| `rootStyle`               | `ViewStyle` | `undefined` | Style for the root container.                                  |
-| `rootClassName`           | `string`    | `undefined` | `NativeWind` class names for root container styling.           |
-| `toastContainerStyle`     | `ViewStyle` | `undefined` | Style for the toast container (wrapper for individual toasts). |
-| `toastContainerClassName` | `string`    | `undefined` | `NativeWind` class names for the toast container.              |
-| `toastContentStyle`       | `ViewStyle` | `undefined` | Style for individual toast content.                            |
-| `toastContentClassName`   | `string`    | `undefined` | `NativeWind` class names for individual toast content.         |
-| `actionClassName`         | `string`    | `undefined` | `NativeWind` class names for the toast action button.          |
-| `actionLabelClassName`    | `string`    | `undefined` | `NativeWind` class names for the toast action label.           |
-| `descriptionClassName`    | `string`    | `undefined` | `NativeWind` class names for the toast description.            |
-| `titleClassName`          | `string`    | `undefined` | `NativeWind` class names for the toast title.                  |
-| `actionStyle`             | `ViewStyle` | `undefined` | Style for the toast action button.                             |
-| `actionLabelStyle`        | `TextStyle` | `undefined` | Style for the toast action label.                              |
-| `descriptionStyle`        | `TextStyle` | `undefined` | Style for the toast description.                               |
-| `titleStyle`              | `TextStyle` | `undefined` | Style for the toast title.                                     |
-| `closeIconColor`          | `string`    | `undefined` | Color for the toast's close icon.                              |
+The `position` prop determines where the toasts are displayed on the screen.
+
+```tsx
+// Available positions:
+// top-center, bottom-center
+<Toaster position="bottom-center" />
+```
+
+### Default styles for toasts
+
+You can provide default styles for all toasts by passing `style` and `className` props to the Toaster component. All customization passed to the toast() will be concatenated with these default styles.
+
+```tsx
+<Toaster
+  toastOptions={{
+    style: { backgroundColor: 'red' },
+    className: 'bg-red-500',
+  }}
+/>
+```
+
+## API Reference
+
+| Property                 |                                            Description                                             |      Default |
+| :----------------------- | :------------------------------------------------------------------------------------------------: | -----------: |
+| theme                    |                                          `light`, `dark`                                           |      `light` |
+| visibleToasts            |                                  Maximum number of visible toasts                                  |          `3` |
+| position                 |                              Place where the toasts will be rendered                               | `top-center` |
+| closeButton              |                                 Adds a close button to all toasts                                  |      `false` |
+| invert                   |                             Dark toasts in light mode and vice versa.                              |      `false` |
+| toastOptions             | These will act as default options for all toasts. See [toast()](/toast) for all available options. |         `{}` |
+| gap                      |                                  Gap between toasts when expanded                                  |         `16` |
+| icons                    |                                     Changes the default icons                                      |          `-` |
+| `swipToDismissDirection` |                             Swipe direction to dismiss (`left`, `up`).                             |         `up` |
