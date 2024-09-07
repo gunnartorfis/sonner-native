@@ -43,7 +43,7 @@
 | dir                      | ❌                | ✅     |
 | richColors               | ❌                | ✅     |
 | expand                   | 🕸️                | ✅     |
-| offset                   | ❌                | ✅     |
+| offset                   | ✅                | ✅     |
 | hotkey                   | 🕸️                | ✅     |
 | loadingIcon              | ❌                | ✅     |
 | pauseWhenPageIsHidden    | ❌                | ✅     |

@@ -29,6 +29,7 @@ const App: React.FC = () => {
         </NavigationContainer>
         <Toaster
           position="top-center"
+          // offset={100}
           duration={3000}
           swipToDismissDirection="up"
           visibleToasts={4}

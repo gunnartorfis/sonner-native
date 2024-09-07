@@ -7,28 +7,32 @@ import type { ToastPosition } from './types';
 export const ANIMATION_DURATION = 300;
 
 export const useToastLayoutAnimations = () => {
-  const { position } = useToastContext();
+  const { position, offset } = useToastContext();
 
   return React.useMemo(
     () => ({
       entering: () => {
         'worklet';
-        return getToastEntering({ position });
+        return getToastEntering({ position, offset });
       },
       exiting: () => {
         'worklet';
-        return getToastExiting({ position });
+        return getToastExiting({ position, offset });
       },
     }),
-    [position]
+    [offset, position]
   );
 };
 
 type GetToastAnimationParams = {
   position: ToastPosition;
+  offset: number;
 };
 
-export const getToastEntering = ({ position }: GetToastAnimationParams) => {
+export const getToastEntering = ({
+  position,
+  offset,
+}: GetToastAnimationParams) => {
   'worklet';
 
   const animations = {
@@ -36,7 +40,9 @@ export const getToastEntering = ({ position }: GetToastAnimationParams) => {
     transform: [
       { scale: withTiming(1, { easing: easeOutCirc }) },
       {
-        translateY: withTiming(0, { easing: easeOutCirc }),
+        translateY: withTiming(position === 'top-center' ? offset : -offset, {
+          easing: easeOutCirc,
+        }),
       },
     ],
   };
@@ -57,7 +63,10 @@ export const getToastEntering = ({ position }: GetToastAnimationParams) => {
   };
 };
 
-export const getToastExiting = ({ position }: GetToastAnimationParams) => {
+export const getToastExiting = ({
+  position,
+  offset,
+}: GetToastAnimationParams) => {
   'worklet';
 
   const animations = {
@@ -75,7 +84,7 @@ export const getToastExiting = ({ position }: GetToastAnimationParams) => {
     opacity: 1,
     transform: [
       {
-        translateY: 0,
+        translateY: position === 'top-center' ? offset : -offset,
       },
     ],
   };
