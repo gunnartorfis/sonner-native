@@ -242,7 +242,7 @@ export const Toast: React.FC<ToastProps> = ({
             >
               {action ? (
                 <Pressable
-                  onPress={action.onPress}
+                  onPress={action.onClick}
                   className={actionButtonClassName}
                   style={[
                     unstyled
@@ -284,7 +284,7 @@ export const Toast: React.FC<ToastProps> = ({
               {cancel ? (
                 <Pressable
                   onPress={() => {
-                    cancel.onPress();
+                    cancel.onClick();
                     onDismiss?.(id);
                   }}
                   className={cancelButtonClassName}

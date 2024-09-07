@@ -43,7 +43,7 @@ export type ToastVariant = 'success' | 'error' | 'info';
 
 export type ToastAction = {
   label: string;
-  onPress: () => void;
+  onClick: () => void;
 };
 
 export type ToastProps = StyleProps & {

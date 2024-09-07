@@ -48,7 +48,7 @@ export const ToastDemo: React.FC = () => {
           toast.success('Changes saved', {
             action: {
               label: 'See changes',
-              onPress: () => {
+              onClick: () => {
                 console.log('Action pressed');
               },
             },
@@ -81,7 +81,7 @@ export const ToastDemo: React.FC = () => {
           const id = toast('Blue screen of death', {
             action: {
               label: 'OK',
-              onPress: () => {
+              onClick: () => {
                 toast.dismiss(id);
               },
             },
@@ -227,7 +227,7 @@ export const ToastDemo: React.FC = () => {
             dismissible: false,
             action: {
               label: 'Acknowledge',
-              onPress: () => {
+              onClick: () => {
                 toast.dismiss(id);
                 setToastId(null);
               },
@@ -249,7 +249,7 @@ export const ToastDemo: React.FC = () => {
           toast('My cancel toast', {
             cancel: {
               label: 'Cancel',
-              onPress: () => console.log('Cancel!'),
+              onClick: () => console.log('Cancel!'),
             },
           });
         }}
