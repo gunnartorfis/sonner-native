@@ -12,10 +12,11 @@ import Animated, {
 } from 'react-native-reanimated';
 import { easeInOutCircFn } from './easings';
 import { useToastContext } from './context';
+import type { ToastProps } from './types';
 
 const { width: WINDOW_WIDTH } = Dimensions.get('window');
 
-type ToastSwipeHandlerProps = {
+type ToastSwipeHandlerProps = Pick<ToastProps, 'important'> & {
   onRemove: () => void;
   style?: ViewStyle | (ViewStyle | undefined)[];
   className?: string;
@@ -36,6 +37,7 @@ export const ToastSwipeHandler: React.FC<
   onFinalize,
   enabled,
   unstyled,
+  important,
 }) => {
   const translate = useSharedValue(0);
   const { swipToDismissDirection: direction } = useToastContext();
@@ -117,6 +119,7 @@ export const ToastSwipeHandler: React.FC<
         ]}
         className={className}
         layout={LinearTransition.easing(easeInOutCircFn)}
+        aria-live={important ? 'assertive' : 'polite'} // https://reactnative.dev/docs/accessibility#aria-live-android
       >
         {children}
       </Animated.View>
