@@ -1,42 +1,27 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ToastDemoModal } from 'example/src/ToastDemoModal';
-import { ToastDemoScreen } from 'example/src/ToastDemoScreen';
 import * as React from 'react';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Toaster } from 'sonner-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import '../global.css';
 import { Text } from 'react-native';
-
-const Stack = createNativeStackNavigator();
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Toaster } from 'sonner-native';
+import '../global.css';
+import Navigator from './navigation';
 
 const App: React.FC = () => {
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{}}>
-            <Stack.Screen name="ToastDemo" component={ToastDemoScreen} />
-            <Stack.Screen
-              name="ToastDemoModal"
-              component={ToastDemoModal}
-              options={{
-                presentation: 'modal',
-              }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <Navigator />
         <Toaster
-          position="top-center"
+          position="bottom-center"
           // offset={100}
-          duration={3000}
+          duration={30000}
           swipToDismissDirection="up"
           visibleToasts={4}
           closeButton
           icons={{
             error: <Text>💥</Text>,
           }}
+          offset={200}
           toastOptions={{}}
         />
       </GestureHandlerRootView>
