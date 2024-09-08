@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Platform, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Platform } from 'react-native';
 import { FullWindowOverlay } from 'react-native-screens';
 import { toastDefaultValues } from './constants';
 import { ToastContext } from './context';
+import { Positioner } from './positioner';
 import { Toast } from './toast';
 import {
   toast,
@@ -47,7 +47,6 @@ export const ToasterUI: React.FC<ToasterProps> = ({
 }) => {
   const [toasts, setToasts] = React.useState<ToastProps[]>([]);
   const toastsCounter = React.useRef(1);
-  const { top, bottom } = useSafeAreaInsets();
 
   addToastHandler = React.useCallback(
     (options) => {
@@ -174,34 +173,35 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     ]
   );
 
-  const positionedToasts = React.useMemo(() => {
-    return position === 'bottom-center' ? toasts : toasts.slice().reverse();
+  const orderToastsFromPosition = React.useCallback(
+    (currentToasts: ToastProps[]) => {
+      return position === 'bottom-center'
+        ? currentToasts
+        : currentToasts.slice().reverse();
+    },
+    [position]
+  );
+
+  const dynamicPositionedToasts = React.useMemo(() => {
+    return toasts.filter(
+      (currentToast) =>
+        currentToast.position && currentToast.position !== position
+    );
   }, [position, toasts]);
 
-  const insetValues = React.useMemo(() => {
-    if (position === 'bottom-center') {
-      if (offset) {
-        return { bottom: offset };
-      }
+  const nonDynamicToasts = React.useMemo(() => {
+    return toasts.filter(
+      (currentToast) => !dynamicPositionedToasts.includes(currentToast)
+    );
+  }, [dynamicPositionedToasts, toasts]);
 
-      if (bottom > 0) {
-        return { bottom };
-      }
-      return { bottom: 40 };
-    }
+  const positionedNonDynamicToasts = React.useMemo(() => {
+    return orderToastsFromPosition(nonDynamicToasts);
+  }, [nonDynamicToasts, orderToastsFromPosition]);
 
-    if (position === 'top-center') {
-      if (offset) {
-        return { top: offset };
-      }
-      if (top > 0) {
-        return { top };
-      }
-      return { top: 40 };
-    }
-
-    return {};
-  }, [position, bottom, top, offset]);
+  const positionedDynamicToasts = React.useMemo(() => {
+    return orderToastsFromPosition(dynamicPositionedToasts);
+  }, [dynamicPositionedToasts, orderToastsFromPosition]);
 
   const onDismiss = React.useCallback<
     NonNullable<React.ComponentProps<typeof Toast>['onDismiss']>
@@ -223,19 +223,8 @@ export const ToasterUI: React.FC<ToasterProps> = ({
 
   return (
     <ToastContext.Provider value={value}>
-      <View
-        style={[
-          {
-            position: 'absolute',
-            width: '100%',
-            alignItems: 'center',
-          },
-          insetValues,
-          style,
-        ]}
-        className={className}
-      >
-        {positionedToasts.map((positionedToast) => {
+      <Positioner className={className} style={style} position={position}>
+        {positionedNonDynamicToasts.map((positionedToast) => {
           return (
             <Toast
               key={positionedToast.id}
@@ -246,7 +235,26 @@ export const ToasterUI: React.FC<ToasterProps> = ({
             />
           );
         })}
-      </View>
+      </Positioner>
+      <Positioner
+        className={className}
+        style={style}
+        position={
+          positionedDynamicToasts?.[0]?.position ?? toastDefaultValues.position
+        }
+      >
+        {positionedDynamicToasts.map((positionedToast) => {
+          return (
+            <Toast
+              key={positionedToast.id}
+              {...positionedToast}
+              onDismiss={onDismiss}
+              onAutoClose={onAutoClose}
+              {...props}
+            />
+          );
+        })}
+      </Positioner>
     </ToastContext.Provider>
   );
 };
