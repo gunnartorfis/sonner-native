@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Image, Pressable, ScrollView, Text, View } from 'react-native';
-import { toast } from 'react-native-reanimated-toasts';
+import { toast } from 'sonner-native';
 
 export const ToastDemo: React.FC = () => {
   const [toastId, setToastId] = React.useState<string | null>(null);

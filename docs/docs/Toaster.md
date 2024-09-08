@@ -9,7 +9,7 @@ The Toaster is the context component which manages the addition, update, and rem
 To use the Toaster, place it at the root level of your app, after the NavigationContainer, to ensure it works across all screens. Here's an example setup:
 
 ```tsx
-import { Toaster } from 'react-native-reanimated-toasts';
+import { Toaster } from 'sonner-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';

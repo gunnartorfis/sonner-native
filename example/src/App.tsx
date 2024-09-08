@@ -4,7 +4,7 @@ import { ToastDemoModal } from 'example/src/ToastDemoModal';
 import { ToastDemoScreen } from 'example/src/ToastDemoScreen';
 import * as React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Toaster } from 'react-native-reanimated-toasts';
+import { Toaster } from 'sonner-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import '../global.css';
 import { Text } from 'react-native';

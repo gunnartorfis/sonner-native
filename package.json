@@ -1,6 +1,6 @@
 {
-  "name": "react-native-reanimated-toasts",
-  "version": "0.5.0",
+  "name": "sonner-native",
+  "version": "0.6.0",
   "description": "Animated, customizable Toasts for React Native",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
@@ -37,7 +37,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-reanimated-toasts-example",
+    "example": "yarn workspace sonner-native-example",
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -51,18 +51,20 @@
     "android",
     "toast",
     "toasts",
-    "reanimated"
+    "reanimated",
+    "sonner",
+    "sonner-native"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gunnartorfis/react-native-reanimated-toasts.git"
+    "url": "git+https://github.com/gunnartorfis/sonner-native.git"
   },
   "author": "Gunnar Torfi <gunnartorfis@gmail.com> (https://github.com/gunnartorfis)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gunnartorfis/react-native-reanimated-toasts/issues"
+    "url": "https://github.com/gunnartorfis/sonner-native/issues"
   },
-  "homepage": "https://github.com/gunnartorfis/react-native-reanimated-toasts#readme",
+  "homepage": "https://github.com/gunnartorfis/sonner-native#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

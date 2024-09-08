@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Introduction
 
-**react-native-reanimated-toasts** is a highly customizable and performant toast library for React Native, built with Reanimated 3. It provides a simple API to display toast notifications with various options and configurations.
+Sonner Native is an opinionated toast component for React Native. A port of @emilkowalski's sonner. It is customizable and performant toast library for React Native, built with Reanimated 3. It provides a simple API to display toast notifications with various options and configurations.
 
 ![Preview](/img/preview.png)
 
@@ -30,7 +30,7 @@ sidebar_position: 1
 ## Installation
 
 ```bash npm2yarn
-yarn add react-native-reanimated-toasts
+yarn add sonner-native
 ```
 
 #### Requirements
@@ -47,7 +47,7 @@ To use this package, **you also need to install its peer dependencies**. Check o
 ### In your App.tsx/entry point
 
 ```typescript
-import { Toaster } from 'react-native-reanimated-toasts';
+import { Toaster } from 'sonner-native';
 
 function App() {
   return (
@@ -62,7 +62,7 @@ function App() {
 ### Show a toast
 
 ```typescript
-import { toast } from 'react-native-reanimated-toasts';
+import { toast } from 'sonner-native';
 
 function SomeComponent() {
   return (
@@ -76,4 +76,4 @@ function SomeComponent() {
 
 ## Examples
 
-An example can be found in the [`example`](https://github.com/gunnartorfis/react-native-reanimated-toasts/tree/main/example) folder.
+An example can be found in the [`example`](https://github.com/gunnartorfis/sonner-native/tree/main/example) folder.

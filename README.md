@@ -1,6 +1,6 @@
-# react-native-reanimated-toasts
+# Sonner Native
 
-Animated, customizable Toasts for React Native
+An opinionated toast component for React Native. A port of @emilkowalski's sonner.
 
 ![preview](https://github.com/user-attachments/assets/b0a95d89-3895-4d95-8a87-262fb7209805)
 
@@ -33,12 +33,12 @@ Animated, customizable Toasts for React Native
 
 ## Expo Snack
 
-https://snack.expo.dev/@gunnartorfis/react-native-reanimated-toasts
+https://snack.expo.dev/@gunnartorfis/sonner-native
 
 ## Installation
 
 ```sh
-npm install react-native-reanimated-toasts
+npx expo install sonner-native
 ```
 
 #### Requirements
@@ -55,7 +55,7 @@ To use this package, **you also need to install its peer dependencies**. Check o
 ### In your App.tsx/entry point
 
 ```typescript
-import { Toaster } from 'react-native-reanimated-toasts';
+import { Toaster } from 'sonner-native';
 
 function App() {
   return (
@@ -70,7 +70,7 @@ function App() {
 ### Show a toast
 
 ```typescript
-import { toast } from 'react-native-reanimated-toasts';
+import { toast } from 'sonner-native';
 
 function SomeComponent() {
   return (
@@ -84,7 +84,7 @@ function SomeComponent() {
 
 ## Documentation
 
-For more advanced usage, check out the [documentation](https://gunnartorfis.github.io/react-native-reanimated-toasts/)
+For more advanced usage, check out the [documentation](https://gunnartorfis.github.io/sonner-native/)
 
 ## Recording
 
