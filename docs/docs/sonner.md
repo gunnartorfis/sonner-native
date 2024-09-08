@@ -23,7 +23,7 @@
 | action as JSX      | ✅            | ✅         |
 | loading            | ✅            | ✅         |
 | Headless           | ❌            | ✅         |
-| Dynamic position   | ❌            | ✅         |
+| Dynamic position   | ✅            | ✅         |
 | important          | ❌            | ✅         |
 | warning variant    | ❌            | ✅         |
 

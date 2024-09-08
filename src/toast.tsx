@@ -38,6 +38,7 @@ export const Toast: React.FC<ToastProps> = ({
   classNames,
   styles,
   promiseOptions,
+  position,
   unstyled: unstyledProps,
 }) => {
   const {
@@ -56,7 +57,7 @@ export const Toast: React.FC<ToastProps> = ({
   const closeButton = closeButtonProps ?? closeButtonCtx;
 
   const colors = useColors();
-  const { entering, exiting } = useToastLayoutAnimations();
+  const { entering, exiting } = useToastLayoutAnimations(position);
 
   const isDragging = React.useRef(false);
   const timer = React.useRef<NodeJS.Timeout>();

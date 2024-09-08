@@ -6,8 +6,11 @@ import type { ToastPosition } from './types';
 
 export const ANIMATION_DURATION = 300;
 
-export const useToastLayoutAnimations = () => {
-  const { position } = useToastContext();
+export const useToastLayoutAnimations = (
+  positionProp: ToastPosition | undefined
+) => {
+  const { position: positionCtx } = useToastContext();
+  const position = positionProp || positionCtx;
 
   return React.useMemo(
     () => ({

@@ -324,6 +324,10 @@ export const ToastDemo: React.FC = () => {
         title="Loading variant"
         onPress={() => toast.loading('Loading...')}
       />
+      <Button
+        title="Dynamic position"
+        onPress={() => toast('Dynamic position', { position: 'bottom-center' })}
+      />
     </ScrollView>
   );
 };
