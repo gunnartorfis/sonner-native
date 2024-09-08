@@ -1,5 +1,21 @@
 
 
+# [0.7.0](https://github.com/gunnartorfis/sonner-native/compare/v0.6.0...v0.7.0) (2024-09-08)
+
+
+### Bug Fixes
+
+* bottom bars weren't tappable with custom offset ([cc664a5](https://github.com/gunnartorfis/sonner-native/commit/cc664a5df352c8bbe16f2c3e681b043cd3156c30))
+
+
+### Features
+
+* custom loading icon ([881ab67](https://github.com/gunnartorfis/sonner-native/commit/881ab67e6690f66c35ed97b88855dccbde0f3427))
+* pause timer when app enters background ([2a1a2c5](https://github.com/gunnartorfis/sonner-native/commit/2a1a2c5c2c9255b9cc465228ca19bd9c4397dcfe))
+* pause timer when app enters background ([d6e04e7](https://github.com/gunnartorfis/sonner-native/commit/d6e04e715938f63189fc5660f19b9cbd851fee49))
+* remove cn as dependency and add is as a prop ([464d800](https://github.com/gunnartorfis/sonner-native/commit/464d800a56201c3932b64e698c94c0dddd2a8044))
+* warning variant ([4cc58e8](https://github.com/gunnartorfis/sonner-native/commit/4cc58e8aed0c3635fe82b9b23bb4ec41ba990602))
+
 # [0.6.0](https://github.com/gunnartorfis/sonner-native/compare/v0.5.0...v0.6.0) (2024-09-08)
 
 
