@@ -12,7 +12,7 @@ const App: React.FC = () => {
       <GestureHandlerRootView>
         <Navigator />
         <Toaster
-          position="bottom-center"
+          position="top-center"
           // offset={100}
           duration={30000}
           swipToDismissDirection="up"
@@ -21,7 +21,6 @@ const App: React.FC = () => {
           icons={{
             error: <Text>💥</Text>,
           }}
-          offset={200}
           toastOptions={{}}
         />
       </GestureHandlerRootView>
