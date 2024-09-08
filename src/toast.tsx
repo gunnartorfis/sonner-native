@@ -1,4 +1,10 @@
-import { CircleCheck, CircleX, Info, X } from 'lucide-react-native';
+import {
+  CircleCheck,
+  CircleX,
+  Info,
+  TriangleAlert,
+  X,
+} from 'lucide-react-native';
 import * as React from 'react';
 import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 import Animated from 'react-native-reanimated';
@@ -405,6 +411,8 @@ export const ToastIcon: React.FC<Pick<ToastProps, 'variant'>> = ({
       return <CircleCheck size={20} color={colors.success} />;
     case 'error':
       return <CircleX size={20} color={colors.error} />;
+    case 'warning':
+      return <TriangleAlert size={20} color={colors.warning} />;
     default:
     case 'info':
       return <Info size={20} color={colors.info} />;

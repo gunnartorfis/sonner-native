@@ -25,6 +25,14 @@ toast.error = (title: string, options = {}) => {
   });
 };
 
+toast.warning = (title: string, options = {}) => {
+  return getToastContext().addToast({
+    ...options,
+    title,
+    variant: 'warning',
+  });
+};
+
 toast.info = (title: string, options = {}) => {
   return getToastContext().addToast({
     title,
