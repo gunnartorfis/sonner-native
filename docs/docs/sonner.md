@@ -25,7 +25,7 @@
 | Headless           | ❌            | ✅         |
 | Dynamic position   | ❌            | ✅         |
 | important          | ❌            | ✅         |
-| warning variant    | ❌            | ✅         |
+| warning variant    | ✅            | ✅         |
 
 ## Toaster:
 
@@ -47,6 +47,6 @@
 | hotkey                   | 🕸️            | ✅         |
 | loadingIcon              | ✅            | ✅         |
 | pauseWhenPageIsHidden    | ✅            | ✅         |
-| cn                       | ❌            | ✅         |
+| cn                       | ✅            | ✅         |
 
 **🕸️: Not applicable for native apps.**

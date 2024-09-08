@@ -12,6 +12,7 @@ export const toastDefaultValues: {
   unstyled: boolean;
   invert: boolean;
   pauseWhenPageIsHidden: boolean;
+  cn: (...classes: Array<string | undefined>) => string;
 } = {
   duration: 4000,
   position: 'top-center',
@@ -24,4 +25,5 @@ export const toastDefaultValues: {
   unstyled: false,
   invert: false,
   pauseWhenPageIsHidden: false,
+  cn: (...classes) => classes.filter(Boolean).join(' '),
 };

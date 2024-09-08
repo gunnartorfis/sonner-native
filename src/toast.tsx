@@ -1,4 +1,10 @@
-import { CircleCheck, CircleX, Info, X } from 'lucide-react-native';
+import {
+  CircleCheck,
+  CircleX,
+  Info,
+  TriangleAlert,
+  X,
+} from 'lucide-react-native';
 import * as React from 'react';
 import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 import Animated from 'react-native-reanimated';
@@ -6,7 +12,6 @@ import { ANIMATION_DURATION, useToastLayoutAnimations } from './animations';
 import { toastDefaultValues } from './constants';
 import { useToastContext } from './context';
 import { ToastSwipeHandler } from './gestures';
-import { cn } from './tailwind-utils';
 import { isToastAction, type ToastProps } from './types';
 import { useAppStateListener } from './use-app-state';
 import { useColors } from './use-colors';
@@ -49,6 +54,7 @@ export const Toast: React.FC<ToastProps> = ({
     classNames: classNamesCtx,
     icons,
     pauseWhenPageIsHidden,
+    cn,
   } = useToastContext();
 
   const unstyled = unstyledProps ?? unstyledCtx;
@@ -409,6 +415,8 @@ export const ToastIcon: React.FC<Pick<ToastProps, 'variant'>> = ({
       return <CircleCheck size={20} color={colors.success} />;
     case 'error':
       return <CircleX size={20} color={colors.error} />;
+    case 'warning':
+      return <TriangleAlert size={20} color={colors.warning} />;
     default:
     case 'info':
       return <Info size={20} color={colors.info} />;

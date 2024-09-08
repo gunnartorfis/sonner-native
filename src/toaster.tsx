@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Platform, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FullWindowOverlay } from 'react-native-screens';
-import { v4 as uuidv4 } from 'uuid';
 import { toastDefaultValues } from './constants';
 import { ToastContext } from './context';
 import { Toast } from './toast';
@@ -43,14 +42,21 @@ export const ToasterUI: React.FC<ToasterProps> = ({
   toastOptions,
   icons,
   pauseWhenPageIsHidden,
+  cn,
   ...props
 }) => {
   const [toasts, setToasts] = React.useState<ToastProps[]>([]);
+  const toastsCounter = React.useRef(1);
   const { top, bottom } = useSafeAreaInsets();
 
   addToastHandler = React.useCallback(
     (options) => {
-      const id = uuidv4();
+      const id =
+        typeof options?.id === 'number' ||
+        (options.id && options.id?.length > 0)
+          ? options.id
+          : toastsCounter.current++;
+
       const newToast: ToastProps = {
         ...options,
         id: options?.id ?? id,
@@ -92,9 +98,9 @@ export const ToasterUI: React.FC<ToasterProps> = ({
 
   const dismissToast = React.useCallback<
     (
-      id: string | undefined,
+      id: string | number | undefined,
       origin?: 'onDismiss' | 'onAutoClose'
-    ) => string | undefined
+    ) => string | number | undefined
   >(
     (id, origin) => {
       if (!id) {
@@ -106,6 +112,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
           }
         });
         setToasts([]);
+        toastsCounter.current = 1;
         return;
       }
 
@@ -150,6 +157,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
       icons: icons ?? {},
       pauseWhenPageIsHidden:
         pauseWhenPageIsHidden ?? toastDefaultValues.pauseWhenPageIsHidden,
+      cn: cn ?? toastDefaultValues.cn,
     }),
     [
       duration,
@@ -162,6 +170,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
       toastOptions,
       icons,
       pauseWhenPageIsHidden,
+      cn,
     ]
   );
 
