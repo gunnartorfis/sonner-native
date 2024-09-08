@@ -42,6 +42,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
   invert,
   toastOptions,
   icons,
+  pauseWhenPageIsHidden,
   ...props
 }) => {
   const [toasts, setToasts] = React.useState<ToastProps[]>([]);
@@ -147,6 +148,8 @@ export const ToasterUI: React.FC<ToasterProps> = ({
       styles: toastOptions?.styles ?? {},
       classNames: toastOptions?.classNames ?? {},
       icons: icons ?? {},
+      pauseWhenPageIsHidden:
+        pauseWhenPageIsHidden ?? toastDefaultValues.pauseWhenPageIsHidden,
     }),
     [
       duration,
@@ -158,6 +161,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
       invert,
       toastOptions,
       icons,
+      pauseWhenPageIsHidden,
     ]
   );
 

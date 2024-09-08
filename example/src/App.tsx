@@ -14,7 +14,7 @@ const App: React.FC = () => {
         <Toaster
           position="top-center"
           // offset={100}
-          duration={30000}
+          duration={5000}
           swipToDismissDirection="up"
           visibleToasts={4}
           closeButton
@@ -22,6 +22,7 @@ const App: React.FC = () => {
             error: <Text>💥</Text>,
           }}
           toastOptions={{}}
+          pauseWhenPageIsHidden
         />
       </GestureHandlerRootView>
     </SafeAreaProvider>

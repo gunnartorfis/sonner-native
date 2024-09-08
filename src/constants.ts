@@ -11,6 +11,7 @@ export const toastDefaultValues: {
   dismissible: boolean;
   unstyled: boolean;
   invert: boolean;
+  pauseWhenPageIsHidden: boolean;
 } = {
   duration: 4000,
   position: 'top-center',
@@ -22,4 +23,5 @@ export const toastDefaultValues: {
   dismissible: true,
   unstyled: false,
   invert: false,
+  pauseWhenPageIsHidden: false,
 };

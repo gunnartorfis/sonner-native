@@ -110,6 +110,7 @@ export type ToasterProps = StyleProps & {
     loading?: React.ReactNode;
   };
   swipToDismissDirection?: ToastSwipeDirection;
+  pauseWhenPageIsHidden?: boolean;
 };
 
 export type AddToastContextHandler = (
@@ -129,6 +130,7 @@ export type ToasterContextType = Required<
     | 'classNames'
     | 'icons'
     | 'offset'
+    | 'pauseWhenPageIsHidden'
   >
 > & {
   addToast: AddToastContextHandler;
