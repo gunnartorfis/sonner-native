@@ -324,6 +324,10 @@ export const ToastDemo: React.FC = () => {
         title="Loading variant"
         onPress={() => toast.loading('Loading...')}
       />
+      <Button
+        title="Loading icon override"
+        onPress={() => toast.loading('Loading...')}
+      />
     </ScrollView>
   );
 };

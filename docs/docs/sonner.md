@@ -45,7 +45,7 @@
 | expand                   | 🕸️            | ✅         |
 | offset                   | ✅            | ✅         |
 | hotkey                   | 🕸️            | ✅         |
-| loadingIcon              | ❌            | ✅         |
+| loadingIcon              | ✅            | ✅         |
 | pauseWhenPageIsHidden    | ✅            | ✅         |
 | cn                       | ❌            | ✅         |
 
