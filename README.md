@@ -2,7 +2,7 @@
 
 An opinionated toast component for React Native. A port of @emilkowalski's sonner.
 
-![preview](https://github.com/user-attachments/assets/b0a95d89-3895-4d95-8a87-262fb7209805)
+![sonner-native](https://github.com/user-attachments/assets/0baf95df-9c99-4db6-877e-1edcc0eca0d4)
 
 ## Features
 
