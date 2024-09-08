@@ -1,3 +1,12 @@
+
+
+# [0.6.0](https://github.com/gunnartorfis/sonner-native/compare/v0.5.0...v0.6.0) (2024-09-08)
+
+
+### Features
+
+* offset support ([6f37c36](https://github.com/gunnartorfis/sonner-native/commit/6f37c36d8a6f1aaf3069af199789c52e2a47b96d))
+
 # [0.5.0](https://github.com/gunnartorfis/sonner-native/compare/v0.4.1...v0.5.0) (2024-09-07)
 
 ### Bug Fixes
