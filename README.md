@@ -33,7 +33,7 @@ An opinionated toast component for React Native. A port of @emilkowalski's sonne
 
 ## Expo Snack
 
-https://snack.expo.dev/@gunnartorfis/sonner-native
+[https://snack.expo.dev/@gunnartorfis/sonner-native](https://snack.expo.dev/@gunnartorfis/sonner-native)
 
 ## Installation
 
