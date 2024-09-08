@@ -39,7 +39,7 @@ export type ToastTheme = 'light' | 'dark' | 'system';
 
 export type ToastSwipeDirection = 'left' | 'up';
 
-export type ToastVariant = 'success' | 'error' | 'info' | 'loading';
+export type ToastVariant = 'success' | 'error' | 'warning' | 'info' | 'loading';
 
 export type ToastAction = {
   label: string;
@@ -106,6 +106,7 @@ export type ToasterProps = StyleProps & {
   icons?: {
     success?: React.ReactNode;
     error?: React.ReactNode;
+    warning?: React.ReactNode;
     info?: React.ReactNode;
     loading?: React.ReactNode;
   };
@@ -143,6 +144,7 @@ export declare const toast: ((
   success: (message: string, data?: ExternalToast) => string;
   info: (message: string, data?: ExternalToast) => string;
   error: (message: string, data?: ExternalToast) => string;
+  warning: (message: string, data?: ExternalToast) => string;
   custom: (jsx: React.ReactElement, data?: ExternalToast) => string;
   promise: <T>(
     promise: Promise<T>,
