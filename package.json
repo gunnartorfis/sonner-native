@@ -68,10 +68,6 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "tailwind-merge": "^2.5.2"
-  },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.4.1",
     "@evilmartians/lefthook": "^1.5.0",

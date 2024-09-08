@@ -47,6 +47,6 @@
 | hotkey                   | 🕸️            | ✅         |
 | loadingIcon              | ❌            | ✅         |
 | pauseWhenPageIsHidden    | ✅            | ✅         |
-| cn                       | ❌            | ✅         |
+| cn                       | ✅            | ✅         |
 
 **🕸️: Not applicable for native apps.**
