@@ -22,6 +22,7 @@ const App: React.FC = () => {
             error: <Text>💥</Text>,
           }}
           toastOptions={{}}
+          pauseWhenPageIsHidden
         />
       </GestureHandlerRootView>
     </SafeAreaProvider>

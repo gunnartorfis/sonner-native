@@ -48,6 +48,7 @@ export const Toast: React.FC<ToastProps> = ({
     styles: stylesCtx,
     classNames: classNamesCtx,
     icons,
+    pauseWhenPageIsHidden,
   } = useToastContext();
 
   const unstyled = unstyledProps ?? unstyledCtx;
@@ -64,6 +65,10 @@ export const Toast: React.FC<ToastProps> = ({
   const isResolvingPromise = React.useRef(false);
 
   const onBackground = React.useCallback(() => {
+    if (!pauseWhenPageIsHidden) {
+      return;
+    }
+
     if (timer.current) {
       timeLeftOnceBackgrounded.current =
         duration - (Date.now() - timerStart.current!);
@@ -71,24 +76,29 @@ export const Toast: React.FC<ToastProps> = ({
       timer.current = undefined;
       timerStart.current = undefined;
     }
-  }, [duration]);
+  }, [duration, pauseWhenPageIsHidden]);
 
   const onForeground = React.useCallback(() => {
-    if (timeLeftOnceBackgrounded.current) {
-      if (timeLeftOnceBackgrounded.current > 0) {
-        timer.current = setTimeout(
-          () => {
-            if (!isDragging.current) {
-              onAutoClose?.(id);
-            }
-          },
-          Math.min(timeLeftOnceBackgrounded.current, 1000) // minimum 1 second to avoid weird behavior
-        );
-      } else {
-        onAutoClose?.(id);
-      }
+    if (!pauseWhenPageIsHidden) {
+      return;
     }
-  }, [id, onAutoClose]);
+
+    if (
+      timeLeftOnceBackgrounded.current &&
+      timeLeftOnceBackgrounded.current > 0
+    ) {
+      timer.current = setTimeout(
+        () => {
+          if (!isDragging.current) {
+            onAutoClose?.(id);
+          }
+        },
+        Math.max(timeLeftOnceBackgrounded.current, 1000) // minimum 1 second to avoid weird behavior
+      );
+    } else {
+      onAutoClose?.(id);
+    }
+  }, [id, onAutoClose, pauseWhenPageIsHidden]);
 
   useAppStateListener(
     React.useMemo(
