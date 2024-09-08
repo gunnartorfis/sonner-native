@@ -55,16 +55,17 @@ You can provide default styles for all toasts by passing `style` and `className`
 
 ## API Reference
 
-| Property                 |                                            Description                                             |      Default |
-| :----------------------- | :------------------------------------------------------------------------------------------------: | -----------: |
-| theme                    |                                          `light`, `dark`                                           |      `light` |
-| visibleToasts            |                                  Maximum number of visible toasts                                  |          `3` |
-| position                 |                              Place where the toasts will be rendered                               | `top-center` |
-| offset                   |                                   Offset from the top or bottom                                    |          `0` |
-| closeButton              |                                 Adds a close button to all toasts                                  |      `false` |
-| invert                   |                             Dark toasts in light mode and vice versa.                              |      `false` |
-| toastOptions             | These will act as default options for all toasts. See [toast()](/toast) for all available options. |         `{}` |
-| gap                      |                                  Gap between toasts when expanded                                  |         `16` |
-| icons                    |                                     Changes the default icons                                      |          `-` |
-| pauseWhenPageIsHidden    |                        Pauses toast timers when the app enters background.                         |          `-` |
-| `swipToDismissDirection` |                             Swipe direction to dismiss (`left`, `up`).                             |         `up` |
+| Property                 |                                            Description                                             |                     Default |
+| :----------------------- | :------------------------------------------------------------------------------------------------: | --------------------------: |
+| theme                    |                                          `light`, `dark`                                           |                     `light` |
+| visibleToasts            |                                  Maximum number of visible toasts                                  |                         `3` |
+| position                 |                              Place where the toasts will be rendered                               |                `top-center` |
+| offset                   |                                   Offset from the top or bottom                                    |                         `0` |
+| closeButton              |                                 Adds a close button to all toasts                                  |                     `false` |
+| invert                   |                             Dark toasts in light mode and vice versa.                              |                     `false` |
+| toastOptions             | These will act as default options for all toasts. See [toast()](/toast) for all available options. |                        `{}` |
+| gap                      |                                  Gap between toasts when expanded                                  |                        `16` |
+| icons                    |                                     Changes the default icons                                      |                         `-` |
+| pauseWhenPageIsHidden    |                        Pauses toast timers when the app enters background.                         |                         `-` |
+| `swipToDismissDirection` |                             Swipe direction to dismiss (`left`, `up`).                             |                        `up` |
+| cn                       |                         Custom function for constructing/merging classes.                          | `filter(Boolean).join(' ')` |
