@@ -6,7 +6,6 @@ import { ANIMATION_DURATION, useToastLayoutAnimations } from './animations';
 import { toastDefaultValues } from './constants';
 import { useToastContext } from './context';
 import { ToastSwipeHandler } from './gestures';
-import { cn } from './tailwind-utils';
 import { isToastAction, type ToastProps } from './types';
 import { useAppStateListener } from './use-app-state';
 import { useColors } from './use-colors';
@@ -49,6 +48,7 @@ export const Toast: React.FC<ToastProps> = ({
     classNames: classNamesCtx,
     icons,
     pauseWhenPageIsHidden,
+    cn,
   } = useToastContext();
 
   const unstyled = unstyledProps ?? unstyledCtx;

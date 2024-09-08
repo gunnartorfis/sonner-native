@@ -111,6 +111,7 @@ export type ToasterProps = StyleProps & {
   };
   swipToDismissDirection?: ToastSwipeDirection;
   pauseWhenPageIsHidden?: boolean;
+  cn?: (...classes: Array<string | undefined>) => string;
 };
 
 export type AddToastContextHandler = (
@@ -131,6 +132,7 @@ export type ToasterContextType = Required<
     | 'icons'
     | 'offset'
     | 'pauseWhenPageIsHidden'
+    | 'cn'
   >
 > & {
   addToast: AddToastContextHandler;
