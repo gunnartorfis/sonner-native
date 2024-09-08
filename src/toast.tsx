@@ -8,6 +8,7 @@ import { useToastContext } from './context';
 import { ToastSwipeHandler } from './gestures';
 import { cn } from './tailwind-utils';
 import { isToastAction, type ToastProps } from './types';
+import { useAppStateListener } from './use-app-state';
 import { useColors } from './use-colors';
 
 export const Toast: React.FC<ToastProps> = ({
@@ -59,7 +60,45 @@ export const Toast: React.FC<ToastProps> = ({
   const isDragging = React.useRef(false);
   const timer = React.useRef<NodeJS.Timeout>();
   const timerStart = React.useRef<number | undefined>();
+  const timeLeftOnceBackgrounded = React.useRef<number | undefined>();
   const isResolvingPromise = React.useRef(false);
+
+  const onBackground = React.useCallback(() => {
+    if (timer.current) {
+      timeLeftOnceBackgrounded.current =
+        duration - (Date.now() - timerStart.current!);
+      clearTimeout(timer.current);
+      timer.current = undefined;
+      timerStart.current = undefined;
+    }
+  }, [duration]);
+
+  const onForeground = React.useCallback(() => {
+    if (timeLeftOnceBackgrounded.current) {
+      if (timeLeftOnceBackgrounded.current > 0) {
+        timer.current = setTimeout(
+          () => {
+            if (!isDragging.current) {
+              onAutoClose?.(id);
+            }
+          },
+          Math.min(timeLeftOnceBackgrounded.current, 1000) // minimum 1 second to avoid weird behavior
+        );
+      } else {
+        onAutoClose?.(id);
+      }
+    }
+  }, [id, onAutoClose]);
+
+  useAppStateListener(
+    React.useMemo(
+      () => ({
+        onBackground,
+        onForeground,
+      }),
+      [onBackground, onForeground]
+    )
+  );
 
   React.useEffect(() => {
     if (isResolvingPromise.current) {
