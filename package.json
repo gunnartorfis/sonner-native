@@ -1,7 +1,7 @@
 {
   "name": "sonner-native",
   "version": "0.6.0",
-  "description": "Animated, customizable Toasts for React Native",
+  "description": "An opinionated toast component for React Native. A port of @emilkowalski's sonner.",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
   "types": "./lib/typescript/commonjs/src/index.d.ts",

@@ -6,7 +6,7 @@ sidebar_position: 1
 
 Sonner Native is an opinionated toast component for React Native. A port of @emilkowalski's sonner. It is customizable and performant toast library for React Native, built with Reanimated 3. It provides a simple API to display toast notifications with various options and configurations.
 
-![Preview](/img/preview.png)
+![Preview](/img/sonner-native.png)
 
 ## Features
 
