@@ -68,9 +68,6 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "dependencies": {
-    "uuid": "3.4.0"
-  },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.4.1",
     "@evilmartians/lefthook": "^1.5.0",
@@ -78,7 +75,6 @@
     "@release-it/conventional-changelog": "^8.0.1",
     "@types/jest": "^29.5.5",
     "@types/react": "^18.2.44",
-    "@types/uuid": "^10.0.0",
     "commitlint": "^19.4.1",
     "del-cli": "^5.1.0",
     "eslint": "^8.51.0",

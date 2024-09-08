@@ -47,7 +47,7 @@ export type ToastAction = {
 };
 
 export type ToastProps = StyleProps & {
-  id: string;
+  id: string | number;
   title: string;
   variant: ToastVariant;
   jsx?: React.ReactNode;
@@ -61,8 +61,8 @@ export type ToastProps = StyleProps & {
   icon?: React.ReactNode;
   action?: ToastAction | React.ReactNode;
   cancel?: ToastAction | React.ReactNode;
-  onDismiss?: (id: string) => void;
-  onAutoClose?: (id: string) => void;
+  onDismiss?: (id: string | number) => void;
+  onAutoClose?: (id: string | number) => void;
   promiseOptions?: PromiseOptions;
   actionButtonStyle?: ViewStyle;
   actionButtonTextStyle?: TextStyle;
@@ -84,7 +84,7 @@ type ExternalToast = Omit<
   ToastProps,
   'id' | 'type' | 'title' | 'jsx' | 'promise' | 'variant'
 > & {
-  id?: string;
+  id?: string | number;
 };
 
 export type ToasterProps = StyleProps & {
@@ -115,8 +115,8 @@ export type ToasterProps = StyleProps & {
 };
 
 export type AddToastContextHandler = (
-  data: Omit<ToastProps, 'id'> & { id?: string }
-) => string;
+  data: Omit<ToastProps, 'id'> & { id?: string | number }
+) => string | number;
 
 export type ToasterContextType = Required<
   Pick<
@@ -141,15 +141,15 @@ export type ToasterContextType = Required<
 export declare const toast: ((
   message: string,
   data?: ExternalToast
-) => string) & {
-  success: (message: string, data?: ExternalToast) => string;
-  info: (message: string, data?: ExternalToast) => string;
-  error: (message: string, data?: ExternalToast) => string;
-  custom: (jsx: React.ReactElement, data?: ExternalToast) => string;
+) => string | number) & {
+  success: (message: string, data?: ExternalToast) => string | number;
+  info: (message: string, data?: ExternalToast) => string | number;
+  error: (message: string, data?: ExternalToast) => string | number;
+  custom: (jsx: React.ReactElement, data?: ExternalToast) => string | number;
   promise: <T>(
     promise: Promise<T>,
     options: Omit<PromiseOptions, 'promise'>
-  ) => string;
-  loading: (message: string, data?: ExternalToast) => string;
-  dismiss: (id?: string) => string | undefined;
+  ) => string | number;
+  loading: (message: string, data?: ExternalToast) => string | number;
+  dismiss: (id?: string | number) => string | number | undefined;
 };
