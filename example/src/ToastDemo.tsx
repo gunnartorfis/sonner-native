@@ -3,7 +3,7 @@ import { Button, Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { toast } from 'sonner-native';
 
 export const ToastDemo: React.FC = () => {
-  const [toastId, setToastId] = React.useState<string | null>(null);
+  const [toastId, setToastId] = React.useState<string | number | null>(null);
 
   return (
     <ScrollView contentContainerStyle={{ paddingTop: 100 }}>
@@ -328,6 +328,15 @@ export const ToastDemo: React.FC = () => {
         title="Dynamic position"
         onPress={() => toast('Dynamic position', { position: 'bottom-center' })}
       />
+      <Button
+        title="Loading icon override"
+        onPress={() => toast.loading('Loading...')}
+      />
+      <Button
+        title="Dynamic position"
+        onPress={() => toast('Dynamic position', { position: 'bottom-center' })}
+      />
+      <Button title="Warning toast" onPress={() => toast.warning('Warning')} />
     </ScrollView>
   );
 };

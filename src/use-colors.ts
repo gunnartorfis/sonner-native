@@ -10,6 +10,7 @@ const light = {
   'border-secondary': '#e6e3e3',
   'success': '#3c8643',
   'error': '#ff3a41',
+  'warning': '#e37a00',
   'info': '#286efa',
 };
 
@@ -22,6 +23,7 @@ const dark: typeof light = {
   'border-secondary': '#302B2B',
   'success': '#9ED397',
   'error': '#FF999D',
+  'warning': '#ffd089',
   'info': '#B3CDFF',
 };
 

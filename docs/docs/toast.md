@@ -48,6 +48,14 @@ Use the toast.error() function to display an error message. By default, it rende
 toast.error('My error toast');
 ```
 
+### Warning
+
+The toast.warning() function can be used to display a warning message. By default, it renders a warning icon in front of the message.
+
+```jsx
+toast.warning('My warning toast');
+```
+
 ### Action
 
 Renders an action button with a callback function. The action object should contain a label and an `onClick` function. The action and its label can be customized with the `actionButtonStyles` and `actionButtonTextStyles` params, respectively.
