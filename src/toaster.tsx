@@ -167,6 +167,10 @@ export const ToasterUI: React.FC<ToasterProps> = ({
 
   const insetValues = React.useMemo(() => {
     if (position === 'bottom-center') {
+      if (offset) {
+        return { bottom: offset };
+      }
+
       if (bottom > 0) {
         return { bottom };
       }
@@ -174,6 +178,9 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     }
 
     if (position === 'top-center') {
+      if (offset) {
+        return { top: offset };
+      }
       if (top > 0) {
         return { top };
       }
@@ -181,7 +188,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     }
 
     return {};
-  }, [position, bottom, top]);
+  }, [position, bottom, top, offset]);
 
   const onDismiss = React.useCallback<
     NonNullable<React.ComponentProps<typeof Toast>['onDismiss']>
