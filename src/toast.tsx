@@ -45,6 +45,7 @@ export const Toast: React.FC<ToastProps> = ({
   promiseOptions,
   position,
   unstyled: unstyledProps,
+  important,
 }) => {
   const {
     duration: durationCtx,
@@ -199,6 +200,7 @@ export const Toast: React.FC<ToastProps> = ({
       style={[stylesCtx.toastContainer, styles?.toastContainer]}
       className={cn(classNamesCtx.toastContainer, classNames?.toastContainer)}
       unstyled={unstyled}
+      important={important}
     >
       <Animated.View
         className={cn(className, classNamesCtx.toast, classNames?.toast)}
