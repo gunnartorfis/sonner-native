@@ -1,5 +1,13 @@
 
 
+# [0.8.0](https://github.com/gunnartorfis/sonner-native/compare/v0.7.0...v0.8.0) (2024-09-08)
+
+
+### Features
+
+* dynamic positioning ([676cbc7](https://github.com/gunnartorfis/sonner-native/commit/676cbc7e8c92c691e953313e3432245c2cf86dca))
+* important accessibility settings for Androi ([a663f65](https://github.com/gunnartorfis/sonner-native/commit/a663f650c2db8bd1ccd91640dc89f992644d03a8))
+
 # [0.7.0](https://github.com/gunnartorfis/sonner-native/compare/v0.6.0...v0.7.0) (2024-09-08)
 
 
