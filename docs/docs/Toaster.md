@@ -66,6 +66,6 @@ You can provide default styles for all toasts by passing `style` and `className`
 | toastOptions             | These will act as default options for all toasts. See [toast()](/toast) for all available options. |                        `{}` |
 | gap                      |                                  Gap between toasts when expanded                                  |                        `16` |
 | icons                    |                                     Changes the default icons                                      |                         `-` |
-| pauseWhenPageIsHidden    |                        Pauses toast timers when the app enters background.                         |                         `-` |
+| pauseWhenPageIsHidden    |                        Pauses toast timers when the app enters background.                         |                        `{}` |
 | `swipToDismissDirection` |                             Swipe direction to dismiss (`left`, `up`).                             |                        `up` |
 | cn                       |                         Custom function for constructing/merging classes.                          | `filter(Boolean).join(' ')` |

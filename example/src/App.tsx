@@ -20,6 +20,7 @@ const App: React.FC = () => {
           closeButton
           icons={{
             error: <Text>💥</Text>,
+            loading: <Text>🔄</Text>,
           }}
           toastOptions={{}}
           pauseWhenPageIsHidden

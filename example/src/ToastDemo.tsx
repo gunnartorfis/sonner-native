@@ -325,6 +325,10 @@ export const ToastDemo: React.FC = () => {
         onPress={() => toast.loading('Loading...')}
       />
       <Button
+        title="Loading icon override"
+        onPress={() => toast.loading('Loading...')}
+      />
+      <Button
         title="Dynamic position"
         onPress={() => toast('Dynamic position', { position: 'bottom-center' })}
       />
