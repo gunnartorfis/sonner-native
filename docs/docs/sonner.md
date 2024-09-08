@@ -24,7 +24,7 @@
 | loading            | ✅            | ✅         |
 | Headless           | ❌            | ✅         |
 | Dynamic position   | ❌            | ✅         |
-| important          | ❌            | ✅         |
+| important          | ✅            | ✅         |
 | warning variant    | ✅            | ✅         |
 
 ## Toaster:

@@ -54,7 +54,7 @@ export type ToastProps = StyleProps & {
   description?: string;
   closeButton?: boolean;
   invert?: boolean;
-  // important?: boolean; (false) Control the sensitivity of the toast for screen readers
+  important?: boolean;
   duration?: number;
   position?: ToastPosition;
   dismissible?: boolean;
