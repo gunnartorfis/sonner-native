@@ -13943,17 +13943,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react-native@npm:^0.438.0":
-  version: 0.438.0
-  resolution: "lucide-react-native@npm:0.438.0"
-  peerDependencies:
-    react: ^16.5.1 || ^17.0.0 || ^18.0.0
-    react-native: "*"
-    react-native-svg: ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
-  checksum: f3d7a0c3b0e910ac88df3db10e13bbe7154640d1da53ca06b7a59209b17772b4e972e6f050d0fe8b3b0be30934597f0536edafb2f5719260176c85e5bfcdb096
-  languageName: node
-  linkType: hard
-
 "macos-release@npm:^3.1.0":
   version: 3.3.0
   resolution: "macos-release@npm:3.3.0"
@@ -19331,7 +19320,6 @@ __metadata:
     "@react-navigation/native-stack": ^6.9.12
     expo: ~51.0.32
     expo-status-bar: ~1.12.1
-    lucide-react-native: ^0.438.0
     nativewind: 4.1.6
     react: 18.2.0
     react-dom: 18.2.0
@@ -19364,7 +19352,6 @@ __metadata:
     eslint-config-prettier: ^9.0.0
     eslint-plugin-prettier: ^5.0.1
     jest: ^29.7.0
-    lucide-react-native: ^0.438.0
     nativewind: ^4.1.6
     prettier: ^3.3.3
     react: 18.2.0
@@ -19378,7 +19365,6 @@ __metadata:
     release-it: ^17.6.0
     typescript: ^5.5.4
   peerDependencies:
-    lucide-react-native: ">=0"
     nativewind: "*"
     react: "*"
     react-native: "*"

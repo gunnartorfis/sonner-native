@@ -1,10 +1,4 @@
-import {
-  CircleCheck,
-  CircleX,
-  Info,
-  TriangleAlert,
-  X,
-} from 'lucide-react-native';
+import { CircleCheck, CircleX, Info, TriangleAlert, X } from './icons';
 import * as React from 'react';
 import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 import Animated from 'react-native-reanimated';
