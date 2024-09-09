@@ -1,5 +1,20 @@
 
 
+# [0.9.0](https://github.com/gunnartorfis/sonner-native/compare/v0.8.3...v0.9.0) (2024-09-09)
+
+
+### Bug Fixes
+
+* custom id was trying to update an existing toast ([83f2f49](https://github.com/gunnartorfis/sonner-native/commit/83f2f497e5f3ce715d7f50fc2a635b2de384895c))
+* passing invert to toast() now works ([4de18df](https://github.com/gunnartorfis/sonner-native/commit/4de18df8b058f26da98db50cad00bfa066610787))
+* pull request template directory ([0dab465](https://github.com/gunnartorfis/sonner-native/commit/0dab465243b1a9b2d1bbdffe2b0f88bd56470f87))
+* remove hard code ([8eed260](https://github.com/gunnartorfis/sonner-native/commit/8eed2605464f6f4de222b07653dcf4aeec222de2))
+
+
+### Features
+
+* add pull request template ([afb4daa](https://github.com/gunnartorfis/sonner-native/commit/afb4daacce8a906acaa008a92246b2731e28fae0))
+
 ## [0.8.3](https://github.com/gunnartorfis/sonner-native/compare/v0.8.2...v0.8.3) (2024-09-09)
 
 
