@@ -1,5 +1,12 @@
 
 
+## [0.9.1](https://github.com/gunnartorfis/sonner-native/compare/v0.9.0...v0.9.1) (2024-09-09)
+
+
+### Bug Fixes
+
+* updating toasts is now more stable ([2260ed7](https://github.com/gunnartorfis/sonner-native/commit/2260ed7aaf2355ba5f01aeb5174b2773ac06664d))
+
 # [0.9.0](https://github.com/gunnartorfis/sonner-native/compare/v0.8.3...v0.9.0) (2024-09-09)
 
 
