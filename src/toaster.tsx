@@ -63,13 +63,15 @@ export const ToasterUI: React.FC<ToasterProps> = ({
         variant: options.variant ?? toastDefaultValues.variant,
       };
 
-      if (options?.id) {
-        let updated = false;
+      const updating = toasts.some(
+        (currentToast) => currentToast.id === options?.id
+      );
+
+      if (updating && options?.id) {
         // we're updating
         setToasts((currentToasts) =>
           currentToasts.map((currentToast) => {
             if (currentToast.id === options.id) {
-              updated = true;
               return {
                 ...currentToast,
                 ...newToast,
@@ -81,9 +83,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
           })
         );
 
-        if (updated) {
-          return options.id;
-        }
+        return options.id;
       }
 
       setToasts((currentToasts) => {
@@ -97,7 +97,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
 
       return id;
     },
-    [duration, visibleToasts]
+    [duration, toasts, visibleToasts]
   );
 
   const dismissToast = React.useCallback<

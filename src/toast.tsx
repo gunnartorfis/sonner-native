@@ -158,16 +158,16 @@ export const Toast: React.FC<ToastProps> = ({
         }
       }, ANIMATION_DURATION + duration);
     }
+  }, [duration, id, onDismiss, promiseOptions, addToast, onAutoClose]);
 
+  React.useEffect(() => {
     // Cleanup function to clear the timer if it's still the same timer
     return () => {
-      if (timer.current) {
-        clearTimeout(timer.current);
-        timer.current = undefined;
-        timerStart.current = undefined;
-      }
+      clearTimeout(timer.current);
+      timer.current = undefined;
+      timerStart.current = undefined;
     };
-  }, [duration, id, onDismiss, promiseOptions, addToast, onAutoClose]);
+  }, [id]);
 
   if (jsx) {
     return jsx;
