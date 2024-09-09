@@ -44,16 +44,16 @@ export const ToastSwipeHandler: React.FC<
 
   const pan = Gesture.Pan()
     .onBegin(() => {
-      "worklet";
-      
+      'worklet';
+
       if (!enabled) {
         return;
       }
       runOnJS(onBegin)();
     })
     .onChange((event) => {
-      "worklet";
-      
+      'worklet';
+
       if (!enabled) {
         return;
       }
@@ -65,8 +65,8 @@ export const ToastSwipeHandler: React.FC<
       }
     })
     .onFinalize(() => {
-      "worklet";
-      
+      'worklet';
+
       if (!enabled) {
         return;
       }
