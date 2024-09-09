@@ -6,9 +6,7 @@ import type { ToastPosition } from './types';
 
 export const ANIMATION_DURATION = 300;
 
-export const useToastLayoutAnimations = (
-  positionProp: ToastPosition | undefined
-) => {
+export const useToastLayoutAnimations = (positionProp?: ToastPosition) => {
   const { position: positionCtx } = useToastContext();
   const position = positionProp || positionCtx;
 
