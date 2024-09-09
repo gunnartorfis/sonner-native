@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import type { ToasterProps } from './types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useToastContext } from './context';
@@ -26,15 +26,7 @@ export const Positioner: React.FC<
 
   return (
     <View
-      style={[
-        {
-          position: 'absolute',
-          width: '100%',
-          alignItems: 'center',
-        },
-        insetValues,
-        style,
-      ]}
+      style={[styles.container, insetValues, style]}
       className={className}
       {...props}
     >
@@ -42,3 +34,11 @@ export const Positioner: React.FC<
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    width: '100%',
+    alignItems: 'center',
+  },
+});
