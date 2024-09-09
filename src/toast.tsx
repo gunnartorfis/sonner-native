@@ -1,6 +1,12 @@
 import { CircleCheck, CircleX, Info, TriangleAlert, X } from './icons';
 import * as React from 'react';
-import { ActivityIndicator, Pressable, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Animated from 'react-native-reanimated';
 import { ANIMATION_DURATION, useToastLayoutAnimations } from './animations';
 import { toastDefaultValues } from './constants';
@@ -202,33 +208,26 @@ export const Toast: React.FC<ToastProps> = ({
       <Animated.View
         className={cn(className, classNamesCtx.toast, classNames?.toast)}
         style={[
-          unstyled ? undefined : elevationStyle,
+          !unstyled && toastStyles.elevationStyle,
           stylesCtx.toast,
           styles?.toast,
           style,
-          unstyled
-            ? undefined
-            : {
-                justifyContent: 'center',
-                padding: 16,
-                borderRadius: 16,
-                marginHorizontal: 16,
-                backgroundColor: colors['background-primary'],
-                borderCurve: 'continuous',
-              },
+          !unstyled && [
+            toastStyles.animatedWrapper,
+            { backgroundColor: colors['background-primary'] },
+          ],
         ]}
         entering={entering}
         exiting={exiting}
       >
         <View
           style={[
-            unstyled
-              ? undefined
-              : {
-                  flexDirection: 'row',
-                  gap: 16,
-                  alignItems: description?.length === 0 ? 'center' : undefined,
-                },
+            !unstyled && [
+              toastStyles.container,
+              {
+                alignItems: description?.length === 0 ? 'center' : undefined,
+              },
+            ],
             stylesCtx.toastContent,
             styles?.toastContent,
           ]}
@@ -245,16 +244,15 @@ export const Toast: React.FC<ToastProps> = ({
           ) : (
             <ToastIcon variant={variant} invert={invert} />
           )}
-          <View style={{ flex: 1 }}>
+          <View style={toastStyles.full}>
             <Text
               style={[
-                unstyled
-                  ? undefined
-                  : {
-                      fontWeight: '600',
-                      lineHeight: 20,
-                      color: colors['text-primary'],
-                    },
+                !unstyled && [
+                  toastStyles.title,
+                  {
+                    color: colors['text-primary'],
+                  },
+                ],
                 stylesCtx.title,
                 styles?.title,
               ]}
@@ -265,14 +263,12 @@ export const Toast: React.FC<ToastProps> = ({
             {description ? (
               <Text
                 style={[
-                  unstyled
-                    ? undefined
-                    : {
-                        fontSize: 14,
-                        lineHeight: 20,
-                        marginTop: 2,
-                        color: colors['text-tertiary'],
-                      },
+                  !unstyled && [
+                    toastStyles.description,
+                    {
+                      color: colors['text-tertiary'],
+                    },
+                  ],
                   stylesCtx.description,
                   styles?.description,
                 ]}
@@ -286,14 +282,7 @@ export const Toast: React.FC<ToastProps> = ({
             ) : null}
             <View
               style={[
-                unstyled || (!action && !cancel)
-                  ? undefined
-                  : {
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      gap: 16,
-                      marginTop: 16,
-                    },
+                !unstyled && !(!action && !cancel) && toastStyles.buttonWrapper,
                 stylesCtx.buttons,
                 styles?.buttons,
               ]}
@@ -304,34 +293,25 @@ export const Toast: React.FC<ToastProps> = ({
                   onPress={action.onClick}
                   className={actionButtonClassName}
                   style={[
-                    unstyled
-                      ? undefined
-                      : {
-                          flexGrow: 0,
-                          alignSelf: 'flex-start',
-                          borderRadius: 999,
-                          borderWidth: 1,
-                          borderColor: colors['border-secondary'],
-                          paddingHorizontal: 8,
-                          paddingVertical: 4,
-                          borderCurve: 'continuous',
-                          backgroundColor: colors['background-secondary'],
-                        },
+                    !unstyled && [
+                      toastStyles.actionButton,
+                      {
+                        borderColor: colors['border-secondary'],
+                        backgroundColor: colors['background-secondary'],
+                      },
+                    ],
                     actionButtonStyle,
                   ]}
                 >
                   <Text
                     numberOfLines={1}
                     style={[
-                      unstyled
-                        ? undefined
-                        : {
-                            fontSize: 14,
-                            lineHeight: 20,
-                            fontWeight: '600',
-                            alignSelf: 'flex-start',
-                            color: colors['text-primary'],
-                          },
+                      !unstyled && [
+                        toastStyles.label,
+                        {
+                          color: colors['text-primary'],
+                        },
+                      ],
                       actionButtonTextStyle,
                     ]}
                     className={actionButtonTextClassName}
@@ -350,26 +330,19 @@ export const Toast: React.FC<ToastProps> = ({
                   }}
                   className={cancelButtonClassName}
                   style={[
-                    unstyled
-                      ? undefined
-                      : {
-                          flexGrow: 0,
-                        },
+                    !unstyled && toastStyles.cancelButton,
                     cancelButtonStyle,
                   ]}
                 >
                   <Text
                     numberOfLines={1}
                     style={[
-                      unstyled
-                        ? undefined
-                        : {
-                            fontSize: 14,
-                            lineHeight: 20,
-                            fontWeight: '600',
-                            alignSelf: 'flex-start',
-                            color: colors['text-secondary'],
-                          },
+                      !unstyled && [
+                        toastStyles.cancelLabel,
+                        {
+                          color: colors['text-secondary'],
+                        },
+                      ],
                       cancelButtonTextStyle,
                     ]}
                     className={cancelButtonTextClassName}
@@ -424,12 +397,67 @@ export const ToastIcon: React.FC<Pick<ToastProps, 'variant' | 'invert'>> = ({
   }
 };
 
-const elevationStyle = {
-  shadowOpacity: 0.0015 * 4 + 0.1,
-  shadowRadius: 3 * 4,
-  shadowOffset: {
-    height: 4,
-    width: 0,
+const toastStyles = StyleSheet.create({
+  elevationStyle: {
+    shadowOpacity: 0.0015 * 4 + 0.1,
+    shadowRadius: 3 * 4,
+    shadowOffset: {
+      height: 4,
+      width: 0,
+    },
+    elevation: 4,
   },
-  elevation: 4,
-};
+  animatedWrapper: {
+    justifyContent: 'center',
+    padding: 16,
+    borderRadius: 16,
+    marginHorizontal: 16,
+    borderCurve: 'continuous',
+  },
+  container: {
+    flexDirection: 'row',
+    gap: 16,
+  },
+  full: {
+    flex: 1,
+  },
+  title: {
+    fontWeight: '600',
+    lineHeight: 20,
+  },
+  description: {
+    fontSize: 14,
+    lineHeight: 20,
+    marginTop: 2,
+  },
+  buttonWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+    marginTop: 16,
+  },
+  actionButton: {
+    flexGrow: 0,
+    alignSelf: 'flex-start',
+    borderRadius: 999,
+    borderWidth: 1,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderCurve: 'continuous',
+  },
+  label: {
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: '600',
+    alignSelf: 'flex-start',
+  },
+  cancelButton: {
+    flexGrow: 0,
+  },
+  cancelLabel: {
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: '600',
+    alignSelf: 'flex-start',
+  },
+});
