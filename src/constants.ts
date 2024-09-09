@@ -13,6 +13,7 @@ export const toastDefaultValues: {
   invert: boolean;
   pauseWhenPageIsHidden: boolean;
   cn: (...classes: Array<string | undefined>) => string;
+  gap: number;
 } = {
   duration: 4000,
   position: 'top-center',
@@ -26,4 +27,5 @@ export const toastDefaultValues: {
   invert: false,
   pauseWhenPageIsHidden: false,
   cn: (...classes) => classes.filter(Boolean).join(' '),
+  gap: 14,
 };
