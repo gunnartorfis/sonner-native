@@ -57,6 +57,10 @@ export const ToastDemo: React.FC = () => {
           });
         }}
       />
+      <Button
+        title="Custom id"
+        onPress={() => toast('Custom id', { id: '123' })}
+      />
       <Button title="Show outside of a React component" onPress={handleToast} />
       <Button
         title="Toast with a promise"
