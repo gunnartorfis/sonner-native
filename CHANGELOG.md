@@ -1,5 +1,12 @@
 
 
+## [0.8.3](https://github.com/gunnartorfis/sonner-native/compare/v0.8.2...v0.8.3) (2024-09-09)
+
+
+### Bug Fixes
+
+* respect the gap value passed via <Toaster /> ([2cb5f02](https://github.com/gunnartorfis/sonner-native/commit/2cb5f022e99eb5a7655f85b1a49fd6c6163dc4c0))
+
 ## [0.8.2](https://github.com/gunnartorfis/sonner-native/compare/v0.8.1...v0.8.2) (2024-09-09)
 
 ## [0.8.1](https://github.com/gunnartorfis/sonner-native/compare/v0.8.0...v0.8.1) (2024-09-09)
