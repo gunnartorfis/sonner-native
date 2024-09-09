@@ -57,6 +57,10 @@ export const ToastDemo: React.FC = () => {
           });
         }}
       />
+      <Button
+        title="Invert toast"
+        onPress={() => toast('Inverted toast', { invert: true })}
+      />
       <Button title="Show outside of a React component" onPress={handleToast} />
       <Button
         title="Toast with a promise"
