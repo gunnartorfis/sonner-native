@@ -1,5 +1,12 @@
 
 
+## [0.8.1](https://github.com/gunnartorfis/sonner-native/compare/v0.8.0...v0.8.1) (2024-09-09)
+
+
+### Bug Fixes
+
+* warning by y gesture handler ([3e11b91](https://github.com/gunnartorfis/sonner-native/commit/3e11b91b747abd13b2aed08f45632ad634f9ed1d))
+
 # [0.8.0](https://github.com/gunnartorfis/sonner-native/compare/v0.7.0...v0.8.0) (2024-09-08)
 
 
