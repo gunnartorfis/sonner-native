@@ -40,7 +40,7 @@ export const ToastSwipeHandler: React.FC<
   important,
 }) => {
   const translate = useSharedValue(0);
-  const { swipToDismissDirection: direction } = useToastContext();
+  const { swipToDismissDirection: direction, gap } = useToastContext();
 
   const pan = Gesture.Pan()
     .onBegin(() => {
@@ -118,7 +118,7 @@ export const ToastSwipeHandler: React.FC<
             ? undefined
             : {
                 justifyContent: 'center',
-                marginBottom: 16,
+                marginBottom: gap,
               },
           { width: '100%' },
           style,
