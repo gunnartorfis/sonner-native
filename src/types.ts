@@ -1,8 +1,8 @@
-import type { TextStyle, ViewStyle } from 'react-native';
+import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 type StyleProps = {
   unstyled?: boolean;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   className?: string;
   classNames?: {
     toastContainer?: string;
@@ -15,14 +15,14 @@ type StyleProps = {
     closeButtonIcon?: string;
   };
   styles?: {
-    toastContainer?: ViewStyle;
-    toast?: ViewStyle;
-    toastContent?: ViewStyle;
-    title?: TextStyle;
-    description?: TextStyle;
-    buttons?: ViewStyle;
-    closeButton?: ViewStyle;
-    closeButtonIcon?: ViewStyle;
+    toastContainer?: StyleProp<ViewStyle>;
+    toast?: StyleProp<ViewStyle>;
+    toastContent?: StyleProp<ViewStyle>;
+    title?: StyleProp<TextStyle>;
+    description?: StyleProp<TextStyle>;
+    buttons?: StyleProp<ViewStyle>;
+    closeButton?: StyleProp<ViewStyle>;
+    closeButtonIcon?: StyleProp<ViewStyle>;
   };
 };
 
@@ -64,12 +64,12 @@ export type ToastProps = StyleProps & {
   onDismiss?: (id: string | number) => void;
   onAutoClose?: (id: string | number) => void;
   promiseOptions?: PromiseOptions;
-  actionButtonStyle?: ViewStyle;
-  actionButtonTextStyle?: TextStyle;
+  actionButtonStyle?: StyleProp<ViewStyle>;
+  actionButtonTextStyle?: StyleProp<TextStyle>;
   actionButtonClassName?: string;
   actionButtonTextClassName?: string;
-  cancelButtonStyle?: ViewStyle;
-  cancelButtonTextStyle?: TextStyle;
+  cancelButtonStyle?: StyleProp<ViewStyle>;
+  cancelButtonTextStyle?: StyleProp<TextStyle>;
   cancelButtonClassName?: string;
   cancelButtonTextClassName?: string;
 };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dimensions, type ViewStyle } from 'react-native';
+import { Dimensions, type StyleProp, type ViewStyle } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   Easing,
@@ -18,7 +18,7 @@ const { width: WINDOW_WIDTH } = Dimensions.get('window');
 
 type ToastSwipeHandlerProps = Pick<ToastProps, 'important'> & {
   onRemove: () => void;
-  style?: ViewStyle | (ViewStyle | undefined)[];
+  style?: StyleProp<ViewStyle>;
   className?: string;
   onBegin: () => void;
   onFinalize: () => void;
