@@ -58,6 +58,10 @@ export const ToastDemo: React.FC = () => {
         }}
       />
       <Button
+        title="Invert toast"
+        onPress={() => toast('Inverted toast', { invert: true })}
+      />
+      <Button
         title="Custom id"
         onPress={() => toast('Custom id', { id: '123' })}
       />

@@ -40,6 +40,7 @@ export const Toast: React.FC<ToastProps> = ({
   position,
   unstyled: unstyledProps,
   important,
+  invert: invertProps,
 }) => {
   const {
     duration: durationCtx,
@@ -51,13 +52,15 @@ export const Toast: React.FC<ToastProps> = ({
     icons,
     pauseWhenPageIsHidden,
     cn,
+    invert: invertCtx,
   } = useToastContext();
+  const invert = invertProps ?? invertCtx;
 
   const unstyled = unstyledProps ?? unstyledCtx;
   const duration = durationProps ?? durationCtx;
   const closeButton = closeButtonProps ?? closeButtonCtx;
 
-  const colors = useColors();
+  const colors = useColors(invert);
   const { entering, exiting } = useToastLayoutAnimations(position);
 
   const isDragging = React.useRef(false);
@@ -240,7 +243,7 @@ export const Toast: React.FC<ToastProps> = ({
           ) : icon || variant in icons ? (
             icons[variant]
           ) : (
-            <ToastIcon variant={variant} />
+            <ToastIcon variant={variant} invert={invert} />
           )}
           <View style={{ flex: 1 }}>
             <Text
@@ -403,10 +406,11 @@ export const Toast: React.FC<ToastProps> = ({
   );
 };
 
-export const ToastIcon: React.FC<Pick<ToastProps, 'variant'>> = ({
+export const ToastIcon: React.FC<Pick<ToastProps, 'variant' | 'invert'>> = ({
   variant,
+  invert,
 }) => {
-  const colors = useColors();
+  const colors = useColors(invert);
   switch (variant) {
     case 'success':
       return <CircleCheck size={20} color={colors.success} />;
