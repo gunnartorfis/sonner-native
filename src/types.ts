@@ -135,6 +135,7 @@ export type ToasterContextType = Required<
     | 'pauseWhenPageIsHidden'
     | 'cn'
     | 'gap'
+    | 'theme'
   >
 > & {
   addToast: AddToastContextHandler;

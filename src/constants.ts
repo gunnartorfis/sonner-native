@@ -1,4 +1,9 @@
-import type { ToastPosition, ToastSwipeDirection, ToastVariant } from './types';
+import type {
+  ToastPosition,
+  ToastSwipeDirection,
+  ToastTheme,
+  ToastVariant,
+} from './types';
 
 export const toastDefaultValues: {
   duration: number;
@@ -14,6 +19,7 @@ export const toastDefaultValues: {
   pauseWhenPageIsHidden: boolean;
   cn: (...classes: Array<string | undefined>) => string;
   gap: number;
+  theme: ToastTheme;
 } = {
   duration: 4000,
   position: 'top-center',
@@ -28,4 +34,5 @@ export const toastDefaultValues: {
   pauseWhenPageIsHidden: false,
   cn: (...classes) => classes.filter(Boolean).join(' '),
   gap: 14,
+  theme: 'system',
 };
