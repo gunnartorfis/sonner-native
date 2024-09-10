@@ -53,6 +53,24 @@ You can provide default styles for all toasts by passing `style` and `className`
 />
 ```
 
+### Usage with react-native-z-view
+
+Use the `ToasterOverlayWrapper` prop to wrap the Toaster component with a custom component. This is useful when using `react-native-z-view` to render the toasts.
+
+sonner-native uses `FullWindowOverlay` from react-native-screens by default on iOS and `View` on Android.
+
+```tsx
+import { ZView } from 'react-native-z-view';
+
+<Toaster
+  ToasterOverlayWrapper={ZView}
+  toastOptions={{
+    style: { backgroundColor: 'red' },
+    className: 'bg-red-500',
+  }}
+/>;
+```
+
 ## API Reference
 
 | Property                 |                                            Description                                             |                     Default |
@@ -69,3 +87,8 @@ You can provide default styles for all toasts by passing `style` and `className`
 | pauseWhenPageIsHidden    |                        Pauses toast timers when the app enters background.                         |                        `{}` |
 | `swipToDismissDirection` |                             Swipe direction to dismiss (`left`, `up`).                             |                        `up` |
 | cn                       |                         Custom function for constructing/merging classes.                          | `filter(Boolean).join(' ')` |
+|  ToasterOverlayWrapper   |                                Custom component to wrap the Toaster.                               |                       `div` |
+
+```
+
+```
