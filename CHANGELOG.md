@@ -1,5 +1,13 @@
 
 
+## [0.9.2](https://github.com/gunnartorfis/sonner-native/compare/v0.9.1...v0.9.2) (2024-09-10)
+
+
+### Bug Fixes
+
+* custom icons not rendering with <CssInterop.xx /> ([c7f281d](https://github.com/gunnartorfis/sonner-native/commit/c7f281dad5539ecaffee55066c7112c5c4198331))
+* theme was not used when passed to Toaster ([34904f5](https://github.com/gunnartorfis/sonner-native/commit/34904f56403ba39bef0857c041928f255f882260))
+
 ## [0.9.1](https://github.com/gunnartorfis/sonner-native/compare/v0.9.0...v0.9.1) (2024-09-09)
 
 
