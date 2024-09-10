@@ -240,7 +240,9 @@ export const Toast: React.FC<ToastProps> = ({
             ) : (
               <ActivityIndicator />
             )
-          ) : icon || variant in icons ? (
+          ) : icon ? (
+            <View>{icon}</View>
+          ) : variant in icons ? (
             icons[variant]
           ) : (
             <ToastIcon variant={variant} invert={invert} />
