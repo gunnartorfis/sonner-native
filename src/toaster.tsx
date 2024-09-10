@@ -44,11 +44,8 @@ export const ToasterUI: React.FC<ToasterProps> = ({
   visibleToasts = toastDefaultValues.visibleToasts,
   swipToDismissDirection = toastDefaultValues.swipeToDismissDirection,
   closeButton,
-  style,
-  className,
-  unstyled,
   invert,
-  toastOptions,
+  toastOptions = {},
   icons,
   pauseWhenPageIsHidden,
   cn,
@@ -155,6 +152,8 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     [dismissToast]
   );
 
+  const { style, className, unstyled } = toastOptions;
+
   const value = React.useMemo<ToasterContextType>(
     () => ({
       duration: duration ?? toastDefaultValues.duration,
@@ -166,14 +165,13 @@ export const ToasterUI: React.FC<ToasterProps> = ({
       unstyled: unstyled ?? toastDefaultValues.unstyled,
       addToast: addToastHandler,
       invert: invert ?? toastDefaultValues.invert,
-      styles: toastOptions?.styles ?? {},
-      classNames: toastOptions?.classNames ?? {},
       icons: icons ?? {},
       pauseWhenPageIsHidden:
         pauseWhenPageIsHidden ?? toastDefaultValues.pauseWhenPageIsHidden,
       cn: cn ?? toastDefaultValues.cn,
       gap: gap ?? toastDefaultValues.gap,
       theme: theme ?? toastDefaultValues.theme,
+      toastOptions,
     }),
     [
       duration,

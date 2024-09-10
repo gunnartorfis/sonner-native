@@ -46,13 +46,26 @@ export const Toast: React.FC<ToastProps> = ({
     duration: durationCtx,
     addToast,
     closeButton: closeButtonCtx,
-    unstyled: unstyledCtx,
-    styles: stylesCtx,
-    classNames: classNamesCtx,
     icons,
     pauseWhenPageIsHidden,
     cn,
     invert: invertCtx,
+    toastOptions: {
+      unstyled: unstyledCtx,
+      toastContainerStyle: toastContainerStyleCtx,
+      classNames: classNamesCtx,
+      actionButtonStyle: actionButtonStyleCtx,
+      actionButtonTextStyle: actionButtonTextStyleCtx,
+      cancelButtonStyle: cancelButtonStyleCtx,
+      cancelButtonTextStyle: cancelButtonTextStyleCtx,
+      style: toastStyleCtx,
+      toastContentStyle: toastContentStyleCtx,
+      titleStyle: titleStyleCtx,
+      descriptionStyle: descriptionStyleCtx,
+      buttonsStyle: buttonsStyleCtx,
+      closeButtonStyle: closeButtonStyleCtx,
+      closeButtonIconStyle: closeButtonIconStyleCtx,
+    },
   } = useToastContext();
   const invert = invertProps ?? invertCtx;
 
@@ -194,16 +207,16 @@ export const Toast: React.FC<ToastProps> = ({
         }
       }}
       enabled={!promiseOptions && dismissible}
-      style={[stylesCtx.toastContainer, styles?.toastContainer]}
-      className={cn(classNamesCtx.toastContainer, classNames?.toastContainer)}
+      style={[toastContainerStyleCtx, styles?.toastContainer]}
+      className={cn(classNamesCtx?.toastContainer, classNames?.toastContainer)}
       unstyled={unstyled}
       important={important}
     >
       <Animated.View
-        className={cn(className, classNamesCtx.toast, classNames?.toast)}
+        className={cn(className, classNamesCtx?.toast, classNames?.toast)}
         style={[
           unstyled ? undefined : elevationStyle,
-          stylesCtx.toast,
+          toastStyleCtx,
           styles?.toast,
           style,
           unstyled
@@ -229,10 +242,10 @@ export const Toast: React.FC<ToastProps> = ({
                   gap: 16,
                   alignItems: description?.length === 0 ? 'center' : undefined,
                 },
-            stylesCtx.toastContent,
+            toastContentStyleCtx,
             styles?.toastContent,
           ]}
-          className={cn(classNamesCtx.toastContent, classNames?.toastContent)}
+          className={cn(classNamesCtx?.toastContent, classNames?.toastContent)}
         >
           {promiseOptions || variant === 'loading' ? (
             'loading' in icons ? (
@@ -257,10 +270,10 @@ export const Toast: React.FC<ToastProps> = ({
                       lineHeight: 20,
                       color: colors['text-primary'],
                     },
-                stylesCtx.title,
+                titleStyleCtx,
                 styles?.title,
               ]}
-              className={cn(classNamesCtx.title, classNames?.title)}
+              className={cn(classNamesCtx?.title, classNames?.title)}
             >
               {title}
             </Text>
@@ -275,11 +288,11 @@ export const Toast: React.FC<ToastProps> = ({
                         marginTop: 2,
                         color: colors['text-tertiary'],
                       },
-                  stylesCtx.description,
+                  descriptionStyleCtx,
                   styles?.description,
                 ]}
                 className={cn(
-                  classNamesCtx.description,
+                  classNamesCtx?.description,
                   classNames?.description
                 )}
               >
@@ -296,10 +309,10 @@ export const Toast: React.FC<ToastProps> = ({
                       gap: 16,
                       marginTop: 16,
                     },
-                stylesCtx.buttons,
+                buttonsStyleCtx,
                 styles?.buttons,
               ]}
-              className={cn(classNamesCtx.buttons, classNames?.buttons)}
+              className={cn(classNamesCtx?.buttons, classNames?.buttons)}
             >
               {isToastAction(action) ? (
                 <Pressable
@@ -319,6 +332,7 @@ export const Toast: React.FC<ToastProps> = ({
                           borderCurve: 'continuous',
                           backgroundColor: colors['background-secondary'],
                         },
+                    actionButtonStyleCtx,
                     actionButtonStyle,
                   ]}
                 >
@@ -334,6 +348,7 @@ export const Toast: React.FC<ToastProps> = ({
                             alignSelf: 'flex-start',
                             color: colors['text-primary'],
                           },
+                      actionButtonTextStyleCtx,
                       actionButtonTextStyle,
                     ]}
                     className={actionButtonTextClassName}
@@ -357,6 +372,7 @@ export const Toast: React.FC<ToastProps> = ({
                       : {
                           flexGrow: 0,
                         },
+                    cancelButtonStyleCtx,
                     cancelButtonStyle,
                   ]}
                 >
@@ -372,6 +388,7 @@ export const Toast: React.FC<ToastProps> = ({
                             alignSelf: 'flex-start',
                             color: colors['text-secondary'],
                           },
+                      cancelButtonTextStyleCtx,
                       cancelButtonTextStyle,
                     ]}
                     className={cancelButtonTextClassName}
@@ -388,15 +405,18 @@ export const Toast: React.FC<ToastProps> = ({
             <Pressable
               onPress={() => onDismiss?.(id)}
               hitSlop={10}
-              style={[stylesCtx.closeButton, styles?.closeButton]}
-              className={cn(classNamesCtx.closeButton, classNames?.closeButton)}
+              style={[closeButtonStyleCtx, styles?.closeButton]}
+              className={cn(
+                classNamesCtx?.closeButton,
+                classNames?.closeButton
+              )}
             >
               <X
                 size={20}
                 color={colors['text-secondary']}
-                style={[stylesCtx.closeButtonIcon, styles?.closeButtonIcon]}
+                style={[closeButtonIconStyleCtx, styles?.closeButtonIcon]}
                 className={cn(
-                  classNamesCtx.closeButtonIcon,
+                  classNamesCtx?.closeButtonIcon,
                   classNames?.closeButtonIcon
                 )}
               />
