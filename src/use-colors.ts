@@ -28,8 +28,9 @@ const dark: typeof light = {
 };
 
 export const useColors = (ivertProps?: boolean) => {
-  const { invert: invertCtx } = useToastContext();
-  const scheme = useColorScheme();
+  const { invert: invertCtx, theme } = useToastContext();
+  const systemScheme = useColorScheme();
+  const scheme = theme === 'system' ? systemScheme : theme;
   const invert = ivertProps ?? invertCtx;
 
   if (scheme === 'dark') {
