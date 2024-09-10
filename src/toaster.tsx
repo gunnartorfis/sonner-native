@@ -16,7 +16,16 @@ import {
 let addToastHandler: AddToastContextHandler;
 let dismissToastHandler: typeof toast.dismiss;
 
-export const Toaster: React.FC<ToasterProps> = (props) => {
+export const Toaster: React.FC<ToasterProps> = ({
+  ToasterOverlayWrapper,
+  ...props
+}) => {
+  if (ToasterOverlayWrapper) {
+    return (
+      <ToasterOverlayWrapper>{<ToasterUI {...props} />}</ToasterOverlayWrapper>
+    );
+  }
+
   if (Platform.OS === 'ios') {
     return (
       <FullWindowOverlay>
