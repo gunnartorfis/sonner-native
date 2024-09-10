@@ -23,7 +23,7 @@ import { toast } from 'sonner-native';
 
 toast.success('Operation successful!', {
   className: 'bg-green-500',
-  style: { backgroundColor: 'blue' }
+  style: { backgroundColor: 'blue' },
   description: 'Everything worked as expected.',
   duration: 6000,
   icon: <SomeIcon />
