@@ -107,7 +107,7 @@ export const ToastSwipeHandler: React.FC<
         [1, 0]
       ),
     };
-  });
+  }, [direction, translate]);
 
   return (
     <GestureDetector gesture={pan}>
