@@ -190,6 +190,8 @@ toast.dismiss();
 
 ### Wiggling toasts
 
+<img src="videos/wiggle.gif" style={{ width: 300 }} />
+
 To make a toast wiggle, call toast.wiggle with the toast ID:
 
 ```jsx
