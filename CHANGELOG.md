@@ -1,5 +1,12 @@
 
 
+# [0.12.0-alpha.0](https://github.com/gunnartorfis/sonner-native/compare/v0.11.0...v0.12.0-alpha.0) (2024-09-11)
+
+
+### Features
+
+* wiggle toasts on update + toast.wiggle() ([de60ddc](https://github.com/gunnartorfis/sonner-native/commit/de60ddc8ef53781a3e3c2094b62c10f6fbee9c2f))
+
 # [0.11.0](https://github.com/gunnartorfis/sonner-native/compare/v0.10.1...v0.11.0) (2024-09-11)
 
 
