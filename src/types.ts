@@ -87,7 +87,7 @@ type ExternalToast = Omit<
   id?: string | number;
 };
 
-export type ToasterProps = StyleProps & {
+export type ToasterProps = {
   duration?: number;
   theme?: ToastTheme;
   // richColors?: boolean; (false)
@@ -96,10 +96,29 @@ export type ToasterProps = StyleProps & {
   position?: ToastPosition;
   closeButton?: boolean;
   offset?: number;
+  style?: ViewStyle;
+  className?: string;
   // dir?: 'ltr' | 'rtl'; (ltr)
   // hotkey?: string; // hotkeys not supported on mobile
   invert?: boolean;
-  toastOptions?: StyleProps;
+  toastOptions?: {
+    actionButtonStyle?: ViewStyle;
+    actionButtonTextStyle?: TextStyle;
+    cancelButtonStyle?: ViewStyle;
+    cancelButtonTextStyle?: TextStyle;
+    className?: string;
+    titleStyle?: TextStyle;
+    descriptionStyle?: TextStyle;
+    style?: ViewStyle;
+    unstyled?: boolean;
+
+    toastContainerStyle?: ViewStyle;
+    toastContentStyle?: ViewStyle;
+    buttonsStyle?: ViewStyle;
+    closeButtonStyle?: ViewStyle;
+    closeButtonIconStyle?: ViewStyle;
+    classNames?: StyleProps['classNames'];
+  };
   gap?: number;
   loadingIcon?: React.ReactNode;
   // pauseWhenPageIsHidden?: boolean; (false)
@@ -127,16 +146,14 @@ export type ToasterContextType = Required<
     | 'swipToDismissDirection'
     | 'closeButton'
     | 'position'
-    | 'unstyled'
     | 'invert'
-    | 'styles'
-    | 'classNames'
     | 'icons'
     | 'offset'
     | 'pauseWhenPageIsHidden'
     | 'cn'
     | 'gap'
     | 'theme'
+    | 'toastOptions'
   >
 > & {
   addToast: AddToastContextHandler;

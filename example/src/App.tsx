@@ -23,7 +23,11 @@ const App: React.FC = () => {
             error: <Text>💥</Text>,
             loading: <Text>🔄</Text>,
           }}
-          toastOptions={{}}
+          toastOptions={{
+            actionButtonStyle: {
+              paddingHorizontal: 20,
+            },
+          }}
           pauseWhenPageIsHidden
         />
       </GestureHandlerRootView>
