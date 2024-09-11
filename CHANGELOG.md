@@ -1,5 +1,12 @@
 
 
+## [0.12.1](https://github.com/gunnartorfis/sonner-native/compare/v0.12.0...v0.12.1) (2024-09-11)
+
+
+### Bug Fixes
+
+* crash when trying to wiggle duration Infinity ([3e81b34](https://github.com/gunnartorfis/sonner-native/commit/3e81b34313ea11d942bf6a53390f0b9fef29a95e))
+
 # [0.12.0](https://github.com/gunnartorfis/sonner-native/compare/v0.12.0-alpha.0...v0.12.0) (2024-09-11)
 
 
