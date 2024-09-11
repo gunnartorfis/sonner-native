@@ -69,6 +69,9 @@ export const ToastDemo: React.FC = () => {
       <Button
         title="Wiggle toast"
         onPress={() => {
+          if (toastId) {
+            toast.wiggle(toastId);
+          }
           toast.wiggle('123');
         }}
       />
@@ -312,6 +315,7 @@ export const ToastDemo: React.FC = () => {
           const id = toast.success('Infinity toast', {
             duration: Infinity,
             dismissible: false,
+            id: 'infinity',
             action: {
               label: 'Acknowledge',
               onClick: () => {
