@@ -88,7 +88,4 @@ import { ZView } from 'react-native-z-view';
 | `swipToDismissDirection` |                             Swipe direction to dismiss (`left`, `up`).                             |                        `up` |
 | cn                       |                         Custom function for constructing/merging classes.                          | `filter(Boolean).join(' ')` |
 |  ToasterOverlayWrapper   |                                Custom component to wrap the Toaster.                               |                       `div` |
-
-```
-
-```
+|  autoWiggleOnUpdate      |             Adds a wiggle animation on toast update. `never`, `toast-change`, `always`             |                     `never` |

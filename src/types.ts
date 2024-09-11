@@ -41,6 +41,8 @@ export type ToastSwipeDirection = 'left' | 'up';
 
 export type ToastVariant = 'success' | 'error' | 'warning' | 'info' | 'loading';
 
+export type AutoWiggle = 'never' | 'toast-change' | 'always';
+
 export type ToastAction = {
   label: string;
   onClick: () => void;
@@ -48,6 +50,7 @@ export type ToastAction = {
 
 export type ToastProps = StyleProps & {
   id: string | number;
+  updateId?: string; // used for the wiggle animation
   title: string;
   variant: ToastVariant;
   jsx?: React.ReactNode;
@@ -74,6 +77,10 @@ export type ToastProps = StyleProps & {
   cancelButtonTextClassName?: string;
 };
 
+export type ToastRef = {
+  wiggle: () => void;
+};
+
 export function isToastAction(
   action: ToastAction | React.ReactNode
 ): action is ToastAction {
@@ -96,6 +103,7 @@ export type ToasterProps = {
   position?: ToastPosition;
   closeButton?: boolean;
   offset?: number;
+  autoWiggleOnUpdate?: AutoWiggle;
   style?: ViewStyle;
   className?: string;
   // dir?: 'ltr' | 'rtl'; (ltr)
@@ -154,6 +162,7 @@ export type ToasterContextType = Required<
     | 'gap'
     | 'theme'
     | 'toastOptions'
+    | 'autoWiggleOnUpdate'
   >
 > & {
   addToast: AddToastContextHandler;
@@ -174,4 +183,5 @@ export declare const toast: ((
   ) => string | number;
   loading: (message: string, data?: ExternalToast) => string | number;
   dismiss: (id?: string | number) => string | number | undefined;
+  wiggle: (id: string | number) => void;
 };

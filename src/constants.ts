@@ -1,4 +1,5 @@
 import type {
+  AutoWiggle,
   ToastPosition,
   ToastSwipeDirection,
   ToastTheme,
@@ -20,6 +21,7 @@ export const toastDefaultValues: {
   cn: (...classes: Array<string | undefined>) => string;
   gap: number;
   theme: ToastTheme;
+  autoWiggleOnUpdate: AutoWiggle;
 } = {
   duration: 4000,
   position: 'top-center',
@@ -35,4 +37,5 @@ export const toastDefaultValues: {
   cn: (...classes) => classes.filter(Boolean).join(' '),
   gap: 14,
   theme: 'system',
+  autoWiggleOnUpdate: 'never',
 };
