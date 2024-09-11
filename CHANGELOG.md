@@ -1,5 +1,12 @@
 
 
+# [0.12.0](https://github.com/gunnartorfis/sonner-native/compare/v0.12.0-alpha.0...v0.12.0) (2024-09-11)
+
+
+### Bug Fixes
+
+* reset duration on wiggle ([e927659](https://github.com/gunnartorfis/sonner-native/commit/e927659c0a5a6aef3902c83a8b06295f2f9dab2f))
+
 # [0.12.0-alpha.0](https://github.com/gunnartorfis/sonner-native/compare/v0.11.0...v0.12.0-alpha.0) (2024-09-11)
 
 
