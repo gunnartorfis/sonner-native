@@ -136,7 +136,7 @@ export type ToasterProps = {
     info?: React.ReactNode;
     loading?: React.ReactNode;
   };
-  swipToDismissDirection?: ToastSwipeDirection;
+  swipeToDismissDirection?: ToastSwipeDirection;
   pauseWhenPageIsHidden?: boolean;
   cn?: (...classes: Array<string | undefined>) => string;
   ToasterOverlayWrapper?: React.ComponentType<{ children: React.ReactNode }>;
@@ -150,7 +150,7 @@ export type ToasterContextType = Required<
   Pick<
     ToasterProps,
     | 'duration'
-    | 'swipToDismissDirection'
+    | 'swipeToDismissDirection'
     | 'closeButton'
     | 'position'
     | 'invert'

@@ -15,7 +15,7 @@ const App: React.FC = () => {
           position="top-center"
           // offset={100}
           duration={3000}
-          swipToDismissDirection="up"
+          swipeToDismissDirection="up"
           visibleToasts={4}
           closeButton
           autoWiggleOnUpdate="toast-change"

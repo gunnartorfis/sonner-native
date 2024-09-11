@@ -39,7 +39,7 @@
 | toastOptions             | ✅            | ✅         |
 | gap                      | ✅            | ✅         |
 | icons                    | ✅            | ✅         |
-| `swipToDismissDirection` | ✅            | ❌         |
+| `swipeToDismissDirection` | ✅            | ❌         |
 | dir                      | ❌            | ✅         |
 | richColors               | ❌            | ✅         |
 | expand                   | 🕸️            | ✅         |

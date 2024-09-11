@@ -85,7 +85,7 @@ import { ZView } from 'react-native-z-view';
 | gap                      |                                  Gap between toasts when expanded                                  |                        `16` |
 | icons                    |                                     Changes the default icons                                      |                         `-` |
 | pauseWhenPageIsHidden    |                        Pauses toast timers when the app enters background.                         |                        `{}` |
-| `swipToDismissDirection` |                             Swipe direction to dismiss (`left`, `up`).                             |                        `up` |
+| `swipeToDismissDirection` |                             Swipe direction to dismiss (`left`, `up`).                             |                        `up` |
 | cn                       |                         Custom function for constructing/merging classes.                          | `filter(Boolean).join(' ')` |
 |  ToasterOverlayWrapper   |                                Custom component to wrap the Toaster.                               |                       `div` |
 |  autoWiggleOnUpdate      |             Adds a wiggle animation on toast update. `never`, `toast-change`, `always`             |                     `never` |
