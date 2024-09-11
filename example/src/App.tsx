@@ -18,6 +18,7 @@ const App: React.FC = () => {
           swipToDismissDirection="up"
           visibleToasts={4}
           closeButton
+          autoWiggleOnUpdate="toast-change"
           theme="system"
           icons={{
             error: <Text>💥</Text>,

@@ -11,10 +11,13 @@ import {
   type ToasterContextType,
   type ToasterProps,
   type ToastProps,
+  type ToastRef,
 } from './types';
+import { areToastsEqual } from './toast-comparator';
 
 let addToastHandler: AddToastContextHandler;
 let dismissToastHandler: typeof toast.dismiss;
+let wiggleHandler: typeof toast.wiggle;
 
 export const Toaster: React.FC<ToasterProps> = ({
   ToasterOverlayWrapper,
@@ -51,10 +54,12 @@ export const ToasterUI: React.FC<ToasterProps> = ({
   cn,
   gap,
   theme,
+  autoWiggleOnUpdate,
   ...props
 }) => {
   const [toasts, setToasts] = React.useState<ToastProps[]>([]);
   const toastsCounter = React.useRef(1);
+  const toastRefs = React.useRef<Record<string, React.RefObject<ToastRef>>>({});
 
   addToastHandler = React.useCallback(
     (options) => {
@@ -70,11 +75,11 @@ export const ToasterUI: React.FC<ToasterProps> = ({
         variant: options.variant ?? toastDefaultValues.variant,
       };
 
-      const updating = toasts.some(
+      const existingToast = toasts.find(
         (currentToast) => currentToast.id === options?.id
       );
 
-      if (updating && options?.id) {
+      if (existingToast && options?.id) {
         // we're updating
         setToasts((currentToasts) =>
           currentToasts.map((currentToast) => {
@@ -84,17 +89,30 @@ export const ToasterUI: React.FC<ToasterProps> = ({
                 ...newToast,
                 duration: options.duration ?? duration,
                 id: options.id,
+                updateId: `${options.id}-${Date.now()}`,
               };
             }
             return currentToast;
           })
         );
 
+        if (
+          autoWiggleOnUpdate === 'always' ||
+          (autoWiggleOnUpdate === 'toast-change' &&
+            !areToastsEqual(newToast, existingToast))
+        ) {
+          wiggleHandler(options.id);
+        }
+
         return options.id;
       }
 
       setToasts((currentToasts) => {
         const newToasts: ToastProps[] = [...currentToasts, newToast];
+
+        if (!(newToast.id in toastRefs.current)) {
+          toastRefs.current[newToast.id] = React.createRef<ToastRef>();
+        }
 
         if (newToasts.length > visibleToasts) {
           newToasts.shift();
@@ -104,7 +122,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
 
       return id;
     },
-    [duration, toasts, visibleToasts]
+    [autoWiggleOnUpdate, duration, toasts, visibleToasts]
   );
 
   const dismissToast = React.useCallback<
@@ -145,12 +163,19 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     [toasts]
   );
 
-  dismissToastHandler = React.useCallback<typeof toast.dismiss>(
+  dismissToastHandler = React.useCallback(
     (id) => {
       return dismissToast(id);
     },
     [dismissToast]
   );
+
+  wiggleHandler = React.useCallback((id) => {
+    const toastRef = toastRefs.current[id];
+    if (toastRef && toastRef.current) {
+      toastRef.current.wiggle();
+    }
+  }, []);
 
   const { style, className, unstyled } = toastOptions;
 
@@ -172,6 +197,8 @@ export const ToasterUI: React.FC<ToasterProps> = ({
       gap: gap ?? toastDefaultValues.gap,
       theme: theme ?? toastDefaultValues.theme,
       toastOptions,
+      autoWiggleOnUpdate:
+        autoWiggleOnUpdate ?? toastDefaultValues.autoWiggleOnUpdate,
     }),
     [
       duration,
@@ -181,12 +208,13 @@ export const ToasterUI: React.FC<ToasterProps> = ({
       closeButton,
       unstyled,
       invert,
-      toastOptions,
       icons,
       pauseWhenPageIsHidden,
       cn,
       gap,
       theme,
+      toastOptions,
+      autoWiggleOnUpdate,
     ]
   );
 
@@ -248,6 +276,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
               {...positionedToast}
               onDismiss={onDismiss}
               onAutoClose={onAutoClose}
+              ref={toastRefs.current[positionedToast.id]}
               {...props}
             />
           );
@@ -277,8 +306,12 @@ export const ToasterUI: React.FC<ToasterProps> = ({
 };
 
 export const getToastContext = () => {
-  if (!addToastHandler || !dismissToastHandler) {
+  if (!addToastHandler || !dismissToastHandler || !wiggleHandler) {
     throw new Error('ToastContext is not initialized');
   }
-  return { addToast: addToastHandler, dismissToast: dismissToastHandler };
+  return {
+    addToast: addToastHandler,
+    dismissToast: dismissToastHandler,
+    wiggleToast: wiggleHandler,
+  };
 };

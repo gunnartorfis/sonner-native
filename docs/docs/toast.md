@@ -23,10 +23,10 @@ import { toast } from 'sonner-native';
 
 toast.success('Operation successful!', {
   className: 'bg-green-500',
-  style: { backgroundColor: 'blue' },
+  style: { backgroundColor: 'blue' },
   description: 'Everything worked as expected.',
   duration: 6000,
-  icon: <SomeIcon />
+  icon: <SomeIcon />,
 });
 ```
 
@@ -188,6 +188,18 @@ toast('World');
 toast.dismiss();
 ```
 
+### Wiggling toasts
+
+To make a toast wiggle, call toast.wiggle with the toast ID:
+
+```jsx
+const id = toast('Hello');
+
+toast.wiggle(id);
+```
+
+Toasts can also be automatically wiggled by passing the `autoWiggleOnUpdate` prop to [Toaster](Toaster#api-reference):
+
 ## API Reference
 
 | Property               |                                              Description                                               |      Default |
@@ -209,3 +221,7 @@ toast.dismiss();
 | actionButtonTextStyles |                                   Styles for the action button text                                    |         `{}` |
 | cancelButtonStyles     |                                      Styles for the cancel button                                      |         `{}` |
 | cancelButtonTextStyles |                                   Styles for the cancel button text                                    |         `{}` |
+
+```
+
+```

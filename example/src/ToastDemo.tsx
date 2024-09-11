@@ -58,6 +58,21 @@ export const ToastDemo: React.FC = () => {
         }}
       />
       <Button
+        title="Wiggle on update"
+        onPress={() =>
+          toast('Wiggle on update', {
+            id: '123',
+            description: new Date().toISOString(),
+          })
+        }
+      />
+      <Button
+        title="Wiggle toast"
+        onPress={() => {
+          toast.wiggle('123');
+        }}
+      />
+      <Button
         title="Invert toast"
         onPress={() => toast('Inverted toast', { invert: true })}
       />

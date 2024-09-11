@@ -17,6 +17,10 @@ toast.success = (title, options = {}) => {
   });
 };
 
+toast.wiggle = (id) => {
+  return getToastContext().wiggleToast(id);
+};
+
 toast.error = (title: string, options = {}) => {
   return getToastContext().addToast({
     ...options,
