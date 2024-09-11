@@ -99,8 +99,18 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       };
     }, [wiggleSharedValue]);
 
+    const startTimer = React.useCallback(() => {
+      clearTimeout(timer.current);
+      timer.current = setTimeout(() => {
+        if (!isDragging.current) {
+          onAutoClose?.(id);
+        }
+      }, ANIMATION_DURATION + duration);
+    }, [duration, id, onAutoClose]);
+
     const wiggle = React.useCallback(() => {
       'worklet';
+
       wiggleSharedValue.value = withRepeat(
         withTiming(Math.min(wiggleSharedValue.value * 1.035, 1.035), {
           duration: 150,
@@ -111,13 +121,17 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     }, [wiggleSharedValue]);
 
     const wiggleHandler = React.useCallback(() => {
+      // reset the duration
+      timerStart.current = Date.now();
+      startTimer();
+
       if (wiggleSharedValue.value !== 1) {
         // we should animate back to 1 and then wiggle
         wiggleSharedValue.value = withTiming(1, { duration: 150 }, wiggle);
       } else {
         wiggle();
       }
-    }, [wiggle, wiggleSharedValue]);
+    }, [wiggle, wiggleSharedValue, startTimer]);
 
     React.useImperativeHandle(ref, () => ({
       wiggle: wiggleHandler,
@@ -206,13 +220,17 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       // Start the timer only if it hasn't been started yet
       if (!timerStart.current) {
         timerStart.current = Date.now();
-        timer.current = setTimeout(() => {
-          if (!isDragging.current) {
-            onAutoClose?.(id);
-          }
-        }, ANIMATION_DURATION + duration);
+        startTimer();
       }
-    }, [duration, id, onDismiss, promiseOptions, addToast, onAutoClose]);
+    }, [
+      duration,
+      id,
+      onDismiss,
+      promiseOptions,
+      addToast,
+      onAutoClose,
+      startTimer,
+    ]);
 
     React.useEffect(() => {
       // Cleanup function to clear the timer if it's still the same timer

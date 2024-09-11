@@ -63,7 +63,6 @@ export const ToastDemo: React.FC = () => {
           toast('Wiggle on update', {
             id: '123',
             description: new Date().toISOString(),
-            duration: 10000,
           })
         }
       />
