@@ -50,7 +50,6 @@ export type ToastAction = {
 
 export type ToastProps = StyleProps & {
   id: string | number;
-  updateId?: string; // used for the wiggle animation
   title: string;
   variant: ToastVariant;
   jsx?: React.ReactNode;

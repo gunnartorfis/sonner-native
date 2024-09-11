@@ -89,7 +89,6 @@ export const ToasterUI: React.FC<ToasterProps> = ({
                 ...newToast,
                 duration: options.duration ?? duration,
                 id: options.id,
-                updateId: `${options.id}-${Date.now()}`,
               };
             }
             return currentToast;
