@@ -1,5 +1,12 @@
 
 
+# [0.11.0](https://github.com/gunnartorfis/sonner-native/compare/v0.10.1...v0.11.0) (2024-09-11)
+
+
+### Features
+
+* more accurately represent Sonner's way of styling via the Toaster ([aefd6c4](https://github.com/gunnartorfis/sonner-native/commit/aefd6c492fec42fb44f0f6adba2dc7a6de8f7d13))
+
 ## [0.10.1](https://github.com/gunnartorfis/sonner-native/compare/v0.10.0...v0.10.1) (2024-09-10)
 
 # [0.10.0](https://github.com/gunnartorfis/sonner-native/compare/v0.9.2...v0.10.0) (2024-09-10)
