@@ -121,6 +121,11 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     }, [wiggleSharedValue]);
 
     const wiggleHandler = React.useCallback(() => {
+      // we can't send Infinity over to the native layer.
+      if (duration === Infinity) {
+        return;
+      }
+
       // reset the duration
       timerStart.current = Date.now();
       startTimer();
@@ -131,7 +136,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       } else {
         wiggle();
       }
-    }, [wiggle, wiggleSharedValue, startTimer]);
+    }, [wiggle, wiggleSharedValue, startTimer, duration]);
 
     React.useImperativeHandle(ref, () => ({
       wiggle: wiggleHandler,
