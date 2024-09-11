@@ -27,11 +27,11 @@ const dark: typeof light = {
   'info': '#B3CDFF',
 };
 
-export const useColors = (ivertProps?: boolean) => {
+export const useColors = (invertProps?: boolean) => {
   const { invert: invertCtx, theme } = useToastContext();
   const systemScheme = useColorScheme();
   const scheme = theme === 'system' ? systemScheme : theme;
-  const invert = ivertProps ?? invertCtx;
+  const invert = invertProps ?? invertCtx;
 
   if (scheme === 'dark') {
     if (invert) return light;
