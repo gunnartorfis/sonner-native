@@ -97,13 +97,30 @@ export const ToastDemo: React.FC = () => {
       />
       <Button title="Show outside of a React component" onPress={handleToast} />
       <Button
-        title="Toast with a promise"
+        title="Toast with a successful promise"
         onPress={() => {
           toast.promise(
             new Promise((resolve) => {
               setTimeout(() => {
                 resolve('Promise resolved');
-              }, 7000);
+              }, 2000);
+            }),
+            {
+              loading: 'Loading...',
+              success: (result: string) => `Promise resolved: ${result}`,
+              error: 'Promise failed',
+            }
+          );
+        }}
+      />
+      <Button
+        title="Toast with a failed promise"
+        onPress={() => {
+          toast.promise(
+            new Promise((_, reject) => {
+              setTimeout(() => {
+                reject('Promise rejected');
+              }, 2000);
             }),
             {
               loading: 'Loading...',
