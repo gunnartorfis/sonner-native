@@ -22,6 +22,7 @@ export const toastDefaultValues: {
   gap: number;
   theme: ToastTheme;
   autoWiggleOnUpdate: AutoWiggle;
+  richColors: boolean;
 } = {
   duration: 4000,
   position: 'top-center',
@@ -38,4 +39,5 @@ export const toastDefaultValues: {
   gap: 14,
   theme: 'system',
   autoWiggleOnUpdate: 'never',
+  richColors: false,
 };

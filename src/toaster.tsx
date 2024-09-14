@@ -55,6 +55,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
   gap,
   theme,
   autoWiggleOnUpdate,
+  richColors,
   ...props
 }) => {
   const [toasts, setToasts] = React.useState<ToastProps[]>([]);
@@ -198,6 +199,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
       toastOptions,
       autoWiggleOnUpdate:
         autoWiggleOnUpdate ?? toastDefaultValues.autoWiggleOnUpdate,
+      richColors: richColors ?? toastDefaultValues.richColors,
     }),
     [
       duration,
@@ -214,6 +216,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
       theme,
       toastOptions,
       autoWiggleOnUpdate,
+      richColors,
     ]
   );
 

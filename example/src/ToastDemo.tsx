@@ -43,6 +43,15 @@ export const ToastDemo: React.FC = () => {
         }}
       />
       <Button
+        title="Rich colors"
+        onPress={() => {
+          toast.warning('Rich colors', {
+            description: 'Your changes have been saved successfully',
+            richColors: true,
+          });
+        }}
+      />
+      <Button
         title="Show toast with description and action"
         onPress={() => {
           toast.success('Changes saved', {

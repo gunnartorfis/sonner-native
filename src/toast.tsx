@@ -13,7 +13,6 @@ import { ToastSwipeHandler } from './gestures';
 import { CircleCheck, CircleX, Info, TriangleAlert, X } from './icons';
 import { isToastAction, type ToastProps, type ToastRef } from './types';
 import { useAppStateListener } from './use-app-state';
-import { useColors } from './use-colors';
 import { useDefaultStyles } from './use-default-styles';
 
 export const Toast = React.forwardRef<ToastRef, ToastProps>(
@@ -49,7 +48,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       unstyled: unstyledProps,
       important,
       invert: invertProps,
-      // richColors: richColorsProps,
+      richColors: richColorsProps,
     },
     ref
   ) => {
@@ -61,7 +60,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       pauseWhenPageIsHidden,
       cn,
       invert: invertCtx,
-      // richColors: richColorsCtx,
+      richColors: richColorsCtx,
       toastOptions: {
         unstyled: unstyledCtx,
         toastContainerStyle: toastContainerStyleCtx,
@@ -80,12 +79,11 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       },
     } = useToastContext();
     const invert = invertProps ?? invertCtx;
-    // const richColors = richColorsProps ?? richColorsCtx;
+    const richColors = richColorsProps ?? richColorsCtx;
     const unstyled = unstyledProps ?? unstyledCtx;
     const duration = durationProps ?? durationCtx;
     const closeButton = closeButtonProps ?? closeButtonCtx;
 
-    const colors = useColors(invert);
     const { entering, exiting } = useToastLayoutAnimations(position);
 
     const isDragging = React.useRef(false);
@@ -256,9 +254,10 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
 
     const defaultStyles = useDefaultStyles({
       invert,
-      // richColors,
+      richColors,
       unstyled,
       description,
+      variant,
     });
 
     if (jsx) {
@@ -329,7 +328,11 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
             ) : variant in icons ? (
               icons[variant]
             ) : (
-              <ToastIcon variant={variant} invert={invert} />
+              <ToastIcon
+                variant={variant}
+                invert={invert}
+                richColors={richColors}
+              />
             )}
             <View style={{ flex: 1 }}>
               <Text
@@ -430,7 +433,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
               >
                 <X
                   size={20}
-                  color={colors['text-secondary']}
+                  color={defaultStyles.closeButtonColor}
                   style={[closeButtonIconStyleCtx, styles?.closeButtonIcon]}
                   className={cn(
                     classNamesCtx?.closeButtonIcon,
@@ -448,21 +451,30 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
 
 Toast.displayName = 'Toast';
 
-export const ToastIcon: React.FC<Pick<ToastProps, 'variant' | 'invert'>> = ({
-  variant,
-  invert,
-}) => {
-  const colors = useColors(invert);
+export const ToastIcon: React.FC<
+  Pick<ToastProps, 'variant'> & {
+    invert: boolean;
+    richColors: boolean;
+  }
+> = ({ variant, invert, richColors }) => {
+  const color = useDefaultStyles({
+    variant,
+    invert,
+    richColors,
+    unstyled: false,
+    description: undefined,
+  }).iconColor;
+
   switch (variant) {
     case 'success':
-      return <CircleCheck size={20} color={colors.success} />;
+      return <CircleCheck size={20} color={color} />;
     case 'error':
-      return <CircleX size={20} color={colors.error} />;
+      return <CircleX size={20} color={color} />;
     case 'warning':
-      return <TriangleAlert size={20} color={colors.warning} />;
+      return <TriangleAlert size={20} color={color} />;
     default:
     case 'info':
-      return <Info size={20} color={colors.info} />;
+      return <Info size={20} color={color} />;
   }
 };
 

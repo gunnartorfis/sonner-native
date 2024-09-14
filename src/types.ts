@@ -63,6 +63,7 @@ export type ToastProps = StyleProps & {
   icon?: React.ReactNode;
   action?: ToastAction | React.ReactNode;
   cancel?: ToastAction | React.ReactNode;
+  richColors?: boolean;
   onDismiss?: (id: string | number) => void;
   onAutoClose?: (id: string | number) => void;
   promiseOptions?: PromiseOptions;
@@ -128,6 +129,7 @@ export type ToasterProps = {
   };
   gap?: number;
   loadingIcon?: React.ReactNode;
+  richColors?: boolean;
   // pauseWhenPageIsHidden?: boolean; (false)
   icons?: {
     success?: React.ReactNode;
@@ -162,6 +164,7 @@ export type ToasterContextType = Required<
     | 'theme'
     | 'toastOptions'
     | 'autoWiggleOnUpdate'
+    | 'richColors'
   >
 > & {
   addToast: AddToastContextHandler;
