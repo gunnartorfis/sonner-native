@@ -12,7 +12,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { easeInOutCircFn } from './easings';
 import { useToastContext } from './context';
-import type { ToastProps } from './types';
+import type { ToastPosition, ToastProps } from './types';
 
 const { width: WINDOW_WIDTH } = Dimensions.get('window');
 
@@ -24,6 +24,7 @@ type ToastSwipeHandlerProps = Pick<ToastProps, 'important'> & {
   onFinalize: () => void;
   enabled?: boolean;
   unstyled?: boolean;
+  position?: ToastPosition;
 };
 
 export const ToastSwipeHandler: React.FC<
@@ -38,9 +39,15 @@ export const ToastSwipeHandler: React.FC<
   enabled,
   unstyled,
   important,
+  position: positionProps,
 }) => {
   const translate = useSharedValue(0);
-  const { swipeToDismissDirection: direction, gap } = useToastContext();
+  const {
+    swipeToDismissDirection: direction,
+    gap,
+    position: positionCtx,
+  } = useToastContext();
+  const position = positionProps || positionCtx;
 
   const pan = Gesture.Pan()
     .onBegin(() => {
@@ -61,7 +68,8 @@ export const ToastSwipeHandler: React.FC<
       if (direction === 'left' && event.translationX < 0) {
         translate.value = event.translationX;
       } else if (direction === 'up') {
-        translate.value = event.translationY;
+        translate.value =
+          event.translationY * (position === 'bottom-center' ? -1 : 1);
       }
     })
     .onFinalize(() => {
@@ -99,7 +107,10 @@ export const ToastSwipeHandler: React.FC<
       transform: [
         direction === 'left'
           ? { translateX: translate.value }
-          : { translateY: translate.value },
+          : {
+              translateY:
+                translate.value * (position === 'bottom-center' ? -1 : 1),
+            },
       ],
       opacity: interpolate(
         translate.value,

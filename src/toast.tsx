@@ -292,6 +292,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         )}
         unstyled={unstyled}
         important={important}
+        position={position}
       >
         <Animated.View
           className={cn(className, classNamesCtx?.toast, classNames?.toast)}
