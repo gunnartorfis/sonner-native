@@ -189,44 +189,49 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     );
 
     React.useEffect(() => {
-      if (isResolvingPromise.current) {
-        return;
-      }
-
-      if (promiseOptions?.promise) {
-        try {
-          isResolvingPromise.current = true;
-          promiseOptions.promise.then((data) => {
-            addToast({
-              title: promiseOptions.success(data) ?? 'Success',
-              id,
-              variant: 'success',
-              promiseOptions: undefined,
-            });
-            isResolvingPromise.current = false;
-          });
-        } catch (error) {
-          addToast({
-            title: promiseOptions.error ?? 'Error',
-            id,
-            variant: 'error',
-            promiseOptions: undefined,
-          });
-          isResolvingPromise.current = false;
+      const handlePromise = async () => {
+        if (isResolvingPromise.current) {
+          return;
         }
 
-        return;
-      }
+        if (promiseOptions?.promise) {
+          isResolvingPromise.current = true;
 
-      if (duration === Infinity) {
-        return;
-      }
+          try {
+            await promiseOptions.promise.then((data) => {
+              addToast({
+                title: promiseOptions.success(data) ?? 'Success',
+                id,
+                variant: 'success',
+                promiseOptions: undefined,
+              });
+            });
+          } catch (error) {
+            addToast({
+              title: promiseOptions.error ?? 'Error',
+              id,
+              variant: 'error',
+              promiseOptions: undefined,
+            });
+          } finally {
+            isResolvingPromise.current = false;
+          }
 
-      // Start the timer only if it hasn't been started yet
-      if (!timerStart.current) {
-        timerStart.current = Date.now();
-        startTimer();
-      }
+          return;
+        }
+
+        if (duration === Infinity) {
+          return;
+        }
+
+        // Start the timer only if it hasn't been started yet
+        if (!timerStart.current) {
+          timerStart.current = Date.now();
+          startTimer();
+        }
+      };
+
+      handlePromise();
     }, [
       duration,
       id,
