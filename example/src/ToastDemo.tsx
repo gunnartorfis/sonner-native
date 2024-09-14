@@ -1,5 +1,13 @@
 import * as React from 'react';
-import { Button, Image, Pressable, ScrollView, Text, View } from 'react-native';
+import {
+  Alert,
+  Button,
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import { toast } from 'sonner-native';
 
 export const ToastDemo: React.FC = () => {
@@ -402,6 +410,21 @@ export const ToastDemo: React.FC = () => {
         onPress={() => toast('Dynamic position', { position: 'bottom-center' })}
       />
       <Button title="Warning toast" onPress={() => toast.warning('Warning')} />
+      <Button
+        title="OnPress action"
+        onPress={() => {
+          const id = toast.success('OnPress action', {
+            dismissible: true,
+            onPress: () => {
+              toast.dismiss(id);
+              setToastId(null);
+              Alert.alert('press');
+            },
+          });
+
+          setToastId(id);
+        }}
+      />
     </ScrollView>
   );
 };

@@ -14,6 +14,7 @@ import { CircleCheck, CircleX, Info, TriangleAlert, X } from './icons';
 import { isToastAction, type ToastProps, type ToastRef } from './types';
 import { useAppStateListener } from './use-app-state';
 import { useDefaultStyles } from './use-default-styles';
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Toast = React.forwardRef<ToastRef, ToastProps>(
   (
@@ -49,6 +50,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       important,
       invert: invertProps,
       richColors: richColorsProps,
+      onPress,
     },
     ref
   ) => {
@@ -284,7 +286,8 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
             onDismiss?.(id);
           }
         }}
-        enabled={!promiseOptions && dismissible}
+        onPress={() => onPress?.()}
+        enabled={onPress ? true : !promiseOptions && dismissible}
         style={[toastContainerStyleCtx, styles?.toastContainer]}
         className={cn(
           classNamesCtx?.toastContainer,
@@ -423,25 +426,27 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
               </View>
             </View>
             {closeButton && dismissible ? (
-              <Pressable
-                onPress={() => onDismiss?.(id)}
-                hitSlop={10}
-                style={[closeButtonStyleCtx, styles?.closeButton]}
-                className={cn(
-                  classNamesCtx?.closeButton,
-                  classNames?.closeButton
-                )}
-              >
-                <X
-                  size={20}
-                  color={defaultStyles.closeButtonColor}
-                  style={[closeButtonIconStyleCtx, styles?.closeButtonIcon]}
+              <RectButton disallowInterruption>
+                <Pressable
+                  onPress={() => onDismiss?.(id)}
+                  hitSlop={10}
+                  style={[closeButtonStyleCtx, styles?.closeButton]}
                   className={cn(
-                    classNamesCtx?.closeButtonIcon,
-                    classNames?.closeButtonIcon
+                    classNamesCtx?.closeButton,
+                    classNames?.closeButton
                   )}
-                />
-              </Pressable>
+                >
+                  <X
+                    size={20}
+                    color={defaultStyles.closeButtonColor}
+                    style={[closeButtonIconStyleCtx, styles?.closeButtonIcon]}
+                    className={cn(
+                      classNamesCtx?.closeButtonIcon,
+                      classNames?.closeButtonIcon
+                    )}
+                  />
+                </Pressable>
+              </RectButton>
             ) : null}
           </View>
         </Animated.View>
