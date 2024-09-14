@@ -74,6 +74,22 @@ function SomeComponent() {
 }
 ```
 
+### Web support
+
+Even though Sonner Native works on the web, it is not recommended to use it there. Instead, use the original [Sonner](https://sonner.emilkowal.ski/).
+
+The following setup is recommended. Add a `sonner.ts` and `sonner.web.ts` file to your project and import from there instead of from this library directly. That way, sonner will be used on the web and sonner-native on native.
+
+```ts
+// sonner.ts
+export * from 'sonner-native';
+```
+
+```ts
+// sonner.web.ts
+export * from 'sonner';
+```
+
 ## Examples
 
 An example can be found in the [`example`](https://github.com/gunnartorfis/sonner-native/tree/main/example) folder.
