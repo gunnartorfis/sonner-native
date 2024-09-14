@@ -14,6 +14,7 @@ import { CircleCheck, CircleX, Info, TriangleAlert, X } from './icons';
 import { isToastAction, type ToastProps, type ToastRef } from './types';
 import { useAppStateListener } from './use-app-state';
 import { useColors } from './use-colors';
+import { useDefaultStyles } from './use-default-styles';
 
 export const Toast = React.forwardRef<ToastRef, ToastProps>(
   (
@@ -48,6 +49,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       unstyled: unstyledProps,
       important,
       invert: invertProps,
+      // richColors: richColorsProps,
     },
     ref
   ) => {
@@ -59,6 +61,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       pauseWhenPageIsHidden,
       cn,
       invert: invertCtx,
+      // richColors: richColorsCtx,
       toastOptions: {
         unstyled: unstyledCtx,
         toastContainerStyle: toastContainerStyleCtx,
@@ -77,7 +80,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       },
     } = useToastContext();
     const invert = invertProps ?? invertCtx;
-
+    // const richColors = richColorsProps ?? richColorsCtx;
     const unstyled = unstyledProps ?? unstyledCtx;
     const duration = durationProps ?? durationCtx;
     const closeButton = closeButtonProps ?? closeButtonCtx;
@@ -251,6 +254,13 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       };
     }, [id]);
 
+    const defaultStyles = useDefaultStyles({
+      invert,
+      // richColors,
+      unstyled,
+      description,
+    });
+
     if (jsx) {
       return jsx;
     }
@@ -291,16 +301,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
             toastStyleCtx,
             styles?.toast,
             style,
-            unstyled
-              ? undefined
-              : {
-                  justifyContent: 'center',
-                  padding: 16,
-                  borderRadius: 16,
-                  marginHorizontal: 16,
-                  backgroundColor: colors['background-primary'],
-                  borderCurve: 'continuous',
-                },
+            defaultStyles.toast,
             wiggleAnimationStyle,
           ]}
           entering={entering}
@@ -308,14 +309,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         >
           <View
             style={[
-              unstyled
-                ? undefined
-                : {
-                    flexDirection: 'row',
-                    gap: 16,
-                    alignItems:
-                      description?.length === 0 ? 'center' : undefined,
-                  },
+              defaultStyles.toastContent,
               toastContentStyleCtx,
               styles?.toastContent,
             ]}
@@ -339,17 +333,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
             )}
             <View style={{ flex: 1 }}>
               <Text
-                style={[
-                  unstyled
-                    ? undefined
-                    : {
-                        fontWeight: '600',
-                        lineHeight: 20,
-                        color: colors['text-primary'],
-                      },
-                  titleStyleCtx,
-                  styles?.title,
-                ]}
+                style={[defaultStyles.title, titleStyleCtx, styles?.title]}
                 className={cn(classNamesCtx?.title, classNames?.title)}
               >
                 {title}
@@ -357,14 +341,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
               {description ? (
                 <Text
                   style={[
-                    unstyled
-                      ? undefined
-                      : {
-                          fontSize: 14,
-                          lineHeight: 20,
-                          marginTop: 2,
-                          color: colors['text-tertiary'],
-                        },
+                    defaultStyles.description,
                     descriptionStyleCtx,
                     styles?.description,
                   ]}
@@ -380,12 +357,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
                 style={[
                   unstyled || (!action && !cancel)
                     ? undefined
-                    : {
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: 16,
-                        marginTop: 16,
-                      },
+                    : defaultStyles.buttons,
                   buttonsStyleCtx,
                   styles?.buttons,
                 ]}
@@ -396,19 +368,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
                     onPress={action.onClick}
                     className={actionButtonClassName}
                     style={[
-                      unstyled
-                        ? undefined
-                        : {
-                            flexGrow: 0,
-                            alignSelf: 'flex-start',
-                            borderRadius: 999,
-                            borderWidth: 1,
-                            borderColor: colors['border-secondary'],
-                            paddingHorizontal: 14,
-                            paddingVertical: 6,
-                            borderCurve: 'continuous',
-                            backgroundColor: colors['background-secondary'],
-                          },
+                      defaultStyles.actionButton,
                       actionButtonStyleCtx,
                       actionButtonStyle,
                     ]}
@@ -416,15 +376,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
                     <Text
                       numberOfLines={1}
                       style={[
-                        unstyled
-                          ? undefined
-                          : {
-                              fontSize: 14,
-                              lineHeight: 20,
-                              fontWeight: '600',
-                              alignSelf: 'flex-start',
-                              color: colors['text-primary'],
-                            },
+                        defaultStyles.actionButtonText,
                         actionButtonTextStyleCtx,
                         actionButtonTextStyle,
                       ]}
@@ -444,11 +396,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
                     }}
                     className={cancelButtonClassName}
                     style={[
-                      unstyled
-                        ? undefined
-                        : {
-                            flexGrow: 0,
-                          },
+                      defaultStyles.cancelButton,
                       cancelButtonStyleCtx,
                       cancelButtonStyle,
                     ]}
@@ -456,15 +404,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
                     <Text
                       numberOfLines={1}
                       style={[
-                        unstyled
-                          ? undefined
-                          : {
-                              fontSize: 14,
-                              lineHeight: 20,
-                              fontWeight: '600',
-                              alignSelf: 'flex-start',
-                              color: colors['text-secondary'],
-                            },
+                        defaultStyles.cancelButtonText,
                         cancelButtonTextStyleCtx,
                         cancelButtonTextStyle,
                       ]}
