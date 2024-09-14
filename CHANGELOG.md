@@ -1,5 +1,20 @@
 
 
+# [0.13.0](https://github.com/gunnartorfis/sonner-native/compare/v0.12.1...v0.13.0) (2024-09-14)
+
+
+### Bug Fixes
+
+* await the promise to be able to catch its error and render an error toast ([671fb5d](https://github.com/gunnartorfis/sonner-native/commit/671fb5de87058eb29238cd80ae6a0370a4c37fb6))
+* bottom positioned toast should swipe down ([6051c62](https://github.com/gunnartorfis/sonner-native/commit/6051c62122935c02eb85090cdd0743064d835155))
+* corrected typo in "swipeToDismissDirection" prop ([f2c9788](https://github.com/gunnartorfis/sonner-native/commit/f2c97888e033eea0c50f9a9b52256d34cca22211))
+* renamed "ivertProps" to "invertProps" in "use-colors.ts" ([411ecf2](https://github.com/gunnartorfis/sonner-native/commit/411ecf2025d598c425bf4726aec673ac0cc402f7))
+
+
+### Features
+
+* rich colors support ([4a3d3e3](https://github.com/gunnartorfis/sonner-native/commit/4a3d3e33a58cc522d3ae589b897183cc77a11896))
+
 ## [0.12.1](https://github.com/gunnartorfis/sonner-native/compare/v0.12.0...v0.12.1) (2024-09-11)
 
 
