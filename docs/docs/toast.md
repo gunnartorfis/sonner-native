@@ -223,6 +223,7 @@ Toasts can also be automatically wiggled by passing the `autoWiggleOnUpdate` pro
 | actionButtonTextStyles |                                   Styles for the action button text                                    |         `{}` |
 | cancelButtonStyles     |                                      Styles for the cancel button                                      |         `{}` |
 | cancelButtonTextStyles |                                   Styles for the cancel button text                                    |         `{}` |
+| richColors             |                               Makes error and success state more colorful                              |      `false` |
 
 ```
 

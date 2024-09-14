@@ -29,24 +29,24 @@
 
 ## Toaster:
 
-| Property                 | Sonner Native | Sonner Web |
-| :----------------------- | ------------- | ---------- |
-| theme                    | ✅            | ✅         |
-| visibleToasts            | ✅            | ✅         |
-| position                 | ✅            | ✅         |
-| closeButton              | ✅            | ✅         |
-| invert                   | ✅            | ✅         |
-| toastOptions             | ✅            | ✅         |
-| gap                      | ✅            | ✅         |
-| icons                    | ✅            | ✅         |
+| Property                  | Sonner Native | Sonner Web |
+| :------------------------ | ------------- | ---------- |
+| theme                     | ✅            | ✅         |
+| visibleToasts             | ✅            | ✅         |
+| position                  | ✅            | ✅         |
+| closeButton               | ✅            | ✅         |
+| invert                    | ✅            | ✅         |
+| toastOptions              | ✅            | ✅         |
+| gap                       | ✅            | ✅         |
+| icons                     | ✅            | ✅         |
 | `swipeToDismissDirection` | ✅            | ❌         |
-| dir                      | ❌            | ✅         |
-| richColors               | ❌            | ✅         |
-| expand                   | 🕸️            | ✅         |
-| offset                   | ✅            | ✅         |
-| hotkey                   | 🕸️            | ✅         |
-| loadingIcon              | ✅            | ✅         |
-| pauseWhenPageIsHidden    | ✅            | ✅         |
-| cn                       | ✅            | ✅         |
+| dir                       | ❌            | ✅         |
+| richColors                | ✅            | ✅         |
+| expand                    | 🕸️            | ✅         |
+| offset                    | ✅            | ✅         |
+| hotkey                    | 🕸️            | ✅         |
+| loadingIcon               | ✅            | ✅         |
+| pauseWhenPageIsHidden     | ✅            | ✅         |
+| cn                        | ✅            | ✅         |
 
 **🕸️: Not applicable for native apps.**
