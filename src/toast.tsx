@@ -189,49 +189,44 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     );
 
     React.useEffect(() => {
-      const handlePromise = async () => {
-        if (isResolvingPromise.current) {
-          return;
-        }
+      if (isResolvingPromise.current) {
+        return;
+      }
 
-        if (promiseOptions?.promise) {
+      if (promiseOptions?.promise) {
+        try {
           isResolvingPromise.current = true;
-
-          try {
-            await promiseOptions.promise.then((data) => {
-              addToast({
-                title: promiseOptions.success(data) ?? 'Success',
-                id,
-                variant: 'success',
-                promiseOptions: undefined,
-              });
-            });
-          } catch (error) {
+          promiseOptions.promise.then((data) => {
             addToast({
-              title: promiseOptions.error ?? 'Error',
+              title: promiseOptions.success(data) ?? 'Success',
               id,
-              variant: 'error',
+              variant: 'success',
               promiseOptions: undefined,
             });
-          } finally {
             isResolvingPromise.current = false;
-          }
-
-          return;
+          });
+        } catch (error) {
+          addToast({
+            title: promiseOptions.error ?? 'Error',
+            id,
+            variant: 'error',
+            promiseOptions: undefined,
+          });
+          isResolvingPromise.current = false;
         }
 
-        if (duration === Infinity) {
-          return;
-        }
+        return;
+      }
 
-        // Start the timer only if it hasn't been started yet
-        if (!timerStart.current) {
-          timerStart.current = Date.now();
-          startTimer();
-        }
-      };
+      if (duration === Infinity) {
+        return;
+      }
 
-      handlePromise();
+      // Start the timer only if it hasn't been started yet
+      if (!timerStart.current) {
+        timerStart.current = Date.now();
+        startTimer();
+      }
     }, [
       duration,
       id,
