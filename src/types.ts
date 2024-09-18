@@ -29,7 +29,7 @@ type StyleProps = {
 type PromiseOptions = {
   promise: Promise<unknown>;
   success: (result: any) => string; // TODO: type this with generics
-  error: string;
+  error: ((error: unknown) => string) | string;
   loading: string;
 };
 

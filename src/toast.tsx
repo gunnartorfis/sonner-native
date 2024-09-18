@@ -201,17 +201,19 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
           isResolvingPromise.current = true;
 
           try {
-            await promiseOptions.promise.then((data) => {
-              addToast({
-                title: promiseOptions.success(data) ?? 'Success',
-                id,
-                variant: 'success',
-                promiseOptions: undefined,
-              });
+            const data = await promiseOptions.promise;
+            addToast({
+              title: promiseOptions.success(data) ?? 'Success',
+              id,
+              variant: 'success',
+              promiseOptions: undefined,
             });
           } catch (error) {
             addToast({
-              title: promiseOptions.error ?? 'Error',
+              title:
+                typeof promiseOptions.error === 'function'
+                  ? promiseOptions.error(error)
+                  : (promiseOptions.error ?? 'Error'),
               id,
               variant: 'error',
               promiseOptions: undefined,

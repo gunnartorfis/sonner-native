@@ -136,13 +136,16 @@ export const ToastDemo: React.FC = () => {
           toast.promise(
             new Promise((_, reject) => {
               setTimeout(() => {
-                reject('Promise rejected');
+                reject(new Error('promise failed'));
               }, 2000);
             }),
             {
               loading: 'Loading...',
               success: (result: string) => `Promise resolved: ${result}`,
-              error: 'Promise failed',
+              error: (error) =>
+                error instanceof Error
+                  ? `catch 'Error' ${error.message}`
+                  : 'Promise failed',
             }
           );
         }}
