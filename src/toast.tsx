@@ -289,7 +289,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
           }
         }}
         onPress={() => onPress?.()}
-        enabled={onPress ? true : !promiseOptions && dismissible}
+        enabled={!promiseOptions && dismissible}
         style={[toastContainerStyleCtx, styles?.toastContainer]}
         className={cn(
           classNamesCtx?.toastContainer,

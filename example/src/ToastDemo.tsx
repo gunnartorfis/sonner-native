@@ -417,7 +417,7 @@ export const ToastDemo: React.FC = () => {
         title="OnPress action"
         onPress={() => {
           const id = toast.success('OnPress action', {
-            dismissible: true,
+            dismissible: false,
             onPress: () => {
               toast.dismiss(id);
               setToastId(null);

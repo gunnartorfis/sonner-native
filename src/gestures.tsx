@@ -105,10 +105,9 @@ export const ToastSwipeHandler: React.FC<
     });
 
   const tap = Gesture.Tap().onEnd(() => {
-    if (!enabled) {
-      return;
+    if (onPress) {
+      runOnJS(onPress)();
     }
-    runOnJS(onPress)();
   });
 
   const animatedStyle = useAnimatedStyle(() => {
