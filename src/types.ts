@@ -75,6 +75,7 @@ export type ToastProps = StyleProps & {
   cancelButtonTextStyle?: TextStyle;
   cancelButtonClassName?: string;
   cancelButtonTextClassName?: string;
+  onPress?: () => void;
 };
 
 export type ToastRef = {
