@@ -177,7 +177,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     }
   }, []);
 
-  const { style, className, unstyled } = toastOptions;
+  const { unstyled } = toastOptions;
 
   const value = React.useMemo<ToasterContextType>(
     () => ({
@@ -270,7 +270,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
 
   return (
     <ToastContext.Provider value={value}>
-      <Positioner className={className} style={style} position={position}>
+      <Positioner position={position}>
         {positionedNonDynamicToasts.map((positionedToast) => {
           return (
             <Toast
@@ -285,8 +285,6 @@ export const ToasterUI: React.FC<ToasterProps> = ({
         })}
       </Positioner>
       <Positioner
-        className={className}
-        style={style}
         position={
           positionedDynamicToasts?.[0]?.position ?? toastDefaultValues.position
         }

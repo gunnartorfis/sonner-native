@@ -303,10 +303,10 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
           className={cn(className, classNamesCtx?.toast, classNames?.toast)}
           style={[
             unstyled ? undefined : elevationStyle,
+            defaultStyles.toast,
             toastStyleCtx,
             styles?.toast,
             style,
-            defaultStyles.toast,
             wiggleAnimationStyle,
           ]}
           entering={entering}
