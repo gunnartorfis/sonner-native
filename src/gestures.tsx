@@ -82,6 +82,13 @@ export const ToastSwipeHandler: React.FC<
       const threshold = direction === 'left' ? -WINDOW_WIDTH * 0.25 : -16;
       const shouldDismiss = translate.value < threshold;
 
+      if (Math.abs(translate.value) < 16) {
+        translate.value = withTiming(0, {
+          easing: Easing.elastic(0.8),
+        });
+        return;
+      }
+
       if (shouldDismiss) {
         translate.value = withTiming(
           -WINDOW_WIDTH,
