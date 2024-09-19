@@ -25,6 +25,7 @@ type ToastSwipeHandlerProps = Pick<ToastProps, 'important'> & {
   enabled?: boolean;
   unstyled?: boolean;
   position?: ToastPosition;
+  onPress: () => void;
 };
 
 export const ToastSwipeHandler: React.FC<
@@ -40,6 +41,7 @@ export const ToastSwipeHandler: React.FC<
   unstyled,
   important,
   position: positionProps,
+  onPress,
 }) => {
   const translate = useSharedValue(0);
   const {
@@ -109,6 +111,12 @@ export const ToastSwipeHandler: React.FC<
       runOnJS(onFinalize)();
     });
 
+  const tap = Gesture.Tap().onEnd(() => {
+    if (onPress) {
+      runOnJS(onPress)();
+    }
+  });
+
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [
@@ -128,7 +136,7 @@ export const ToastSwipeHandler: React.FC<
   }, [direction, translate]);
 
   return (
-    <GestureDetector gesture={pan}>
+    <GestureDetector gesture={Gesture.Race(tap, pan)}>
       <Animated.View
         style={[
           animatedStyle,
