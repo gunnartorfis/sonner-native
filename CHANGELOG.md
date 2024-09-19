@@ -1,5 +1,20 @@
 
 
+# [0.14.0](https://github.com/gunnartorfis/sonner-native/compare/v0.13.0...v0.14.0) (2024-09-19)
+
+
+### Bug Fixes
+
+* android action onclick ([5e8a4b0](https://github.com/gunnartorfis/sonner-native/commit/5e8a4b015f0f429d66433504b250cf0250bfa6ff))
+* handle dismissible false with onPress ([c10b936](https://github.com/gunnartorfis/sonner-native/commit/c10b9365c342f9bcd7070ff79c4361e7c7ce06b7))
+* toastOption.style wasn't applied ([b13ea69](https://github.com/gunnartorfis/sonner-native/commit/b13ea694fe77610552065deecde7c2225f8f4b71))
+
+
+### Features
+
+* add onPress ([102e092](https://github.com/gunnartorfis/sonner-native/commit/102e09286ad94037b7690d30db24185b8bdfeb06))
+* toast.promise error option can be a callback fn or a string ([89d0872](https://github.com/gunnartorfis/sonner-native/commit/89d0872f5625d617c745dbf589efb0e7c3ac7e3f))
+
 # [0.13.0](https://github.com/gunnartorfis/sonner-native/compare/v0.12.1...v0.13.0) (2024-09-14)
 
 
