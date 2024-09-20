@@ -1,5 +1,12 @@
 
 
+## [0.14.1](https://github.com/gunnartorfis/sonner-native/compare/v0.14.0...v0.14.1) (2024-09-20)
+
+
+### Bug Fixes
+
+* close button press didn't trigger dismiss ([d83a529](https://github.com/gunnartorfis/sonner-native/commit/d83a529dbf4f4ad3d851bdccf3104eb2588173d3))
+
 # [0.14.0](https://github.com/gunnartorfis/sonner-native/compare/v0.13.0...v0.14.0) (2024-09-19)
 
 
