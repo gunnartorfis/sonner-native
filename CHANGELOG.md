@@ -1,5 +1,12 @@
 
 
+## [0.14.2](https://github.com/gunnartorfis/sonner-native/compare/v0.14.1...v0.14.2) (2024-09-22)
+
+
+### Bug Fixes
+
+* add missing worklet directive ([b5796de](https://github.com/gunnartorfis/sonner-native/commit/b5796de6d71727e7a0152c50f8af5e0b9e2e1e57))
+
 ## [0.14.1](https://github.com/gunnartorfis/sonner-native/compare/v0.14.0...v0.14.1) (2024-09-20)
 
 
