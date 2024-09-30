@@ -5963,6 +5963,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"array-timsort@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "array-timsort@npm:1.0.3"
+  checksum: fd4b5b0911214bdc8b5699ed10d309685551b518b3819c611c967cff59b87aee01cf591a10e36a3f14dbff696984bd6682b845f6fdbf1217195e910f241a4f78
+  languageName: node
+  linkType: hard
+
 "array-union@npm:^2.1.0":
   version: 2.1.0
   resolution: "array-union@npm:2.1.0"
@@ -7293,6 +7300,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"comment-json@npm:^4.2.5":
+  version: 4.2.5
+  resolution: "comment-json@npm:4.2.5"
+  dependencies:
+    array-timsort: ^1.0.3
+    core-util-is: ^1.0.3
+    esprima: ^4.0.1
+    has-own-prop: ^2.0.0
+    repeat-string: ^1.6.1
+  checksum: 6dfc7b83d079595f3fd397af1fe2c48537c0a6fe537f718c4a9e5fbdbb78bb8c2bf0aebc0cc64d14c4807eb030f3e5357235a5adcc366457ab4059256d57f59c
+  languageName: node
+  linkType: hard
+
 "commitlint@npm:^19.4.1":
   version: 19.4.1
   resolution: "commitlint@npm:19.4.1"
@@ -7684,7 +7704,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-util-is@npm:~1.0.0":
+"core-util-is@npm:^1.0.3, core-util-is@npm:~1.0.0":
   version: 1.0.3
   resolution: "core-util-is@npm:1.0.3"
   checksum: 9de8597363a8e9b9952491ebe18167e3b36e7707569eed0ebf14f8bba773611376466ae34575bca8cfe3c767890c859c74056084738f09d4e4a6f902b2ad7d99
@@ -10963,6 +10983,13 @@ __metadata:
   version: 4.0.0
   resolution: "has-flag@npm:4.0.0"
   checksum: 261a1357037ead75e338156b1f9452c016a37dcd3283a972a30d9e4a87441ba372c8b81f818cd0fbcd9c0354b4ae7e18b9e1afa1971164aef6d18c2b6095a8ad
+  languageName: node
+  linkType: hard
+
+"has-own-prop@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "has-own-prop@npm:2.0.0"
+  checksum: ca6336e85ead2295c9603880cbc199e2d3ff7eaea0e9035d68fbc79892e9cf681abc62c0909520f112c671dad9961be2173b21dff951358cc98425c560e789e0
   languageName: node
   linkType: hard
 
@@ -15531,7 +15558,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nativewind@npm:4.1.6, nativewind@npm:^4.1.6":
+"nativewind@npm:4.1.10":
+  version: 4.1.10
+  resolution: "nativewind@npm:4.1.10"
+  dependencies:
+    comment-json: ^4.2.5
+    react-native-css-interop: 0.1.9
+  peerDependencies:
+    tailwindcss: ">3.3.0"
+  checksum: 4b4c24b0d272f3f8402450b64ff8b63f0c2345801453124842e0bd19e1d87a10ac4e326af80efb0f3e12c680f4cfa26b7a9551026a38d703809c510eff36d649
+  languageName: node
+  linkType: hard
+
+"nativewind@npm:^4.1.6":
   version: 4.1.6
   resolution: "nativewind@npm:4.1.6"
   dependencies:
@@ -17781,6 +17820,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-css-interop@npm:0.1.9":
+  version: 0.1.9
+  resolution: "react-native-css-interop@npm:0.1.9"
+  dependencies:
+    "@babel/helper-module-imports": ^7.22.15
+    "@babel/traverse": ^7.23.0
+    "@babel/types": ^7.23.0
+    lightningcss: 1.22.0
+    semver: ^7.6.3
+  peerDependencies:
+    react: ">=18"
+    react-native: "*"
+    react-native-reanimated: ">=3.6.2"
+    tailwindcss: ~3
+  peerDependenciesMeta:
+    react-native-safe-area-context:
+      optional: true
+    react-native-svg:
+      optional: true
+  checksum: de5af312c911b044f0e824d989796f8d34fc6d42e93c54196f7a6f3b195737fb33fd64fcf981cf1b7c7a095996132f5d17c355e10617f443ebeed6ddbe15d2f0
+  languageName: node
+  linkType: hard
+
 "react-native-gesture-handler@npm:~2.16.1":
   version: 2.16.2
   resolution: "react-native-gesture-handler@npm:2.16.2"
@@ -18445,6 +18507,13 @@ __metadata:
     lodash: ^4.17.21
     strip-ansi: ^6.0.1
   checksum: 77162b62d6f33ab81f337c39efce0439ff0d1f6d441e29c35183151f83041c7850774fb904da163d6c844264d440d10557714e6daa0b19e4561a5cd4ef305d41
+  languageName: node
+  linkType: hard
+
+"repeat-string@npm:^1.6.1":
+  version: 1.6.1
+  resolution: "repeat-string@npm:1.6.1"
+  checksum: 1b809fc6db97decdc68f5b12c4d1a671c8e3f65ec4a40c238bc5200e44e85bcc52a54f78268ab9c29fcf5fe4f1343e805420056d1f30fa9a9ee4c2d93e3cc6c0
   languageName: node
   linkType: hard
 
@@ -19320,7 +19389,7 @@ __metadata:
     "@react-navigation/native-stack": ^6.9.12
     expo: ~51.0.32
     expo-status-bar: ~1.12.1
-    nativewind: 4.1.6
+    nativewind: 4.1.10
     react: 18.2.0
     react-dom: 18.2.0
     react-native: 0.74.5
