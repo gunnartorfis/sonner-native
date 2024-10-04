@@ -10,8 +10,8 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { easeInOutCircFn } from './easings';
 import { useToastContext } from './context';
+import { easeInOutCircFn } from './easings';
 import type { ToastPosition, ToastProps } from './types';
 
 const { width: WINDOW_WIDTH } = Dimensions.get('window');
@@ -113,7 +113,6 @@ export const ToastSwipeHandler: React.FC<
 
   const tap = Gesture.Tap().onEnd(() => {
     'worklet';
-    
     if (onPress) {
       runOnJS(onPress)();
     }
