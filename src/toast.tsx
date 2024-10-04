@@ -271,7 +271,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       if (close) {
         return close;
       }
-      if (typeof closeButton === 'boolean' && closeButton) {
+      if (closeButton) {
         return (
           <Pressable
             onPress={() => onDismiss?.(id)}
