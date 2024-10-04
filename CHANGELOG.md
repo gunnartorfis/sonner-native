@@ -1,5 +1,18 @@
 
 
+# [0.15.0](https://github.com/gunnartorfis/sonner-native/compare/v0.14.2...v0.15.0) (2024-10-04)
+
+
+### Bug Fixes
+
+* prettier ([8dc3666](https://github.com/gunnartorfis/sonner-native/commit/8dc36660188d15a5e9806b0a1605332f29bc30bc))
+* type guard ([d594e08](https://github.com/gunnartorfis/sonner-native/commit/d594e08aa1eceeded5e2b30fcee640a4e3624b0e))
+
+
+### Features
+
+* added customizeable close button ([98855df](https://github.com/gunnartorfis/sonner-native/commit/98855df50357f28056701093ccf71f2de916f49a))
+
 ## [0.14.2](https://github.com/gunnartorfis/sonner-native/compare/v0.14.1...v0.14.2) (2024-09-22)
 
 
