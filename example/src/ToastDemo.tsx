@@ -428,6 +428,16 @@ export const ToastDemo: React.FC = () => {
           setToastId(id);
         }}
       />
+
+      <Button
+        title="Custom close button"
+        onPress={() => {
+          const id = toast.success('Custom close button', {
+            close: <Button title="close" onPress={() => toast.dismiss(id)} />,
+            closeButton: undefined,
+          });
+        }}
+      />
     </ScrollView>
   );
 };

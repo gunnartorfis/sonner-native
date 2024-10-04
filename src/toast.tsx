@@ -27,6 +27,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       variant,
       action,
       cancel,
+      close,
       onDismiss,
       onAutoClose,
       dismissible = toastDefaultValues.dismissible,
@@ -263,6 +264,52 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       variant,
     });
 
+    const renderCloseButton = React.useMemo(() => {
+      if (!dismissible) {
+        return null;
+      }
+      if (close) {
+        return close;
+      }
+      if (typeof closeButton === 'boolean' && closeButton) {
+        return (
+          <Pressable
+            onPress={() => onDismiss?.(id)}
+            hitSlop={10}
+            style={[closeButtonStyleCtx, styles?.closeButton]}
+            className={cn(classNamesCtx?.closeButton, classNames?.closeButton)}
+          >
+            <X
+              size={20}
+              color={defaultStyles.closeButtonColor}
+              style={[closeButtonIconStyleCtx, styles?.closeButtonIcon]}
+              className={cn(
+                classNamesCtx?.closeButtonIcon,
+                classNames?.closeButtonIcon
+              )}
+            />
+          </Pressable>
+        );
+      }
+      return null;
+    }, [
+      classNames?.closeButton,
+      classNames?.closeButtonIcon,
+      classNamesCtx?.closeButton,
+      classNamesCtx?.closeButtonIcon,
+      close,
+      closeButton,
+      closeButtonIconStyleCtx,
+      closeButtonStyleCtx,
+      cn,
+      defaultStyles?.closeButtonColor,
+      dismissible,
+      id,
+      onDismiss,
+      styles?.closeButton,
+      styles?.closeButtonIcon,
+    ]);
+
     if (jsx) {
       return jsx;
     }
@@ -426,27 +473,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
                 )}
               </View>
             </View>
-            {closeButton && dismissible ? (
-              <Pressable
-                onPress={() => onDismiss?.(id)}
-                hitSlop={10}
-                style={[closeButtonStyleCtx, styles?.closeButton]}
-                className={cn(
-                  classNamesCtx?.closeButton,
-                  classNames?.closeButton
-                )}
-              >
-                <X
-                  size={20}
-                  color={defaultStyles.closeButtonColor}
-                  style={[closeButtonIconStyleCtx, styles?.closeButtonIcon]}
-                  className={cn(
-                    classNamesCtx?.closeButtonIcon,
-                    classNames?.closeButtonIcon
-                  )}
-                />
-              </Pressable>
-            ) : null}
+            {renderCloseButton}
           </View>
         </Animated.View>
       </ToastSwipeHandler>
