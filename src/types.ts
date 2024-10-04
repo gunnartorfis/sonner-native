@@ -1,3 +1,4 @@
+import type React from 'react';
 import type { TextStyle, ViewStyle } from 'react-native';
 
 type StyleProps = {
@@ -54,7 +55,6 @@ export type ToastProps = StyleProps & {
   variant: ToastVariant;
   jsx?: React.ReactNode;
   description?: string;
-  closeButton?: boolean;
   invert?: boolean;
   important?: boolean;
   duration?: number;
@@ -63,6 +63,8 @@ export type ToastProps = StyleProps & {
   icon?: React.ReactNode;
   action?: ToastAction | React.ReactNode;
   cancel?: ToastAction | React.ReactNode;
+  close?: React.ReactNode;
+  closeButton?: boolean;
   richColors?: boolean;
   onDismiss?: (id: string | number) => void;
   onAutoClose?: (id: string | number) => void;
