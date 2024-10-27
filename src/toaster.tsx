@@ -21,11 +21,31 @@ let wiggleHandler: typeof toast.wiggle;
 
 export const Toaster: React.FC<ToasterProps> = ({
   ToasterOverlayWrapper,
-  ...props
+  ...toasterProps
 }) => {
+  const toastsCounter = React.useRef(1);
+  const toastRefs = React.useRef<Record<string, React.RefObject<ToastRef>>>({});
+  const [toasts, setToasts] = React.useState<ToastProps[]>([]);
+
+  const props = React.useMemo(() => {
+    return {
+      ...toasterProps,
+      toasts,
+      setToasts,
+      toastsCounter,
+      toastRefs,
+    };
+  }, [toasterProps, toasts]);
+
+  if (toasts.length === 0) {
+    return <ToasterUI {...props} />;
+  }
+
   if (ToasterOverlayWrapper) {
     return (
-      <ToasterOverlayWrapper>{<ToasterUI {...props} />}</ToasterOverlayWrapper>
+      <ToasterOverlayWrapper>
+        <ToasterUI {...props} />
+      </ToasterOverlayWrapper>
     );
   }
 
@@ -40,7 +60,16 @@ export const Toaster: React.FC<ToasterProps> = ({
   return <ToasterUI {...props} />;
 };
 
-export const ToasterUI: React.FC<ToasterProps> = ({
+export const ToasterUI: React.FC<
+  ToasterProps & {
+    toasts: ToastProps[];
+    setToasts: React.Dispatch<React.SetStateAction<ToastProps[]>>;
+    toastsCounter: React.MutableRefObject<number>;
+    toastRefs: React.MutableRefObject<
+      Record<string, React.RefObject<ToastRef>>
+    >;
+  }
+> = ({
   duration = toastDefaultValues.duration,
   position = toastDefaultValues.position,
   offset = toastDefaultValues.offset,
@@ -56,12 +85,12 @@ export const ToasterUI: React.FC<ToasterProps> = ({
   theme,
   autoWiggleOnUpdate,
   richColors,
+  toasts,
+  setToasts,
+  toastsCounter,
+  toastRefs,
   ...props
 }) => {
-  const [toasts, setToasts] = React.useState<ToastProps[]>([]);
-  const toastsCounter = React.useRef(1);
-  const toastRefs = React.useRef<Record<string, React.RefObject<ToastRef>>>({});
-
   addToastHandler = React.useCallback(
     (options) => {
       const id =
@@ -122,7 +151,15 @@ export const ToasterUI: React.FC<ToasterProps> = ({
 
       return id;
     },
-    [autoWiggleOnUpdate, duration, toasts, visibleToasts]
+    [
+      autoWiggleOnUpdate,
+      duration,
+      setToasts,
+      toastRefs,
+      toasts,
+      toastsCounter,
+      visibleToasts,
+    ]
   );
 
   const dismissToast = React.useCallback<
@@ -160,7 +197,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
 
       return id;
     },
-    [toasts]
+    [setToasts, toasts, toastsCounter]
   );
 
   dismissToastHandler = React.useCallback(
@@ -170,12 +207,15 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     [dismissToast]
   );
 
-  wiggleHandler = React.useCallback((id) => {
-    const toastRef = toastRefs.current[id];
-    if (toastRef && toastRef.current) {
-      toastRef.current.wiggle();
-    }
-  }, []);
+  wiggleHandler = React.useCallback(
+    (id) => {
+      const toastRef = toastRefs.current[id];
+      if (toastRef && toastRef.current) {
+        toastRef.current.wiggle();
+      }
+    },
+    [toastRefs]
+  );
 
   const { unstyled } = toastOptions;
 
