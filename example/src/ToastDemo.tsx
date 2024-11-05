@@ -281,35 +281,19 @@ export const ToastDemo: React.FC = () => {
         title="Custom JSX"
         onPress={() => {
           toast.custom(
-            <View
-              style={{
-                width: '80%',
-                backgroundColor: '#26252A',
-                paddingLeft: 24,
-                paddingRight: 8,
-                paddingVertical: 8,
-                borderRadius: 999,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                borderCurve: 'continuous',
-              }}
-            >
-              <Text
+            <View style={{ alignItems: 'center' }}>
+              <View
                 style={{
-                  color: '#fff',
-                  fontWeight: '600',
-                }}
-              >
-                Custom JSX
-              </Text>
-              <Pressable
-                style={{
-                  backgroundColor: '#40424B',
-                  borderWidth: 1,
-                  borderColor: '#55555C',
+                  width: '80%',
+                  backgroundColor: '#26252A',
+                  paddingLeft: 24,
+                  paddingRight: 8,
+                  paddingVertical: 8,
                   borderRadius: 999,
-                  padding: 8,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  borderCurve: 'continuous',
                 }}
               >
                 <Text
@@ -318,9 +302,30 @@ export const ToastDemo: React.FC = () => {
                     fontWeight: '600',
                   }}
                 >
-                  Press me
+                  Custom JSX
                 </Text>
-              </Pressable>
+                <Pressable
+                  style={{
+                    backgroundColor: '#40424B',
+                    borderWidth: 1,
+                    borderColor: '#55555C',
+                    borderRadius: 999,
+                    padding: 8,
+                  }}
+                  onPress={() => {
+                    console.log('pressed the modal');
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: '#fff',
+                      fontWeight: '600',
+                    }}
+                  >
+                    Press me
+                  </Text>
+                </Pressable>
+              </View>
             </View>,
             {
               duration: 30000,
