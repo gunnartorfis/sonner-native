@@ -1,5 +1,14 @@
 
 
+# [0.16.0](https://github.com/gunnartorfis/sonner-native/compare/v0.16.0-beta.0...v0.16.0) (2024-11-05)
+
+# [0.16.0-beta.0](https://github.com/gunnartorfis/sonner-native/compare/v0.15.0...v0.16.0-beta.0) (2024-10-27)
+
+
+### Bug Fixes
+
+* conditional full window overlay ([d6f8990](https://github.com/gunnartorfis/sonner-native/commit/d6f899041e5553fa76b5a03b5bb8f0ba800da3b3))
+
 # [0.15.0](https://github.com/gunnartorfis/sonner-native/compare/v0.14.2...v0.15.0) (2024-10-04)
 
 
