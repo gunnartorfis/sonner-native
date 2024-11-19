@@ -1,5 +1,13 @@
 
 
+## [0.16.1](https://github.com/gunnartorfis/sonner-native/compare/v0.16.0...v0.16.1) (2024-11-19)
+
+
+### Bug Fixes
+
+* custom jsx component breaks animation ([fab7d6f](https://github.com/gunnartorfis/sonner-native/commit/fab7d6f77b5b058c0940069d5059dc07007fc612))
+* render custom jsx in if block and use ToastSwipeHandler with memoized props ([61e5ead](https://github.com/gunnartorfis/sonner-native/commit/61e5ead8c34631cca7aa9233b06f50049193792d))
+
 # [0.16.0](https://github.com/gunnartorfis/sonner-native/compare/v0.16.0-beta.0...v0.16.0) (2024-11-05)
 
 # [0.16.0-beta.0](https://github.com/gunnartorfis/sonner-native/compare/v0.15.0...v0.16.0-beta.0) (2024-10-27)
