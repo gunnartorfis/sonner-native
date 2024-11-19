@@ -1,0 +1,9 @@
+node_modules
+ios
+android
+lib
+.yarn
+.vscode
+.github
+.git
+docs
