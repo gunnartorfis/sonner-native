@@ -310,19 +310,15 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       styles?.closeButtonIcon,
     ]);
 
-    if (jsx) {
-      return jsx;
-    }
-
-    return (
-      <ToastSwipeHandler
-        onRemove={() => {
+    const toastSwipeHandlerProps = React.useMemo(
+      () => ({
+        onRemove: () => {
           onDismiss?.(id);
-        }}
-        onBegin={() => {
+        },
+        onBegin: () => {
           isDragging.current = true;
-        }}
-        onFinalize={() => {
+        },
+        onFinalize: () => {
           isDragging.current = false;
           const timeElapsed = Date.now() - timerStart.current!;
 
@@ -333,18 +329,48 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
           } else {
             onDismiss?.(id);
           }
-        }}
-        onPress={() => onPress?.()}
-        enabled={!promiseOptions && dismissible}
-        style={[toastContainerStyleCtx, styles?.toastContainer]}
-        className={cn(
+        },
+        onPress: () => onPress?.(),
+        enabled: !promiseOptions && dismissible,
+        style: [toastContainerStyleCtx, styles?.toastContainer],
+        className: cn(
           classNamesCtx?.toastContainer,
           classNames?.toastContainer
-        )}
-        unstyled={unstyled}
-        important={important}
-        position={position}
-      >
+        ),
+        unstyled: unstyled,
+        important: important,
+        position: position,
+      }),
+      [
+        onDismiss,
+        id,
+        duration,
+        dismissible,
+        promiseOptions,
+        onPress,
+        toastContainerStyleCtx,
+        styles?.toastContainer,
+        classNamesCtx?.toastContainer,
+        classNames?.toastContainer,
+        unstyled,
+        important,
+        position,
+        cn,
+      ]
+    );
+
+    if (jsx) {
+      return (
+        <ToastSwipeHandler {...toastSwipeHandlerProps}>
+          <Animated.View entering={entering} exiting={exiting}>
+            {jsx}
+          </Animated.View>
+        </ToastSwipeHandler>
+      );
+    }
+
+    return (
+      <ToastSwipeHandler {...toastSwipeHandlerProps}>
         <Animated.View
           className={cn(className, classNamesCtx?.toast, classNames?.toast)}
           style={[
