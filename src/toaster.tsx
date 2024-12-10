@@ -26,6 +26,21 @@ export const Toaster: React.FC<ToasterProps> = ({
   const toastsCounter = React.useRef(1);
   const toastRefs = React.useRef<Record<string, React.RefObject<ToastRef>>>({});
   const [toasts, setToasts] = React.useState<ToastProps[]>([]);
+  const [toastsVisible, setToastsVisible] = React.useState(false);
+
+  React.useLayoutEffect(() => {
+    if (toasts.length > 0) {
+      setToastsVisible(true);
+      return;
+    }
+
+    // let the animation finish
+    const timeout = setTimeout(() => {
+      setToastsVisible(false);
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  }, [toasts.length]);
 
   const props = React.useMemo(() => {
     return {
@@ -37,7 +52,7 @@ export const Toaster: React.FC<ToasterProps> = ({
     };
   }, [toasterProps, toasts]);
 
-  if (toasts.length === 0) {
+  if (!toastsVisible) {
     return <ToasterUI {...props} />;
   }
 
