@@ -14,6 +14,7 @@ import {
   type ToastRef,
 } from './types';
 import { areToastsEqual } from './toast-comparator';
+import { ANIMATION_DURATION } from './animations';
 
 let addToastHandler: AddToastContextHandler;
 let dismissToastHandler: typeof toast.dismiss;
@@ -37,7 +38,7 @@ export const Toaster: React.FC<ToasterProps> = ({
     // let the animation finish
     const timeout = setTimeout(() => {
       setToastsVisible(false);
-    }, 300);
+    }, ANIMATION_DURATION);
 
     return () => clearTimeout(timeout);
   }, [toasts.length]);
