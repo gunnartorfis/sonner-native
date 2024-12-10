@@ -1,5 +1,12 @@
 
 
+## [0.16.2](https://github.com/gunnartorfis/sonner-native/compare/v0.16.1...v0.16.2) (2024-12-10)
+
+
+### Bug Fixes
+
+* let animation finish before hiding toasts ([cf4ed8e](https://github.com/gunnartorfis/sonner-native/commit/cf4ed8e9bcdb024dd36bacecde85cbe82d4720d9))
+
 ## [0.16.1](https://github.com/gunnartorfis/sonner-native/compare/v0.16.0...v0.16.1) (2024-11-19)
 
 
