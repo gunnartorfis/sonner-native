@@ -2654,10 +2654,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/tsconfig@npm:3.5.2":
-  version: 3.5.2
-  resolution: "@docusaurus/tsconfig@npm:3.5.2"
-  checksum: 808a17eaf422ae9a948c6558dd1e92d4700b067ead3a63a84049c6845bf94f84e311cd0e4d517047fe9ea057efe393bb22c2d5c92d727d06c9f895e971f2c3ea
+"@docusaurus/tsconfig@npm:3.7.0":
+  version: 3.7.0
+  resolution: "@docusaurus/tsconfig@npm:3.7.0"
+  checksum: 21742584fb3753c4fae80f92f9a8ad405653e3d8703aa2e195f043d5d93005703a55416cb4294e80b85d05c25cb4ccbc6e1dad8645b95a9b93df7219b62bab3c
   languageName: node
   linkType: hard
 
@@ -8571,7 +8571,7 @@ __metadata:
     "@docusaurus/core": 3.5.2
     "@docusaurus/module-type-aliases": 3.5.2
     "@docusaurus/preset-classic": 3.5.2
-    "@docusaurus/tsconfig": 3.5.2
+    "@docusaurus/tsconfig": 3.7.0
     "@docusaurus/types": 3.5.2
     "@mdx-js/react": ^3.0.0
     prism-react-renderer: ^2.3.0
