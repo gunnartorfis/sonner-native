@@ -23,8 +23,7 @@ Sonner Native is an opinionated toast component for React Native. A port of @emi
 - Highly performant using Reanimated 3, 60 FPS
 - Dark mode built-in
 - Works with Expo
-- NativeWind supported
-- Customizable, styles & className props
+- Customizable via style props
 - Works outside of React components
 
 ## Installation

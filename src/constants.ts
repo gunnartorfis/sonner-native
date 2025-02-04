@@ -18,7 +18,6 @@ export const toastDefaultValues: {
   unstyled: boolean;
   invert: boolean;
   pauseWhenPageIsHidden: boolean;
-  cn: (...classes: Array<string | undefined>) => string;
   gap: number;
   theme: ToastTheme;
   autoWiggleOnUpdate: AutoWiggle;
@@ -35,7 +34,6 @@ export const toastDefaultValues: {
   unstyled: false,
   invert: false,
   pauseWhenPageIsHidden: false,
-  cn: (...classes) => classes.filter(Boolean).join(' '),
   gap: 14,
   theme: 'system',
   autoWiggleOnUpdate: 'never',

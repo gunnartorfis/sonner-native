@@ -20,7 +20,7 @@ An opinionated toast component for React Native. A port of @emilkowalski's sonne
 - Dark mode built-in
 - Works with Expo
 - NativeWind supported
-- Customizable, styles & className props
+- Customizable via styles props
 - Works outside of React components
 
 ## Showcase

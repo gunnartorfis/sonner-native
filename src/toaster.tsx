@@ -96,7 +96,6 @@ export const ToasterUI: React.FC<
   toastOptions = {},
   icons,
   pauseWhenPageIsHidden,
-  cn,
   gap,
   theme,
   autoWiggleOnUpdate,
@@ -249,7 +248,6 @@ export const ToasterUI: React.FC<
       icons: icons ?? {},
       pauseWhenPageIsHidden:
         pauseWhenPageIsHidden ?? toastDefaultValues.pauseWhenPageIsHidden,
-      cn: cn ?? toastDefaultValues.cn,
       gap: gap ?? toastDefaultValues.gap,
       theme: theme ?? toastDefaultValues.theme,
       toastOptions,
@@ -267,7 +265,6 @@ export const ToasterUI: React.FC<
       invert,
       icons,
       pauseWhenPageIsHidden,
-      cn,
       gap,
       theme,
       toastOptions,
