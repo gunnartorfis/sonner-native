@@ -22,7 +22,6 @@ Alternatively, you can pass an object as the second argument with additional opt
 import { toast } from 'sonner-native';
 
 toast.success('Operation successful!', {
-  className: 'bg-green-500',
   style: { backgroundColor: 'blue' },
   description: 'Everything worked as expected.',
   duration: 6000,

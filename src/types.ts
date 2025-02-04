@@ -4,17 +4,6 @@ import type { TextStyle, ViewStyle } from 'react-native';
 type StyleProps = {
   unstyled?: boolean;
   style?: ViewStyle;
-  className?: string;
-  classNames?: {
-    toastContainer?: string;
-    toast?: string;
-    toastContent?: string;
-    title?: string;
-    description?: string;
-    buttons?: string;
-    closeButton?: string;
-    closeButtonIcon?: string;
-  };
   styles?: {
     toastContainer?: ViewStyle;
     toast?: ViewStyle;
@@ -71,12 +60,8 @@ export type ToastProps = StyleProps & {
   promiseOptions?: PromiseOptions;
   actionButtonStyle?: ViewStyle;
   actionButtonTextStyle?: TextStyle;
-  actionButtonClassName?: string;
-  actionButtonTextClassName?: string;
   cancelButtonStyle?: ViewStyle;
   cancelButtonTextStyle?: TextStyle;
-  cancelButtonClassName?: string;
-  cancelButtonTextClassName?: string;
   onPress?: () => void;
 };
 
@@ -108,7 +93,6 @@ export type ToasterProps = {
   offset?: number;
   autoWiggleOnUpdate?: AutoWiggle;
   style?: ViewStyle;
-  className?: string;
   // dir?: 'ltr' | 'rtl'; (ltr)
   // hotkey?: string; // hotkeys not supported on mobile
   invert?: boolean;
@@ -117,18 +101,15 @@ export type ToasterProps = {
     actionButtonTextStyle?: TextStyle;
     cancelButtonStyle?: ViewStyle;
     cancelButtonTextStyle?: TextStyle;
-    className?: string;
     titleStyle?: TextStyle;
     descriptionStyle?: TextStyle;
     style?: ViewStyle;
     unstyled?: boolean;
-
     toastContainerStyle?: ViewStyle;
     toastContentStyle?: ViewStyle;
     buttonsStyle?: ViewStyle;
     closeButtonStyle?: ViewStyle;
     closeButtonIconStyle?: ViewStyle;
-    classNames?: StyleProps['classNames'];
   };
   gap?: number;
   loadingIcon?: React.ReactNode;
@@ -143,7 +124,6 @@ export type ToasterProps = {
   };
   swipeToDismissDirection?: ToastSwipeDirection;
   pauseWhenPageIsHidden?: boolean;
-  cn?: (...classes: Array<string | undefined>) => string;
   ToasterOverlayWrapper?: React.ComponentType<{ children: React.ReactNode }>;
 };
 
@@ -162,7 +142,6 @@ export type ToasterContextType = Required<
     | 'icons'
     | 'offset'
     | 'pauseWhenPageIsHidden'
-    | 'cn'
     | 'gap'
     | 'theme'
     | 'toastOptions'

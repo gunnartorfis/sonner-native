@@ -19,7 +19,6 @@ const { width: WINDOW_WIDTH } = Dimensions.get('window');
 type ToastSwipeHandlerProps = Pick<ToastProps, 'important'> & {
   onRemove: () => void;
   style?: ViewStyle | (ViewStyle | undefined)[];
-  className?: string;
   onBegin: () => void;
   onFinalize: () => void;
   enabled?: boolean;
@@ -33,7 +32,6 @@ export const ToastSwipeHandler: React.FC<
 > = ({
   children,
   onRemove,
-  className,
   style,
   onBegin,
   onFinalize,
@@ -150,7 +148,6 @@ export const ToastSwipeHandler: React.FC<
           { width: '100%' },
           style,
         ]}
-        className={className}
         layout={LinearTransition.easing(easeInOutCircFn)}
         aria-live={important ? 'assertive' : 'polite'} // https://reactnative.dev/docs/accessibility#aria-live-android
       >

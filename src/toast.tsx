@@ -34,15 +34,9 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       closeButton: closeButtonProps,
       actionButtonStyle,
       actionButtonTextStyle,
-      actionButtonClassName,
-      actionButtonTextClassName,
       cancelButtonStyle,
       cancelButtonTextStyle,
-      cancelButtonClassName,
-      cancelButtonTextClassName,
       style,
-      className,
-      classNames,
       styles,
       promiseOptions,
       position,
@@ -60,13 +54,11 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       closeButton: closeButtonCtx,
       icons,
       pauseWhenPageIsHidden,
-      cn,
       invert: invertCtx,
       richColors: richColorsCtx,
       toastOptions: {
         unstyled: unstyledCtx,
         toastContainerStyle: toastContainerStyleCtx,
-        classNames: classNamesCtx,
         actionButtonStyle: actionButtonStyleCtx,
         actionButtonTextStyle: actionButtonTextStyleCtx,
         cancelButtonStyle: cancelButtonStyleCtx,
@@ -89,7 +81,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     const { entering, exiting } = useToastLayoutAnimations(position);
 
     const isDragging = React.useRef(false);
-    const timer = React.useRef<NodeJS.Timeout>();
+    const timer = React.useRef<ReturnType<typeof setTimeout>>();
     const timerStart = React.useRef<number | undefined>();
     const timeLeftOnceBackgrounded = React.useRef<number | undefined>();
     const isResolvingPromise = React.useRef(false);
@@ -277,32 +269,22 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
             onPress={() => onDismiss?.(id)}
             hitSlop={10}
             style={[closeButtonStyleCtx, styles?.closeButton]}
-            className={cn(classNamesCtx?.closeButton, classNames?.closeButton)}
           >
             <X
               size={20}
               color={defaultStyles.closeButtonColor}
               style={[closeButtonIconStyleCtx, styles?.closeButtonIcon]}
-              className={cn(
-                classNamesCtx?.closeButtonIcon,
-                classNames?.closeButtonIcon
-              )}
             />
           </Pressable>
         );
       }
       return null;
     }, [
-      classNames?.closeButton,
-      classNames?.closeButtonIcon,
-      classNamesCtx?.closeButton,
-      classNamesCtx?.closeButtonIcon,
       close,
       closeButton,
       closeButtonIconStyleCtx,
       closeButtonStyleCtx,
-      cn,
-      defaultStyles?.closeButtonColor,
+      defaultStyles.closeButtonColor,
       dismissible,
       id,
       onDismiss,
@@ -333,10 +315,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         onPress: () => onPress?.(),
         enabled: !promiseOptions && dismissible,
         style: [toastContainerStyleCtx, styles?.toastContainer],
-        className: cn(
-          classNamesCtx?.toastContainer,
-          classNames?.toastContainer
-        ),
         unstyled: unstyled,
         important: important,
         position: position,
@@ -350,12 +328,9 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         onPress,
         toastContainerStyleCtx,
         styles?.toastContainer,
-        classNamesCtx?.toastContainer,
-        classNames?.toastContainer,
         unstyled,
         important,
         position,
-        cn,
       ]
     );
 
@@ -372,7 +347,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     return (
       <ToastSwipeHandler {...toastSwipeHandlerProps}>
         <Animated.View
-          className={cn(className, classNamesCtx?.toast, classNames?.toast)}
           style={[
             unstyled ? undefined : elevationStyle,
             defaultStyles.toast,
@@ -390,10 +364,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
               toastContentStyleCtx,
               styles?.toastContent,
             ]}
-            className={cn(
-              classNamesCtx?.toastContent,
-              classNames?.toastContent
-            )}
           >
             {promiseOptions || variant === 'loading' ? (
               'loading' in icons ? (
@@ -413,10 +383,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
               />
             )}
             <View style={{ flex: 1 }}>
-              <Text
-                style={[defaultStyles.title, titleStyleCtx, styles?.title]}
-                className={cn(classNamesCtx?.title, classNames?.title)}
-              >
+              <Text style={[defaultStyles.title, titleStyleCtx, styles?.title]}>
                 {title}
               </Text>
               {description ? (
@@ -426,10 +393,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
                     descriptionStyleCtx,
                     styles?.description,
                   ]}
-                  className={cn(
-                    classNamesCtx?.description,
-                    classNames?.description
-                  )}
                 >
                   {description}
                 </Text>
@@ -442,12 +405,10 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
                   buttonsStyleCtx,
                   styles?.buttons,
                 ]}
-                className={cn(classNamesCtx?.buttons, classNames?.buttons)}
               >
                 {isToastAction(action) ? (
                   <Pressable
                     onPress={action.onClick}
-                    className={actionButtonClassName}
                     style={[
                       defaultStyles.actionButton,
                       actionButtonStyleCtx,
@@ -461,7 +422,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
                         actionButtonTextStyleCtx,
                         actionButtonTextStyle,
                       ]}
-                      className={actionButtonTextClassName}
                     >
                       {action.label}
                     </Text>
@@ -475,7 +435,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
                       cancel.onClick();
                       onDismiss?.(id);
                     }}
-                    className={cancelButtonClassName}
                     style={[
                       defaultStyles.cancelButton,
                       cancelButtonStyleCtx,
@@ -489,7 +448,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
                         cancelButtonTextStyleCtx,
                         cancelButtonTextStyle,
                       ]}
-                      className={cancelButtonTextClassName}
                     >
                       {cancel.label}
                     </Text>

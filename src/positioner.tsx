@@ -5,10 +5,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useToastContext } from './context';
 
 export const Positioner: React.FC<
-  React.PropsWithChildren<
-    Pick<ToasterProps, 'position' | 'className' | 'style'>
-  >
-> = ({ children, position, className, style, ...props }) => {
+  React.PropsWithChildren<Pick<ToasterProps, 'position' | 'style'>>
+> = ({ children, position, style, ...props }) => {
   const { offset } = useToastContext();
   const { top, bottom } = useSafeAreaInsets();
 
@@ -35,7 +33,6 @@ export const Positioner: React.FC<
         insetValues,
         style,
       ]}
-      className={className}
       {...props}
     >
       {children}
