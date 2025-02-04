@@ -1,3 +1,7 @@
+
+
+# [0.17.0](https://github.com/gunnartorfis/sonner-native/compare/v0.16.2...v0.17.0) (2025-02-04)
+
 ## [0.16.2](https://github.com/gunnartorfis/sonner-native/compare/v0.16.1...v0.16.2) (2024-12-10)
 
 ### Bug Fixes
