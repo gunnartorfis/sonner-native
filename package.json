@@ -71,7 +71,7 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^19.4.1",
     "@evilmartians/lefthook": "^1.5.0",
-    "@react-native/eslint-config": "^0.73.1",
+    "@react-native/eslint-config": "^0.77.0",
     "@release-it/conventional-changelog": "^8.0.1",
     "@types/jest": "^29.5.5",
     "@types/react": "^18.2.44",
