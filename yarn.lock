@@ -8575,7 +8575,7 @@ __metadata:
     "@docusaurus/types": 3.5.2
     "@mdx-js/react": ^3.0.0
     prism-react-renderer: ^2.3.0
-    react: ^18.0.0
+    react: ^19.0.0
     react-dom: ^18.0.0
     typescript: ~5.5.4
   languageName: unknown
@@ -18006,21 +18006,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.2.0":
-  version: 18.2.0
-  resolution: "react@npm:18.2.0"
-  dependencies:
-    loose-envify: ^1.1.0
-  checksum: 88e38092da8839b830cda6feef2e8505dec8ace60579e46aa5490fc3dc9bba0bd50336507dc166f43e3afc1c42939c09fe33b25fae889d6f402721dcd78fca1b
-  languageName: node
-  linkType: hard
-
-"react@npm:^18.0.0":
-  version: 18.3.1
-  resolution: "react@npm:18.3.1"
-  dependencies:
-    loose-envify: ^1.1.0
-  checksum: a27bcfa8ff7c15a1e50244ad0d0c1cb2ad4375eeffefd266a64889beea6f6b64c4966c9b37d14ee32d6c9fcd5aa6ba183b6988167ab4d127d13e7cb5b386a376
+"react@npm:19.0.0, react@npm:^19.0.0":
+  version: 19.0.0
+  resolution: "react@npm:19.0.0"
+  checksum: 86de15d85b2465feb40297a90319c325cb07cf27191a361d47bcfe8c6126c973d660125aa67b8f4cbbe39f15a2f32efd0c814e98196d8e5b68c567ba40a399c6
   languageName: node
   linkType: hard
 
@@ -19321,7 +19310,7 @@ __metadata:
     expo: ~51.0.32
     expo-status-bar: ~1.12.1
     nativewind: 4.1.6
-    react: 18.2.0
+    react: 19.0.0
     react-dom: 18.2.0
     react-native: 0.74.5
     react-native-builder-bob: ^0.30.0
@@ -19345,7 +19334,7 @@ __metadata:
     "@react-native/eslint-config": ^0.73.1
     "@release-it/conventional-changelog": ^8.0.1
     "@types/jest": ^29.5.5
-    "@types/react": ^18.2.44
+    "@types/react": ^19.0.8
     commitlint: ^19.4.1
     del-cli: ^5.1.0
     eslint: ^8.51.0
@@ -19353,7 +19342,7 @@ __metadata:
     eslint-plugin-prettier: ^5.0.1
     jest: ^29.7.0
     prettier: ^3.3.3
-    react: 18.2.0
+    react: 19.0.0
     react-native: 0.74.5
     react-native-builder-bob: ^0.30.0
     react-native-gesture-handler: ~2.16.1
