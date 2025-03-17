@@ -125,6 +125,10 @@ export type ToasterProps = {
   swipeToDismissDirection?: ToastSwipeDirection;
   pauseWhenPageIsHidden?: boolean;
   ToasterOverlayWrapper?: React.ComponentType<{ children: React.ReactNode }>;
+  ToastWrapper?: React.ComponentType<{
+    children: React.ReactNode;
+    toastId: string | number;
+  }>;
 };
 
 export type AddToastContextHandler = (

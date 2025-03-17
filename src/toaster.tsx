@@ -104,6 +104,7 @@ export const ToasterUI: React.FC<
   setToasts,
   toastsCounter,
   toastRefs,
+  ToastWrapper,
   ...props
 }) => {
   addToastHandler = React.useCallback(
@@ -325,6 +326,22 @@ export const ToasterUI: React.FC<
     <ToastContext.Provider value={value}>
       <Positioner position={position}>
         {positionedNonDynamicToasts.map((positionedToast) => {
+          if (ToastWrapper) {
+            return (
+              <ToastWrapper
+                key={positionedToast.id}
+                toastId={positionedToast.id}
+              >
+                <Toast
+                  {...positionedToast}
+                  onDismiss={onDismiss}
+                  onAutoClose={onAutoClose}
+                  ref={toastRefs.current[positionedToast.id]}
+                  {...props}
+                />
+              </ToastWrapper>
+            );
+          }
           return (
             <Toast
               key={positionedToast.id}
@@ -343,6 +360,22 @@ export const ToasterUI: React.FC<
         }
       >
         {positionedDynamicToasts.map((positionedToast) => {
+          if (ToastWrapper) {
+            return (
+              <ToastWrapper
+                key={positionedToast.id}
+                toastId={positionedToast.id}
+              >
+                <Toast
+                  key={positionedToast.id}
+                  {...positionedToast}
+                  onDismiss={onDismiss}
+                  onAutoClose={onAutoClose}
+                  {...props}
+                />
+              </ToastWrapper>
+            );
+          }
           return (
             <Toast
               key={positionedToast.id}
