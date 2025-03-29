@@ -331,6 +331,7 @@ export const ToasterUI: React.FC<
               <ToastWrapper
                 key={positionedToast.id}
                 toastId={positionedToast.id}
+                style={{ width: '100%' }}
               >
                 <Toast
                   {...positionedToast}
@@ -365,6 +366,7 @@ export const ToasterUI: React.FC<
               <ToastWrapper
                 key={positionedToast.id}
                 toastId={positionedToast.id}
+                style={{ width: '100%' }}
               >
                 <Toast
                   key={positionedToast.id}

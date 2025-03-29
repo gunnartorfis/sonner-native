@@ -1,10 +1,25 @@
 import * as React from 'react';
-import { Text } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Toaster } from 'sonner-native';
+import { toast, Toaster } from 'sonner-native';
 import '../global.css';
 import Navigator from './navigation';
+
+const ToastWrapper: React.ComponentType<
+  React.ComponentProps<typeof View> & {
+    children: React.ReactNode;
+    toastId: string | number;
+  }
+> = ({ toastId, style, ...props }) => {
+  return (
+    <Pressable
+      style={[style, { backgroundColor: 'red' }]}
+      onPress={() => toast.dismiss(toastId)}
+      {...props}
+    />
+  );
+};
 
 const App: React.FC = () => {
   return (
@@ -29,6 +44,7 @@ const App: React.FC = () => {
               paddingHorizontal: 20,
             },
           }}
+          ToastWrapper={ToastWrapper}
           pauseWhenPageIsHidden
         />
       </GestureHandlerRootView>
