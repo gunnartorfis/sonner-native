@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { TextStyle, ViewStyle } from 'react-native';
+import type { TextStyle, ViewProps, ViewStyle } from 'react-native';
 
 type StyleProps = {
   unstyled?: boolean;
@@ -125,6 +125,12 @@ export type ToasterProps = {
   swipeToDismissDirection?: ToastSwipeDirection;
   pauseWhenPageIsHidden?: boolean;
   ToasterOverlayWrapper?: React.ComponentType<{ children: React.ReactNode }>;
+  ToastWrapper?: React.ComponentType<
+    ViewProps & {
+      children: React.ReactNode;
+      toastId: string | number;
+    }
+  >;
 };
 
 export type AddToastContextHandler = (

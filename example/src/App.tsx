@@ -5,6 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Toaster } from 'sonner-native';
 import '../global.css';
 import Navigator from './navigation';
+// import { ToastWrapper } from './ToastWrapper';
 
 const App: React.FC = () => {
   return (
@@ -29,6 +30,7 @@ const App: React.FC = () => {
               paddingHorizontal: 20,
             },
           }}
+          // ToastWrapper={ToastWrapper}
           pauseWhenPageIsHidden
         />
       </GestureHandlerRootView>
