@@ -16,6 +16,27 @@ export const ToastDemo: React.FC = () => {
   return (
     <ScrollView contentContainerStyle={{ paddingTop: 100 }}>
       <Button
+        title="Dismiss active toast"
+        disabled={!toastId}
+        onPress={() => toast.dismiss(toastId!)}
+      />
+      <Button
+        title="Dismiss all toasts"
+        onPress={() => {
+          toast.dismiss();
+          setToastId(null);
+        }}
+      />
+      <Button
+        title="exit animation bottom"
+        onPress={() => {
+          toast.success('exit animation bottom', {
+            position: 'bottom-center',
+            duration: 5000,
+          });
+        }}
+      />
+      <Button
         title={toastId ? 'Update toast' : 'Show toast'}
         onPress={() => {
           if (toastId) {
@@ -329,20 +350,9 @@ export const ToastDemo: React.FC = () => {
             </View>,
             {
               duration: 30000,
+              position: 'bottom-center',
             }
           );
-        }}
-      />
-      <Button
-        title="Dismiss active toast"
-        disabled={!toastId}
-        onPress={() => toast.dismiss(toastId!)}
-      />
-      <Button
-        title="Dismiss all toasts"
-        onPress={() => {
-          toast.dismiss();
-          setToastId(null);
         }}
       />
       <Button

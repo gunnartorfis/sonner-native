@@ -10,6 +10,7 @@ import {
   type AddToastContextHandler,
   type ToasterContextType,
   type ToasterProps,
+  type ToastPosition,
   type ToastProps,
   type ToastRef,
 } from './types';
@@ -279,27 +280,6 @@ export const ToasterUI: React.FC<
     [position]
   );
 
-  const dynamicPositionedToasts = React.useMemo(() => {
-    return toasts.filter(
-      (currentToast) =>
-        currentToast.position && currentToast.position !== position
-    );
-  }, [position, toasts]);
-
-  const nonDynamicToasts = React.useMemo(() => {
-    return toasts.filter(
-      (currentToast) => !dynamicPositionedToasts.includes(currentToast)
-    );
-  }, [dynamicPositionedToasts, toasts]);
-
-  const positionedNonDynamicToasts = React.useMemo(() => {
-    return orderToastsFromPosition(nonDynamicToasts);
-  }, [nonDynamicToasts, orderToastsFromPosition]);
-
-  const positionedDynamicToasts = React.useMemo(() => {
-    return orderToastsFromPosition(dynamicPositionedToasts);
-  }, [dynamicPositionedToasts, orderToastsFromPosition]);
-
   const onDismiss = React.useCallback<
     NonNullable<React.ComponentProps<typeof Toast>['onDismiss']>
   >(
@@ -318,73 +298,50 @@ export const ToasterUI: React.FC<
     [dismissToast]
   );
 
+  const possiblePositions = React.useMemo<ToastPosition[]>(() => {
+    return ['top-center', 'bottom-center'];
+  }, []);
+
+  const orderedToasts = React.useMemo(() => {
+    return orderToastsFromPosition(toasts);
+  }, [toasts, orderToastsFromPosition]);
+
   return (
     <ToastContext.Provider value={value}>
-      <Positioner position={position}>
-        {positionedNonDynamicToasts.map((positionedToast) => {
-          if (ToastWrapper) {
-            return (
-              <ToastWrapper
-                key={positionedToast.id}
-                toastId={positionedToast.id}
-                style={{ width: '100%' }}
-              >
+      {possiblePositions.map((currentPosition, positionIndex) => (
+        <Positioner position={currentPosition}>
+          {orderedToasts
+            .filter(
+              (possibleToast) =>
+                (!possibleToast.position && positionIndex === 0) ||
+                possibleToast.position === currentPosition
+            )
+            .map((toastToRender) => {
+              const ToastToRender = (
                 <Toast
-                  {...positionedToast}
+                  {...toastToRender}
                   onDismiss={onDismiss}
                   onAutoClose={onAutoClose}
-                  ref={toastRefs.current[positionedToast.id]}
+                  ref={toastRefs.current[toastToRender.id]}
+                  key={toastToRender.id}
                   {...props}
                 />
-              </ToastWrapper>
-            );
-          }
-          return (
-            <Toast
-              key={positionedToast.id}
-              {...positionedToast}
-              onDismiss={onDismiss}
-              onAutoClose={onAutoClose}
-              ref={toastRefs.current[positionedToast.id]}
-              {...props}
-            />
-          );
-        })}
-      </Positioner>
-      <Positioner
-        position={
-          positionedDynamicToasts?.[0]?.position ?? toastDefaultValues.position
-        }
-      >
-        {positionedDynamicToasts.map((positionedToast) => {
-          if (ToastWrapper) {
-            return (
-              <ToastWrapper
-                key={positionedToast.id}
-                toastId={positionedToast.id}
-                style={{ width: '100%' }}
-              >
-                <Toast
-                  key={positionedToast.id}
-                  {...positionedToast}
-                  onDismiss={onDismiss}
-                  onAutoClose={onAutoClose}
-                  {...props}
-                />
-              </ToastWrapper>
-            );
-          }
-          return (
-            <Toast
-              key={positionedToast.id}
-              {...positionedToast}
-              onDismiss={onDismiss}
-              onAutoClose={onAutoClose}
-              {...props}
-            />
-          );
-        })}
-      </Positioner>
+              );
+
+              if (ToastWrapper) {
+                return (
+                  <ToastWrapper
+                    key={toastToRender.id}
+                    toastId={toastToRender.id}
+                  >
+                    {ToastToRender}
+                  </ToastWrapper>
+                );
+              }
+              return ToastToRender;
+            })}
+        </Positioner>
+      ))}
     </ToastContext.Provider>
   );
 };

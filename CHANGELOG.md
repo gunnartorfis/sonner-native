@@ -1,5 +1,19 @@
 
 
+# [0.18.0-beta.0](https://github.com/gunnartorfis/sonner-native/compare/v0.17.0...v0.18.0-beta.0) (2025-03-29)
+
+
+### Bug Fixes
+
+* bottom positioned toast animation fix ([8196552](https://github.com/gunnartorfis/sonner-native/commit/8196552ad02df1272d5e5f9a81dbe1d8b98d8201))
+* set full width to ToastWrapper by default ([5b196ca](https://github.com/gunnartorfis/sonner-native/commit/5b196ca6d2e93ae9a0826d49fcfaf9c7689e3edb))
+* updating toasts race condition ([393f6bb](https://github.com/gunnartorfis/sonner-native/commit/393f6bb1773764f2f5993f835de4559e62d7f97a))
+
+
+### Features
+
+* add a ToastWrapper to wrap the toast with a custom component ([0040467](https://github.com/gunnartorfis/sonner-native/commit/00404676261ce38fa99d513faddb4de19fe058ea))
+
 # [0.17.0](https://github.com/gunnartorfis/sonner-native/compare/v0.16.2...v0.17.0) (2025-02-04)
 
 ## [0.16.2](https://github.com/gunnartorfis/sonner-native/compare/v0.16.1...v0.16.2) (2024-12-10)
