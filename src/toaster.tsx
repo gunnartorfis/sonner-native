@@ -115,20 +115,29 @@ export const ToasterUI: React.FC<
           ? options.id
           : toastsCounter.current++;
 
-      const newToast: ToastProps = {
-        ...options,
-        id: options?.id ?? id,
-        variant: options.variant ?? toastDefaultValues.variant,
-      };
+      setToasts((currentToasts) => {
+        const newToast: ToastProps = {
+          ...options,
+          id: options?.id ?? id,
+          variant: options.variant ?? toastDefaultValues.variant,
+        };
 
-      const existingToast = toasts.find(
-        (currentToast) => currentToast.id === options?.id
-      );
+        const existingToast = currentToasts.find(
+          (currentToast) => currentToast.id === newToast.id
+        );
 
-      if (existingToast && options?.id) {
-        // we're updating
-        setToasts((currentToasts) =>
-          currentToasts.map((currentToast) => {
+        const shouldUpdate = existingToast && options?.id;
+
+        if (shouldUpdate) {
+          const shouldWiggle =
+            autoWiggleOnUpdate === 'always' ||
+            (autoWiggleOnUpdate === 'toast-change' &&
+              !areToastsEqual(newToast, existingToast));
+          if (shouldWiggle && options.id) {
+            wiggleHandler(options.id);
+          }
+
+          return currentToasts.map((currentToast) => {
             if (currentToast.id === options.id) {
               return {
                 ...currentToast,
@@ -138,43 +147,30 @@ export const ToasterUI: React.FC<
               };
             }
             return currentToast;
-          })
-        );
+          });
+        } else {
+          const newToasts: ToastProps[] = [...currentToasts, newToast];
 
-        if (
-          autoWiggleOnUpdate === 'always' ||
-          (autoWiggleOnUpdate === 'toast-change' &&
-            !areToastsEqual(newToast, existingToast))
-        ) {
-          wiggleHandler(options.id);
+          if (!(newToast.id in toastRefs.current)) {
+            toastRefs.current[newToast.id] = React.createRef<ToastRef>();
+          }
+
+          if (newToasts.length > visibleToasts) {
+            newToasts.shift();
+          }
+          return newToasts;
         }
-
-        return options.id;
-      }
-
-      setToasts((currentToasts) => {
-        const newToasts: ToastProps[] = [...currentToasts, newToast];
-
-        if (!(newToast.id in toastRefs.current)) {
-          toastRefs.current[newToast.id] = React.createRef<ToastRef>();
-        }
-
-        if (newToasts.length > visibleToasts) {
-          newToasts.shift();
-        }
-        return newToasts;
       });
 
       return id;
     },
     [
-      autoWiggleOnUpdate,
-      duration,
-      setToasts,
-      toastRefs,
-      toasts,
       toastsCounter,
+      toastRefs,
       visibleToasts,
+      duration,
+      autoWiggleOnUpdate,
+      setToasts,
     ]
   );
 

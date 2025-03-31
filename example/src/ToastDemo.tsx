@@ -119,12 +119,12 @@ export const ToastDemo: React.FC = () => {
           toast.promise(
             new Promise((resolve) => {
               setTimeout(() => {
-                resolve('Promise resolved');
+                resolve('!');
               }, 2000);
             }),
             {
               loading: 'Loading...',
-              success: (result: string) => `Promise resolved: ${result}`,
+              success: (result: string) => `Success${result}`,
               error: 'Promise failed',
             }
           );
