@@ -1,4 +1,4 @@
-# Sonner React Native Toasts
+# React Native Toasts
 
 An opinionated toast component for React Native. A port of @emilkowalski's sonner.
 
