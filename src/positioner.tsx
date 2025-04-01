@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, type ViewStyle } from 'react-native';
 import type { ToasterProps } from './types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useToastContext } from './context';
@@ -9,6 +9,26 @@ export const Positioner: React.FC<
 > = ({ children, position, style, ...props }) => {
   const { offset } = useToastContext();
   const { top, bottom } = useSafeAreaInsets();
+
+  const containerStyle = React.useMemo<ViewStyle>(() => {
+    if (position === 'center') {
+      return {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+      };
+    }
+
+    return {
+      position: 'absolute',
+      width: '100%',
+      alignItems: 'center',
+    };
+  }, [position]);
 
   const insetValues = React.useMemo(() => {
     if (position === 'bottom-center') {
@@ -24,15 +44,8 @@ export const Positioner: React.FC<
 
   return (
     <View
-      style={[
-        {
-          position: 'absolute',
-          width: '100%',
-          alignItems: 'center',
-        },
-        insetValues,
-        style,
-      ]}
+      style={[containerStyle, insetValues, style]}
+      pointerEvents="box-none"
       {...props}
     >
       {children}

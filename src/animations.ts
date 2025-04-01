@@ -46,12 +46,24 @@ export const getToastEntering = ({ position }: GetToastAnimationParams) => {
     ],
   };
 
+  const translateY = (() => {
+    if (position === 'top-center') {
+      return -50;
+    }
+
+    if (position === 'bottom-center') {
+      return 50;
+    }
+
+    return 0;
+  })();
+
   const initialValues = {
     opacity: 0,
     transform: [
       { scale: 0 },
       {
-        translateY: position === 'top-center' ? -50 : 50,
+        translateY,
       },
     ],
   };
@@ -65,11 +77,23 @@ export const getToastEntering = ({ position }: GetToastAnimationParams) => {
 export const getToastExiting = ({ position }: GetToastAnimationParams) => {
   'worklet';
 
+  const translateY = (() => {
+    if (position === 'top-center') {
+      return -150;
+    }
+
+    if (position === 'bottom-center') {
+      return 150;
+    }
+
+    return 50;
+  })();
+
   const animations = {
     opacity: withTiming(0, { easing: easeInOutCubic }),
     transform: [
       {
-        translateY: withTiming(position === 'top-center' ? -150 : 150, {
+        translateY: withTiming(translateY, {
           easing: easeInOutCubic,
         }),
       },

@@ -23,7 +23,7 @@ type PromiseOptions = {
   loading: string;
 };
 
-export type ToastPosition = 'top-center' | 'bottom-center';
+export type ToastPosition = 'top-center' | 'bottom-center' | 'center';
 
 export type ToastTheme = 'light' | 'dark' | 'system';
 

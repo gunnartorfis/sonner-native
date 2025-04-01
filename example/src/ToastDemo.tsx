@@ -28,6 +28,12 @@ export const ToastDemo: React.FC = () => {
         }}
       />
       <Button
+        title="center"
+        onPress={() => {
+          toast.success('center', { position: 'center' });
+        }}
+      />
+      <Button
         title="exit animation bottom"
         onPress={() => {
           toast.success('exit animation bottom', {
