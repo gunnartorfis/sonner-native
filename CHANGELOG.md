@@ -1,5 +1,12 @@
 
 
+## [0.18.1](https://github.com/gunnartorfis/sonner-native/compare/v0.18.0...v0.18.1) (2025-04-01)
+
+
+### Bug Fixes
+
+* key missing prop ([1158284](https://github.com/gunnartorfis/sonner-native/commit/115828487d06ae88dc357c5c76f8197fe8c11644))
+
 # [0.18.0](https://github.com/gunnartorfis/sonner-native/compare/v0.18.0-beta.0...v0.18.0) (2025-03-31)
 
 # [0.18.0-beta.0](https://github.com/gunnartorfis/sonner-native/compare/v0.17.0...v0.18.0-beta.0) (2025-03-29)
