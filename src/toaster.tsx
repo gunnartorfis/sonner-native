@@ -309,7 +309,10 @@ export const ToasterUI: React.FC<
   return (
     <ToastContext.Provider value={value}>
       {possiblePositions.map((currentPosition, positionIndex) => (
-        <Positioner position={currentPosition}>
+        <Positioner
+          position={currentPosition}
+          key={currentPosition}
+        >
           {orderedToasts
             .filter(
               (possibleToast) =>
