@@ -311,7 +311,7 @@ export const ToasterUI: React.FC<
       {possiblePositions.map((currentPosition, positionIndex) => (
         <Positioner
           position={currentPosition}
-          key={`positioner_${positionIndex}`}
+          key={currentPosition}
         >
           {orderedToasts
             .filter(
