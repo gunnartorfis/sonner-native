@@ -28,7 +28,7 @@ export const ToastDemo: React.FC = () => {
         }}
       />
       <Button
-        title="center"
+        title="Center"
         onPress={() => {
           toast.success('center', { position: 'center' });
         }}
