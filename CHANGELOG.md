@@ -1,5 +1,12 @@
 
 
+# [0.19.0](https://github.com/gunnartorfis/sonner-native/compare/v0.18.1...v0.19.0) (2025-04-01)
+
+
+### Features
+
+* centered toasts ([d0648d4](https://github.com/gunnartorfis/sonner-native/commit/d0648d4f2c327d1912b41ee9d98dede9b728df52))
+
 ## [0.18.1](https://github.com/gunnartorfis/sonner-native/compare/v0.18.0...v0.18.1) (2025-04-01)
 
 
