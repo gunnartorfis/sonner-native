@@ -298,9 +298,19 @@ export const ToasterUI: React.FC<
     [dismissToast]
   );
 
-  const possiblePositions = React.useMemo<ToastPosition[]>(() => {
-    return ['top-center', 'bottom-center'];
+  const allPositions = React.useMemo<ToastPosition[]>(() => {
+    return ['top-center', 'bottom-center', 'center'];
   }, []);
+
+  const possiblePositions = React.useMemo<ToastPosition[]>(() => {
+    return allPositions.filter((possiblePossition) => {
+      return (
+        toasts.find(
+          (positionedToast) => positionedToast.position === possiblePossition
+        ) || value.position === possiblePossition
+      );
+    });
+  }, [allPositions, toasts, value.position]);
 
   const orderedToasts = React.useMemo(() => {
     return orderToastsFromPosition(toasts);
@@ -309,10 +319,7 @@ export const ToasterUI: React.FC<
   return (
     <ToastContext.Provider value={value}>
       {possiblePositions.map((currentPosition, positionIndex) => (
-        <Positioner
-          position={currentPosition}
-          key={currentPosition}
-        >
+        <Positioner position={currentPosition} key={currentPosition}>
           {orderedToasts
             .filter(
               (possibleToast) =>
