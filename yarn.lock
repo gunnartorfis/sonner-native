@@ -9699,10 +9699,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-status-bar@npm:~1.12.1":
-  version: 1.12.1
-  resolution: "expo-status-bar@npm:1.12.1"
-  checksum: 82f2e9096660cdb521b920662908b93e1909c2bbe776802c314dff6e0863300d19ba4b9e093825b2bdc094f333010df0b8ed11fcb330e4c29a16c2d55da0aa96
+"expo-status-bar@npm:~2.0.1":
+  version: 2.0.1
+  resolution: "expo-status-bar@npm:2.0.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 7e9c38c0e2a7a593958756572369fe515dc7bc7eb774eecbd2c008f994c420fa7196796c3ba32117bd801677b84b3335918c18e7e276981d49f1b7b8ebbbde95
   languageName: node
   linkType: hard
 
@@ -19319,7 +19322,7 @@ __metadata:
     "@react-navigation/native": ^6.0.8
     "@react-navigation/native-stack": ^6.9.12
     expo: ~51.0.32
-    expo-status-bar: ~1.12.1
+    expo-status-bar: ~2.0.1
     nativewind: 4.1.6
     react: 18.2.0
     react-dom: 18.2.0
