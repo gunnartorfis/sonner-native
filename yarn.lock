@@ -17827,16 +17827,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-screens@npm:3.31.1":
-  version: 3.31.1
-  resolution: "react-native-screens@npm:3.31.1"
+"react-native-screens@npm:4.10.0":
+  version: 4.10.0
+  resolution: "react-native-screens@npm:4.10.0"
   dependencies:
     react-freeze: ^1.0.0
     warn-once: ^0.1.0
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 1fc61cf7a223b3ef1c8000e74416c8953561c5fa0861557da43659db62a640e37fb51fbdc35dae810a665881a7aa9eeaf1873e90f67404b4dda53a672464a7fe
+  checksum: 291f3024eabbb02b3299d4afafba6812f7a1dcd95f762b9be80fa9a69b20650d66a72e64f339776eb4b72e759a1b2201bb80a8501d90f9b4f4d42f19d6c09d5a
   languageName: node
   linkType: hard
 
@@ -19328,7 +19328,7 @@ __metadata:
     react-native-gesture-handler: ~2.16.1
     react-native-reanimated: ~3.10.1
     react-native-safe-area-context: 4.10.5
-    react-native-screens: 3.31.1
+    react-native-screens: 4.10.0
     react-native-svg: 15.2.0
     react-native-web: ~0.19.10
     tailwind-merge: ^2.5.2
@@ -19359,7 +19359,7 @@ __metadata:
     react-native-gesture-handler: ~2.16.1
     react-native-reanimated: ~3.10.1
     react-native-safe-area-context: 4.10.5
-    react-native-screens: 3.31.1
+    react-native-screens: 4.10.0
     react-native-svg: ^15.6.0
     release-it: ^17.6.0
     typescript: ^5.5.4
