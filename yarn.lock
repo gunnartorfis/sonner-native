@@ -3048,12 +3048,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/metro-runtime@npm:~3.2.3":
-  version: 3.2.3
-  resolution: "@expo/metro-runtime@npm:3.2.3"
+"@expo/metro-runtime@npm:~4.0.1":
+  version: 4.0.1
+  resolution: "@expo/metro-runtime@npm:4.0.1"
   peerDependencies:
     react-native: "*"
-  checksum: 138fff0f018f6d39346984c82c843979c4588ed04695bdb76cd80fd1081d79c0503ad961a8f632a642024c758f2757edf6b7e2272adc6f207aa0ed84726fabdc
+  checksum: 04d0bd0b3ca1221f29dabbe8bee1cc4d2e7cb086b728f3edf4d477e230a60b87a8eb828a09618022988009a71c2f85207fb1dec929d324601fccf4b5c3202e8e
   languageName: node
   linkType: hard
 
@@ -19314,7 +19314,7 @@ __metadata:
   resolution: "sonner-native-example@workspace:example"
   dependencies:
     "@babel/core": ^7.20.0
-    "@expo/metro-runtime": ~3.2.3
+    "@expo/metro-runtime": ~4.0.1
     "@react-navigation/bottom-tabs": ^6.6.1
     "@react-navigation/native": ^6.0.8
     "@react-navigation/native-stack": ^6.9.12
