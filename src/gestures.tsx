@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dimensions, type ViewStyle } from 'react-native';
+import { Dimensions, Platform, type ViewStyle } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   Easing,
@@ -126,11 +126,14 @@ export const ToastSwipeHandler: React.FC<
                 translate.value * (position === 'bottom-center' ? -1 : 1),
             },
       ],
-      opacity: interpolate(
-        translate.value,
-        [0, direction === 'left' ? -WINDOW_WIDTH : -60],
-        [1, 0]
-      ),
+      opacity:
+        Platform.OS === 'android'
+          ? 1
+          : interpolate(
+              translate.value,
+              [0, direction === 'left' ? -WINDOW_WIDTH : -60],
+              [1, 0]
+            ),
     };
   }, [direction, translate]);
 
