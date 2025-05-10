@@ -1,5 +1,13 @@
 
 
+## [0.19.1](https://github.com/gunnartorfis/sonner-native/compare/v0.19.0...v0.19.1) (2025-05-10)
+
+
+### Bug Fixes
+
+* temporarily disable opacity gesture animation on Android ([350ac2f](https://github.com/gunnartorfis/sonner-native/commit/350ac2ffc14f190449ea3deda3d5408c5512457d))
+* the missed style props for the toaster props ([27200a1](https://github.com/gunnartorfis/sonner-native/commit/27200a1c959431b1bd0d401cdb10d173c4708089))
+
 # [0.19.0](https://github.com/gunnartorfis/sonner-native/compare/v0.18.1...v0.19.0) (2025-04-01)
 
 
