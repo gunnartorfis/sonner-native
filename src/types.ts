@@ -82,7 +82,7 @@ type ExternalToast = Omit<
   id?: string | number;
 };
 
-export type ToasterProps = {
+export type ToasterProps = Omit<StyleProps, 'style'> & {
   duration?: number;
   theme?: ToastTheme;
   // richColors?: boolean; (false)
