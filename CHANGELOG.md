@@ -1,5 +1,12 @@
 
 
+# [0.20.0-beta.0](https://github.com/gunnartorfis/sonner-native/compare/v0.19.1...v0.20.0-beta.0) (2025-05-14)
+
+
+### Bug Fixes
+
+* attempt to fix android crash ([4c9f042](https://github.com/gunnartorfis/sonner-native/commit/4c9f04272a9c73332fb563ca1bf7a3946dafc2e4))
+
 ## [0.19.1](https://github.com/gunnartorfis/sonner-native/compare/v0.19.0...v0.19.1) (2025-05-10)
 
 

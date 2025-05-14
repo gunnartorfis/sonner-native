@@ -116,8 +116,9 @@ export const ToastSwipeHandler: React.FC<
     }
   });
 
+  const isAndroid = Platform.OS === 'android';
   const animatedStyle = useAnimatedStyle(() => {
-    return {
+    const aStyle: ViewStyle = {
       transform: [
         direction === 'left'
           ? { translateX: translate.value }
@@ -126,15 +127,19 @@ export const ToastSwipeHandler: React.FC<
                 translate.value * (position === 'bottom-center' ? -1 : 1),
             },
       ],
-      opacity:
-        Platform.OS === 'android'
-          ? 1
-          : interpolate(
-              translate.value,
-              [0, direction === 'left' ? -WINDOW_WIDTH : -60],
-              [1, 0]
-            ),
     };
+
+    if (isAndroid) {
+      aStyle.opacity = 1;
+    } else {
+      aStyle.opacity = interpolate(
+        translate.value,
+        [0, direction === 'left' ? -WINDOW_WIDTH : -60],
+        [1, 0]
+      );
+    }
+
+    return aStyle;
   }, [direction, translate]);
 
   return (
@@ -149,6 +154,11 @@ export const ToastSwipeHandler: React.FC<
                 marginBottom: gap,
               },
           { width: '100%' },
+          Platform.OS === 'android'
+            ? {
+                opacity: 1,
+              }
+            : {},
           style,
         ]}
         layout={LinearTransition.easing(easeInOutCircFn)}
