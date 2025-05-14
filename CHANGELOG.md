@@ -1,5 +1,7 @@
 
 
+# [0.20.0](https://github.com/gunnartorfis/sonner-native/compare/v0.20.0-beta.0...v0.20.0) (2025-05-14)
+
 # [0.20.0-beta.0](https://github.com/gunnartorfis/sonner-native/compare/v0.19.1...v0.20.0-beta.0) (2025-05-14)
 
 
