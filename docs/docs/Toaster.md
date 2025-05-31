@@ -96,7 +96,7 @@ function Wrapper({toastId, children}){
 
 | Property                  |                                            Description                                             |      Default |
 | :------------------------ | :------------------------------------------------------------------------------------------------: | -----------: |
-| theme                     |                                          `light`, `dark`                                           |      `light` |
+| theme                     |                                          `light`, `dark`                                           |     `system` |
 | visibleToasts             |                                  Maximum number of visible toasts                                  |          `3` |
 | position                  |                              Place where the toasts will be rendered                               | `top-center` |
 | offset                    |                                   Offset from the top or bottom                                    |          `0` |
