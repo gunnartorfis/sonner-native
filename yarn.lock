@@ -19331,7 +19331,7 @@ __metadata:
     react-native-screens: 3.31.1
     react-native-svg: 15.2.0
     react-native-web: ~0.19.10
-    tailwind-merge: ^2.5.2
+    tailwind-merge: ^3.3.0
     tailwindcss: ^3.4.10
   languageName: unknown
   linkType: soft
@@ -20041,10 +20041,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwind-merge@npm:^2.5.2":
-  version: 2.5.2
-  resolution: "tailwind-merge@npm:2.5.2"
-  checksum: af745fc16245ac14eb5d3f0b9d076c024321877ad45f43b324465f6aa7f8b5de3816640594fbf6ac8b3500f70ff2687345787888744196ff6f82dfe9a1f99b97
+"tailwind-merge@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "tailwind-merge@npm:3.3.0"
+  checksum: 9c8957753c09c5e79d490fc9d142a4d9ba1192410633d864867f5640cf5d45d06d31ea14ffcf83763a584b3202a131a2d1f1d62c47f205f598b71d8ec5071767
   languageName: node
   linkType: hard
 
