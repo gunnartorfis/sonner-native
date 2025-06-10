@@ -68,8 +68,30 @@ export const ToastSwipeHandler: React.FC<
       if (direction === 'left' && event.translationX < 0) {
         translate.value = event.translationX;
       } else if (direction === 'up') {
-        translate.value =
-          event.translationY * (position === 'bottom-center' ? -1 : 1);
+        const isBottomPosition = position === 'bottom-center';
+        const rawTranslation = event.translationY * (isBottomPosition ? -1 : 1);
+
+        // Define correct and wrong directions based on position
+        const isCorrectDirection = rawTranslation < 0; // negative means correct dismissal direction
+        const isWrongDirection = rawTranslation > 0; // positive means wrong direction
+
+        if (isCorrectDirection) {
+          // Allow full movement in correct direction
+          translate.value = rawTranslation;
+        } else if (isWrongDirection) {
+          // Apply progressive elastic resistance (Apple-style)
+          // This function provides diminishing returns as the drag distance increases
+          const elasticResistance = (distance: number) => {
+            'worklet';
+            // Base resistance factor
+            const baseResistance = 0.4;
+            // Progressive dampening - the further you drag, the more resistance
+            const progressiveFactor = 1 / (1 + distance * 0.02);
+            return distance * baseResistance * progressiveFactor;
+          };
+
+          translate.value = elasticResistance(rawTranslation);
+        }
       }
     })
     .onFinalize(() => {
@@ -79,33 +101,68 @@ export const ToastSwipeHandler: React.FC<
         return;
       }
 
-      const threshold = direction === 'left' ? -WINDOW_WIDTH * 0.25 : -16;
-      const shouldDismiss = translate.value < threshold;
+      if (direction === 'left') {
+        const threshold = -WINDOW_WIDTH * 0.25;
+        const shouldDismiss = translate.value < threshold;
 
-      if (Math.abs(translate.value) < 16) {
-        translate.value = withTiming(0, {
-          easing: Easing.elastic(0.8),
-        });
-        return;
-      }
+        if (Math.abs(translate.value) < 16) {
+          translate.value = withTiming(0, {
+            easing: Easing.elastic(0.8),
+          });
+          return;
+        }
 
-      if (shouldDismiss) {
-        translate.value = withTiming(
-          -WINDOW_WIDTH,
-          {
-            easing: Easing.inOut(Easing.ease),
-          },
-          (isDone) => {
-            if (isDone) {
-              runOnJS(onRemove)();
+        if (shouldDismiss) {
+          translate.value = withTiming(
+            -WINDOW_WIDTH,
+            {
+              easing: Easing.inOut(Easing.ease),
+            },
+            (isDone) => {
+              if (isDone) {
+                runOnJS(onRemove)();
+              }
             }
-          }
-        );
-      } else {
-        translate.value = withTiming(0, {
-          easing: Easing.elastic(0.8),
-        });
+          );
+        } else {
+          translate.value = withTiming(0, {
+            easing: Easing.elastic(0.8),
+          });
+        }
+      } else if (direction === 'up') {
+        const threshold = -16;
+        const shouldDismiss = translate.value < threshold;
+        const isWrongDirection = translate.value > 0;
+
+        // If dragged in wrong direction, always spring back
+        if (isWrongDirection) {
+          translate.value = withTiming(0, {
+            easing: Easing.elastic(0.8),
+            duration: 400,
+          });
+        } else if (Math.abs(translate.value) < 16) {
+          translate.value = withTiming(0, {
+            easing: Easing.elastic(0.8),
+          });
+        } else if (shouldDismiss) {
+          translate.value = withTiming(
+            -WINDOW_WIDTH,
+            {
+              easing: Easing.inOut(Easing.ease),
+            },
+            (isDone) => {
+              if (isDone) {
+                runOnJS(onRemove)();
+              }
+            }
+          );
+        } else {
+          translate.value = withTiming(0, {
+            easing: Easing.elastic(0.8),
+          });
+        }
       }
+
       runOnJS(onFinalize)();
     });
 
