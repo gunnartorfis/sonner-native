@@ -1,5 +1,12 @@
 
 
+# [0.21.0](https://github.com/gunnartorfis/sonner-native/compare/v0.20.0...v0.21.0) (2025-06-10)
+
+
+### Features
+
+* add elastic resistance for toast wrong-direction gestures ([bb345b4](https://github.com/gunnartorfis/sonner-native/commit/bb345b4b7d265af660a26df7476871214e04f38c))
+
 # [0.20.0](https://github.com/gunnartorfis/sonner-native/compare/v0.20.0-beta.0...v0.20.0) (2025-05-14)
 
 # [0.20.0-beta.0](https://github.com/gunnartorfis/sonner-native/compare/v0.19.1...v0.20.0-beta.0) (2025-05-14)
