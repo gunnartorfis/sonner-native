@@ -79,17 +79,6 @@ export const ToastSwipeHandler: React.FC<
           // Allow full movement in correct direction
           translate.value = rawTranslation;
         } else if (isWrongDirection) {
-          // Apply progressive elastic resistance (Apple-style)
-          // This function provides diminishing returns as the drag distance increases
-          const elasticResistance = (distance: number) => {
-            'worklet';
-            // Base resistance factor
-            const baseResistance = 0.4;
-            // Progressive dampening - the further you drag, the more resistance
-            const progressiveFactor = 1 / (1 + distance * 0.02);
-            return distance * baseResistance * progressiveFactor;
-          };
-
           translate.value = elasticResistance(rawTranslation);
         }
       }
@@ -226,3 +215,14 @@ export const ToastSwipeHandler: React.FC<
     </GestureDetector>
   );
 };
+
+// Apply progressive elastic resistance (Apple-style)
+// This function provides diminishing returns as the drag distance increases
+function elasticResistance(distance: number) {
+  'worklet';
+  // Base resistance factor
+  const baseResistance = 0.4;
+  // Progressive dampening - the further you drag, the more resistance
+  const progressiveFactor = 1 / (1 + distance * 0.02);
+  return distance * baseResistance * progressiveFactor;
+}
