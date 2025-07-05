@@ -1,49 +1,47 @@
+import { Button } from '@react-navigation/elements';
 import * as React from 'react';
-import {
-  Alert,
-  Button,
-  Image,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-} from 'react-native';
+import { Alert, Image, Pressable, Text, View } from 'react-native';
 import { toast } from 'sonner-native';
 
 export const ToastDemo: React.FC = () => {
   const [toastId, setToastId] = React.useState<string | number | null>(null);
 
   return (
-    <ScrollView contentContainerStyle={{ paddingTop: 100 }}>
+    <View
+      style={{
+        marginTop: 16,
+        gap: 16,
+      }}
+    >
+      <Button disabled={!toastId} onPress={() => toast.dismiss(toastId!)}>
+        Dismiss active toast
+      </Button>
       <Button
-        title="Dismiss active toast"
-        disabled={!toastId}
-        onPress={() => toast.dismiss(toastId!)}
-      />
-      <Button
-        title="Dismiss all toasts"
         onPress={() => {
           toast.dismiss();
           setToastId(null);
         }}
-      />
+      >
+        Dismiss all toasts
+      </Button>
       <Button
-        title="Center"
         onPress={() => {
           toast.success('center', { position: 'center' });
         }}
-      />
+      >
+        Center
+      </Button>
       <Button
-        title="exit animation bottom"
         onPress={() => {
           toast.success('exit animation bottom', {
             position: 'bottom-center',
             duration: 5000,
           });
         }}
-      />
+      >
+        exit animation bottom
+      </Button>
       <Button
-        title={toastId ? 'Update toast' : 'Show toast'}
         onPress={() => {
           if (toastId) {
             toast.success('Updated!', {
@@ -67,27 +65,30 @@ export const ToastDemo: React.FC = () => {
             setToastId(id);
           }
         }}
-      />
+      >
+        {toastId ? 'Update toast' : 'Show toast'}
+      </Button>
       <Button
-        title="Show toast with description"
         onPress={() => {
           toast.success('Changes saved', {
             description: 'Your changes have been saved successfully',
             closeButton: true,
           });
         }}
-      />
+      >
+        Show toast with description
+      </Button>
       <Button
-        title="Rich colors"
         onPress={() => {
           toast.warning('Rich colors', {
             description: 'Your changes have been saved successfully',
             richColors: true,
           });
         }}
-      />
+      >
+        Rich colors
+      </Button>
       <Button
-        title="Show toast with description and action"
         onPress={() => {
           toast.success('Changes saved', {
             action: {
@@ -100,35 +101,36 @@ export const ToastDemo: React.FC = () => {
               'Your changes have been saved successfully. This might go into a newline but we handle that by wrapping the text.',
           });
         }}
-      />
+      >
+        Show toast with description and action
+      </Button>
       <Button
-        title="Wiggle on update"
         onPress={() =>
           toast('Wiggle on update', {
             id: '123',
             description: new Date().toISOString(),
           })
         }
-      />
+      >
+        Wiggle on update
+      </Button>
       <Button
-        title="Wiggle toast"
         onPress={() => {
           if (toastId) {
             toast.wiggle(toastId);
           }
           toast.wiggle('123');
         }}
-      />
+      >
+        Wiggle toast
+      </Button>
+      <Button onPress={() => toast('Inverted toast', { invert: true })}>
+        Invert toast
+      </Button>
+      <Button onPress={() => toast('Custom id', { id: '123' })}>
+        Custom id
+      </Button>
       <Button
-        title="Invert toast"
-        onPress={() => toast('Inverted toast', { invert: true })}
-      />
-      <Button
-        title="Custom id"
-        onPress={() => toast('Custom id', { id: '123' })}
-      />
-      <Button
-        title="Custom icon"
         onPress={() => {
           toast('Custom icon', {
             icon: (
@@ -138,10 +140,11 @@ export const ToastDemo: React.FC = () => {
             ),
           });
         }}
-      />
-      <Button title="Show outside of a React component" onPress={handleToast} />
+      >
+        Custom icon
+      </Button>
+      <Button onPress={handleToast}>Show outside of a React component</Button>
       <Button
-        title="Toast with a successful promise"
         onPress={() => {
           toast.promise(
             new Promise((resolve) => {
@@ -156,9 +159,10 @@ export const ToastDemo: React.FC = () => {
             }
           );
         }}
-      />
+      >
+        Toast with a successful promise
+      </Button>
       <Button
-        title="Toast with a failed promise"
         onPress={() => {
           toast.promise(
             new Promise((_, reject) => {
@@ -176,9 +180,10 @@ export const ToastDemo: React.FC = () => {
             }
           );
         }}
-      />
+      >
+        Toast with a failed promise
+      </Button>
       <Button
-        title="Windows XP with styles only"
         onPress={() => {
           const id = toast('Blue screen of death', {
             action: {
@@ -190,7 +195,7 @@ export const ToastDemo: React.FC = () => {
             unstyled: true,
             icon: (
               <Image
-                source={require('../assets/windows-xp.png')}
+                source={require('../assets/images/windows-xp.png')}
                 style={{
                   width: 40,
                   height: 40,
@@ -251,15 +256,16 @@ export const ToastDemo: React.FC = () => {
             },
           });
         }}
-      />
+      >
+        Windows XP with styles only
+      </Button>
       <Button
-        title="iOS like toast"
         onPress={() =>
           toast('AirPods Pro', {
             description: 'Connected',
             icon: (
               <Image
-                src={require('../assets/airpods.png')}
+                source={require('../assets/images/airpods.png')}
                 style={{
                   width: 30,
                   height: 30,
@@ -303,9 +309,10 @@ export const ToastDemo: React.FC = () => {
             },
           })
         }
-      />
+      >
+        iOS like toast
+      </Button>
       <Button
-        title="Custom JSX"
         onPress={() => {
           toast.custom(
             <View style={{ alignItems: 'center' }}>
@@ -360,15 +367,17 @@ export const ToastDemo: React.FC = () => {
             }
           );
         }}
-      />
+      >
+        Custom JSX
+      </Button>
       <Button
-        title="Non-dismissible"
         onPress={() =>
           toast.success('Non-dismissible toast', { dismissible: false })
         }
-      />
+      >
+        Non-dismissible
+      </Button>
       <Button
-        title="Infinity toast"
         onPress={() => {
           const id = toast.success('Infinity toast', {
             duration: Infinity,
@@ -385,15 +394,17 @@ export const ToastDemo: React.FC = () => {
 
           setToastId(id);
         }}
-      />
+      >
+        Infinity toast
+      </Button>
       <Button
-        title="Custom icon in Toaster"
         onPress={() => {
           toast.error('Custom icon');
         }}
-      />
+      >
+        Custom icon in Toaster
+      </Button>
       <Button
-        title="Cancel"
         onPress={() => {
           toast('My cancel toast', {
             cancel: {
@@ -402,40 +413,41 @@ export const ToastDemo: React.FC = () => {
             },
           });
         }}
-      />
+      >
+        Cancel
+      </Button>
       <Button
-        title="JSX action"
         onPress={() => {
           toast('JSX action', {
             description: 'This toast has a JSX action',
             action: (
-              <Button
-                title="Press me"
-                onPress={() => console.log('JSX action')}
-              />
+              <Button onPress={() => console.log('JSX action')}>
+                Press me
+              </Button>
             ),
           });
         }}
-      />
+      >
+        JSX action
+      </Button>
+      <Button onPress={() => toast.loading('Loading...')}>
+        Loading variant
+      </Button>
       <Button
-        title="Loading variant"
-        onPress={() => toast.loading('Loading...')}
-      />
-      <Button
-        title="Dynamic position"
         onPress={() => toast('Dynamic position', { position: 'bottom-center' })}
-      />
+      >
+        Dynamic position
+      </Button>
+      <Button onPress={() => toast.loading('Loading...')}>
+        Loading icon override
+      </Button>
       <Button
-        title="Loading icon override"
-        onPress={() => toast.loading('Loading...')}
-      />
-      <Button
-        title="Dynamic position"
         onPress={() => toast('Dynamic position', { position: 'bottom-center' })}
-      />
-      <Button title="Warning toast" onPress={() => toast.warning('Warning')} />
+      >
+        Dynamic position
+      </Button>
+      <Button onPress={() => toast.warning('Warning')}>Warning toast</Button>
       <Button
-        title="OnPress action"
         onPress={() => {
           const id = toast.success('OnPress action', {
             dismissible: false,
@@ -448,18 +460,21 @@ export const ToastDemo: React.FC = () => {
 
           setToastId(id);
         }}
-      />
+      >
+        OnPress action
+      </Button>
 
       <Button
-        title="Custom close button"
         onPress={() => {
           const id = toast.success('Custom close button', {
-            close: <Button title="close" onPress={() => toast.dismiss(id)} />,
+            close: <Button onPress={() => toast.dismiss(id)}>close</Button>,
             closeButton: undefined,
           });
         }}
-      />
-    </ScrollView>
+      >
+        Custom close button
+      </Button>
+    </View>
   );
 };
 

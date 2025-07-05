@@ -1,8 +1,8 @@
+// Learn more https://docs.expo.io/guides/customizing-metro
 const path = require('path');
 const { getDefaultConfig } = require('@expo/metro-config');
 const { getConfig } = require('react-native-builder-bob/metro-config');
 const pkg = require('../package.json');
-const { withNativeWind } = require('nativewind/metro');
 
 const root = path.resolve(__dirname, '..');
 
@@ -18,4 +18,4 @@ const config = getConfig(getDefaultConfig(__dirname), {
   project: __dirname,
 });
 
-module.exports = withNativeWind(config, { input: './global.css' });
+module.exports = config;

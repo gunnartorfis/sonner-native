@@ -26,6 +26,31 @@ export default function App() {
 }
 ```
 
+### With Expo Router
+
+When using Expo Router, place the `Toaster` component in your root layout file (`app/_layout.tsx`). The SafeAreaProvider and GestureHandlerRootView are typically already configured by Expo Router, so you only need to add the Toaster:
+
+```tsx
+import { Toaster } from 'sonner-native';
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+
+export default function RootLayout() {
+  return (
+    <>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+      <StatusBar style="auto" />
+      <Toaster />
+    </>
+  );
+}
+```
+
+This setup ensures that toasts will be displayed across all screens in your Expo Router app.
+
 ## Customization
 
 The Toaster component can provide default styles for all toasts, but individual toasts can also be customized. The Toaster component accepts a number of props to customize the appearance and behavior of the toasts.
@@ -69,19 +94,18 @@ import { ZView } from 'react-native-z-view';
 />;
 ```
 
-
 ### Dismiss toast on tap
 
 Use the `ToastWrapper` prop to wrap the Toast component with a custom component. This is useful when you want to customize the behavior of the toast, for example add a dismiss on tap instead of the the close icon.
 
 ```tsx
-import { Pressable } from "react-native"
+import { Pressable } from 'react-native';
 
-function Wrapper({toastId, children}){
-  function onPress(){
-    toast.dismiss(toastId)
+function Wrapper({ toastId, children }) {
+  function onPress() {
+    toast.dismiss(toastId);
   }
-  return <Pressable onPress={onPress}>{children}</Pressable>
+  return <Pressable onPress={onPress}>{children}</Pressable>;
 }
 
 <Toaster
@@ -108,6 +132,6 @@ function Wrapper({toastId, children}){
 | pauseWhenPageIsHidden     |                        Pauses toast timers when the app enters background.                         |         `{}` |
 | `swipeToDismissDirection` |                             Swipe direction to dismiss (`left`, `up`).                             |         `up` |
 | ToasterOverlayWrapper     |                                Custom component to wrap the Toaster.                               |        `div` |
-| ToastWrapper              |                                Custom component to wrap the Toast.                                 |        `div` |
+| ToastWrapper              |                                 Custom component to wrap the Toast.                                |        `div` |
 | autoWiggleOnUpdate        |             Adds a wiggle animation on toast update. `never`, `toast-change`, `always`             |      `never` |
 | richColors                |                             Makes error and success state more colorful                            |      `false` |
