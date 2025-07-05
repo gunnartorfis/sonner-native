@@ -9,10 +9,7 @@ module.exports = function (api) {
 
   return getConfig(
     {
-      presets: [
-        ['babel-preset-expo', { jsxImportSource: 'nativewind' }],
-        'nativewind/babel',
-      ],
+      presets: [['babel-preset-expo']],
     },
     { root, pkg }
   );

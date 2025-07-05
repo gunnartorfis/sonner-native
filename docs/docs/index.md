@@ -58,6 +58,29 @@ function App() {
 }
 ```
 
+### With Expo Router
+
+When using Expo Router, place the `Toaster` component in your root layout file (`app/_layout.tsx`):
+
+```typescript
+import { Toaster } from 'sonner-native';
+import { Stack } from 'expo-router';
+
+export default function RootLayout() {
+  return (
+    <>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+      <Toaster />
+    </>
+  );
+}
+```
+
+This ensures the toasts will be displayed across all screens in your app.
+
 ### Show a toast
 
 ```typescript
