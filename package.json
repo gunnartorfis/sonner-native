@@ -73,9 +73,9 @@
     "@types/react": "^19.1.8",
     "commitlint": "^19.8.1",
     "del-cli": "^6.0.0",
-    "eslint": "^9.30.1",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-prettier": "^5.5.1",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "jest": "^30.0.4",
     "prettier": "^3.6.2",
     "react": "19.0.0",
@@ -142,6 +142,9 @@
     "root": true,
     "extends": [
       "@react-native",
+      "prettier"
+    ],
+    "plugins": [
       "prettier"
     ],
     "rules": {
