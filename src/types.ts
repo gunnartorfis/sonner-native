@@ -110,6 +110,11 @@ export type ToasterProps = Omit<StyleProps, 'style'> & {
     buttonsStyle?: ViewStyle;
     closeButtonStyle?: ViewStyle;
     closeButtonIconStyle?: ViewStyle;
+    success?: ViewStyle;
+    error?: ViewStyle;
+    warning?: ViewStyle;
+    info?: ViewStyle;
+    loading?: ViewStyle;
   };
   gap?: number;
   loadingIcon?: React.ReactNode;

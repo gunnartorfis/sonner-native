@@ -52,6 +52,22 @@ You can provide default styles for all toasts by passing the `style` prop to the
 />
 ```
 
+### Styling Toasts by Variant
+
+You can provide default styles for specific toast variants within `toastOptions`. These styles will be applied as the base for any toast of that type.
+
+```tsx
+<Toaster
+  toastOptions={{
+    // Set a default style for all success toasts
+    success: {
+      backgroundColor: '#28a745',
+    },
+    // This also works for 'error', 'warning', 'info', and 'loading'
+  }}
+/>
+```
+
 ### Usage with react-native-z-view
 
 Use the `ToasterOverlayWrapper` prop to wrap the Toaster component with a custom component. This is useful when using `react-native-z-view` to render the toasts.

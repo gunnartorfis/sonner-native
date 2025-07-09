@@ -70,6 +70,11 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         buttonsStyle: buttonsStyleCtx,
         closeButtonStyle: closeButtonStyleCtx,
         closeButtonIconStyle: closeButtonIconStyleCtx,
+        success: successStyleCtx,
+        error: errorStyleCtx,
+        warning: warningStyleCtx,
+        info: infoStyleCtx,
+        loading: loadingStyleCtx,
       },
     } = useToastContext();
     const invert = invertProps ?? invertCtx;
@@ -256,6 +261,16 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       variant,
     });
 
+    const variantStyles = {
+      success: successStyleCtx,
+      error: errorStyleCtx,
+      warning: warningStyleCtx,
+      info: infoStyleCtx,
+      loading: loadingStyleCtx,
+    };
+
+    const variantStyle = variantStyles[variant];
+
     const renderCloseButton = React.useMemo(() => {
       if (!dismissible) {
         return null;
@@ -351,6 +366,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
             unstyled ? undefined : elevationStyle,
             defaultStyles.toast,
             toastStyleCtx,
+            variantStyle,
             styles?.toast,
             style,
             wiggleAnimationStyle,
