@@ -5,6 +5,7 @@ import type { ToastVariant } from './types';
 type DefaultStyles = {
   toast: ViewStyle;
   toastContent: ViewStyle;
+  contentWrapper: ViewStyle;
   title: TextStyle;
   description: TextStyle;
   buttons: ViewStyle;
@@ -36,6 +37,7 @@ export const useDefaultStyles = ({
     return {
       toast: {},
       toastContent: {},
+      contentWrapper: {},
       title: {},
       description: {},
       buttons: {},
@@ -65,6 +67,9 @@ export const useDefaultStyles = ({
       flexDirection: 'row',
       gap: 16,
       alignItems: description?.length === 0 ? 'center' : undefined,
+    },
+    contentWrapper: {
+      flex: 1,
     },
     title: {
       fontWeight: '600',

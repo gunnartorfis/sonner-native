@@ -65,6 +65,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         cancelButtonTextStyle: cancelButtonTextStyleCtx,
         style: toastStyleCtx,
         toastContentStyle: toastContentStyleCtx,
+        contentWrapperStyle: contentWrapperStyleCtx,
         titleStyle: titleStyleCtx,
         descriptionStyle: descriptionStyleCtx,
         buttonsStyle: buttonsStyleCtx,
@@ -382,7 +383,13 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
                 richColors={richColors}
               />
             )}
-            <View style={{ flex: 1 }}>
+            <View
+              style={[
+                defaultStyles.contentWrapper,
+                contentWrapperStyleCtx,
+                styles?.contentWrapper,
+              ]}
+            >
               <Text style={[defaultStyles.title, titleStyleCtx, styles?.title]}>
                 {title}
               </Text>

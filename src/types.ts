@@ -8,6 +8,7 @@ type StyleProps = {
     toastContainer?: ViewStyle;
     toast?: ViewStyle;
     toastContent?: ViewStyle;
+    contentWrapper?: ViewStyle;
     title?: TextStyle;
     description?: TextStyle;
     buttons?: ViewStyle;
@@ -107,6 +108,7 @@ export type ToasterProps = Omit<StyleProps, 'style'> & {
     unstyled?: boolean;
     toastContainerStyle?: ViewStyle;
     toastContentStyle?: ViewStyle;
+    contentWrapperStyle?: ViewStyle;
     buttonsStyle?: ViewStyle;
     closeButtonStyle?: ViewStyle;
     closeButtonIconStyle?: ViewStyle;
