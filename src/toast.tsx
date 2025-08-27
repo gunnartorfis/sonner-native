@@ -346,119 +346,122 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
 
     return (
       <ToastSwipeHandler {...toastSwipeHandlerProps}>
-        <Animated.View
-          style={[
-            unstyled ? undefined : elevationStyle,
-            defaultStyles.toast,
-            toastStyleCtx,
-            styles?.toast,
-            style,
-            wiggleAnimationStyle,
-          ]}
-          entering={entering}
-          exiting={exiting}
-        >
-          <View
+        <Animated.View style={wiggleAnimationStyle}>
+          <Animated.View
             style={[
-              defaultStyles.toastContent,
-              toastContentStyleCtx,
-              styles?.toastContent,
+              unstyled ? undefined : elevationStyle,
+              defaultStyles.toast,
+              toastStyleCtx,
+              styles?.toast,
+              style,
             ]}
+            entering={entering}
+            exiting={exiting}
           >
-            {promiseOptions || variant === 'loading' ? (
-              'loading' in icons ? (
-                icons.loading
+            <View
+              style={[
+                defaultStyles.toastContent,
+                toastContentStyleCtx,
+                styles?.toastContent,
+              ]}
+            >
+              {promiseOptions || variant === 'loading' ? (
+                'loading' in icons ? (
+                  icons.loading
+                ) : (
+                  <ActivityIndicator />
+                )
+              ) : icon ? (
+                <View>{icon}</View>
+              ) : variant in icons ? (
+                icons[variant]
               ) : (
-                <ActivityIndicator />
-              )
-            ) : icon ? (
-              <View>{icon}</View>
-            ) : variant in icons ? (
-              icons[variant]
-            ) : (
-              <ToastIcon
-                variant={variant}
-                invert={invert}
-                richColors={richColors}
-              />
-            )}
-            <View style={{ flex: 1 }}>
-              <Text style={[defaultStyles.title, titleStyleCtx, styles?.title]}>
-                {title}
-              </Text>
-              {description ? (
+                <ToastIcon
+                  variant={variant}
+                  invert={invert}
+                  richColors={richColors}
+                />
+              )}
+              <View style={{ flex: 1 }}>
                 <Text
+                  style={[defaultStyles.title, titleStyleCtx, styles?.title]}
+                >
+                  {title}
+                </Text>
+                {description ? (
+                  <Text
+                    style={[
+                      defaultStyles.description,
+                      descriptionStyleCtx,
+                      styles?.description,
+                    ]}
+                  >
+                    {description}
+                  </Text>
+                ) : null}
+                <View
                   style={[
-                    defaultStyles.description,
-                    descriptionStyleCtx,
-                    styles?.description,
+                    unstyled || (!action && !cancel)
+                      ? undefined
+                      : defaultStyles.buttons,
+                    buttonsStyleCtx,
+                    styles?.buttons,
                   ]}
                 >
-                  {description}
-                </Text>
-              ) : null}
-              <View
-                style={[
-                  unstyled || (!action && !cancel)
-                    ? undefined
-                    : defaultStyles.buttons,
-                  buttonsStyleCtx,
-                  styles?.buttons,
-                ]}
-              >
-                {isToastAction(action) ? (
-                  <Pressable
-                    onPress={action.onClick}
-                    style={[
-                      defaultStyles.actionButton,
-                      actionButtonStyleCtx,
-                      actionButtonStyle,
-                    ]}
-                  >
-                    <Text
-                      numberOfLines={1}
+                  {isToastAction(action) ? (
+                    <Pressable
+                      onPress={action.onClick}
                       style={[
-                        defaultStyles.actionButtonText,
-                        actionButtonTextStyleCtx,
-                        actionButtonTextStyle,
+                        defaultStyles.actionButton,
+                        actionButtonStyleCtx,
+                        actionButtonStyle,
                       ]}
                     >
-                      {action.label}
-                    </Text>
-                  </Pressable>
-                ) : (
-                  action || undefined
-                )}
-                {isToastAction(cancel) ? (
-                  <Pressable
-                    onPress={() => {
-                      cancel.onClick();
-                      onDismiss?.(id);
-                    }}
-                    style={[
-                      defaultStyles.cancelButton,
-                      cancelButtonStyleCtx,
-                      cancelButtonStyle,
-                    ]}
-                  >
-                    <Text
-                      numberOfLines={1}
+                      <Text
+                        numberOfLines={1}
+                        style={[
+                          defaultStyles.actionButtonText,
+                          actionButtonTextStyleCtx,
+                          actionButtonTextStyle,
+                        ]}
+                      >
+                        {action.label}
+                      </Text>
+                    </Pressable>
+                  ) : (
+                    action || undefined
+                  )}
+                  {isToastAction(cancel) ? (
+                    <Pressable
+                      onPress={() => {
+                        cancel.onClick();
+                        onDismiss?.(id);
+                      }}
                       style={[
-                        defaultStyles.cancelButtonText,
-                        cancelButtonTextStyleCtx,
-                        cancelButtonTextStyle,
+                        defaultStyles.cancelButton,
+                        cancelButtonStyleCtx,
+                        cancelButtonStyle,
                       ]}
                     >
-                      {cancel.label}
-                    </Text>
-                  </Pressable>
-                ) : (
-                  cancel || undefined
-                )}
+                      <Text
+                        numberOfLines={1}
+                        style={[
+                          defaultStyles.cancelButtonText,
+                          cancelButtonTextStyleCtx,
+                          cancelButtonTextStyle,
+                        ]}
+                      >
+                        {cancel.label}
+                      </Text>
+                    </Pressable>
+                  ) : (
+                    cancel || undefined
+                  )}
+                </View>
               </View>
+              {renderCloseButton}
             </View>
-            {renderCloseButton}
-          </View>
+          </Animated.View>
         </Animated.View>
       </ToastSwipeHandler>
     );
