@@ -1,5 +1,12 @@
 
 
+## [0.21.1](https://github.com/gunnartorfis/sonner-native/compare/v0.21.0...v0.21.1) (2025-08-28)
+
+
+### Bug Fixes
+
+* fixes flicker caused by two animations trying animating the same view and property ([89d606c](https://github.com/gunnartorfis/sonner-native/commit/89d606c9497d1220ba83a34e0d1b3bd223ebf47a))
+
 # [0.21.0](https://github.com/gunnartorfis/sonner-native/compare/v0.20.0...v0.21.0) (2025-06-10)
 
 
