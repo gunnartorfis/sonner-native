@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { ActivityIndicator, Pressable, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Pressable,
+  Text,
+  View,
+  Platform,
+} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -86,7 +92,10 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     const timeLeftOnceBackgrounded = React.useRef<number | undefined>();
     const isResolvingPromise = React.useRef(false);
 
+    const [isAndroidExiting, setIsAndroidExiting] = React.useState(false);
     const wiggleSharedValue = useSharedValue(1);
+
+    const isAndroid = Platform.OS === 'android';
 
     const wiggleAnimationStyle = useAnimatedStyle(() => {
       return {
@@ -94,14 +103,28 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       };
     }, [wiggleSharedValue]);
 
+    const handleDismiss = React.useCallback(() => {
+      if (isAndroid) {
+        setIsAndroidExiting(true);
+      }
+      onDismiss?.(id);
+    }, [isAndroid, id, onDismiss]);
+
+    const handleAutoClose = React.useCallback(() => {
+      if (isAndroid) {
+        setIsAndroidExiting(true);
+      }
+      onAutoClose?.(id);
+    }, [isAndroid, id, onAutoClose]);
+
     const startTimer = React.useCallback(() => {
       clearTimeout(timer.current);
       timer.current = setTimeout(() => {
         if (!isDragging.current) {
-          onAutoClose?.(id);
+          handleAutoClose();
         }
       }, ANIMATION_DURATION + duration);
-    }, [duration, id, onAutoClose]);
+    }, [duration, handleAutoClose]);
 
     const wiggle = React.useCallback(() => {
       'worklet';
@@ -163,15 +186,15 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         timer.current = setTimeout(
           () => {
             if (!isDragging.current) {
-              onAutoClose?.(id);
+              handleAutoClose();
             }
           },
           Math.max(timeLeftOnceBackgrounded.current, 1000) // minimum 1 second to avoid weird behavior
         );
       } else {
-        onAutoClose?.(id);
+        handleAutoClose();
       }
-    }, [id, onAutoClose, pauseWhenPageIsHidden]);
+    }, [handleAutoClose, pauseWhenPageIsHidden]);
 
     useAppStateListener(
       React.useMemo(
@@ -266,7 +289,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       if (closeButton) {
         return (
           <Pressable
-            onPress={() => onDismiss?.(id)}
+            onPress={handleDismiss}
             hitSlop={10}
             style={[closeButtonStyleCtx, styles?.closeButton]}
           >
@@ -286,17 +309,14 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       closeButtonStyleCtx,
       defaultStyles.closeButtonColor,
       dismissible,
-      id,
-      onDismiss,
+      handleDismiss,
       styles?.closeButton,
       styles?.closeButtonIcon,
     ]);
 
     const toastSwipeHandlerProps = React.useMemo(
       () => ({
-        onRemove: () => {
-          onDismiss?.(id);
-        },
+        onRemove: handleDismiss,
         onBegin: () => {
           isDragging.current = true;
         },
@@ -306,10 +326,10 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
 
           if (timeElapsed < duration) {
             timer.current = setTimeout(() => {
-              onDismiss?.(id);
+              handleDismiss();
             }, duration - timeElapsed);
           } else {
-            onDismiss?.(id);
+            handleDismiss();
           }
         },
         onPress: () => onPress?.(),
@@ -318,10 +338,10 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         unstyled: unstyled,
         important: important,
         position: position,
+        isAndroidExiting,
       }),
       [
-        onDismiss,
-        id,
+        handleDismiss,
         duration,
         dismissible,
         promiseOptions,
@@ -331,6 +351,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         unstyled,
         important,
         position,
+        isAndroidExiting,
       ]
     );
 
@@ -435,7 +456,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
                     <Pressable
                       onPress={() => {
                         cancel.onClick();
-                        onDismiss?.(id);
+                        handleDismiss();
                       }}
                       style={[
                         defaultStyles.cancelButton,

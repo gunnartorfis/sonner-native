@@ -25,6 +25,7 @@ type ToastSwipeHandlerProps = Pick<ToastProps, 'important'> & {
   unstyled?: boolean;
   position?: ToastPosition;
   onPress: () => void;
+  isAndroidExiting: boolean;
 };
 
 export const ToastSwipeHandler: React.FC<
@@ -40,6 +41,7 @@ export const ToastSwipeHandler: React.FC<
   important,
   position: positionProps,
   onPress,
+  isAndroidExiting,
 }) => {
   const translate = useSharedValue(0);
   const {
@@ -208,6 +210,7 @@ export const ToastSwipeHandler: React.FC<
           style,
         ]}
         layout={LinearTransition.easing(easeInOutCircFn)}
+        pointerEvents={isAndroid && isAndroidExiting ? 'none' : 'auto'}
         aria-live={important ? 'assertive' : 'polite'} // https://reactnative.dev/docs/accessibility#aria-live-android
       >
         {children}
