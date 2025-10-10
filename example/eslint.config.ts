@@ -18,10 +18,21 @@ export default defineConfig([
     '.git/**',
     'docs/**',
     'example/**',
+    '.expo/**',
+    'babel.config.js',
+    'metro.config.js',
+    'tailwind.config.js',
   ]),
   tseslint.configs.recommended,
   reactHooks.configs.flat.recommended,
   {
+    files: ['**/*.ts', '**/*.tsx'],
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: './tsconfig.json',
+      },
+    },
     rules: {
       'react/react-in-jsx-scope': 'off',
       'react-native/no-inline-styles': 'off',

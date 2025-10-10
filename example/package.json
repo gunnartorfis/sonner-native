@@ -7,7 +7,8 @@
     "android": "expo run:android",
     "prebuild": "expo prebuild --clean",
     "run:ios": "expo run:ios",
-    "ios": "expo run:ios"
+    "ios": "expo run:ios",
+    "lint": "eslint \"**/*.{js,ts,tsx}\""
   },
   "dependencies": {
     "@expo/metro-runtime": "~6.1.2",
@@ -17,7 +18,7 @@
     "expo": "~54.0.13",
     "expo-status-bar": "~3.0.8",
     "nativewind": "4.2.1",
-    "react": "19.2.0",
+    "react": "19.1.0",
     "react-dom": "19.2.0",
     "react-native": "0.81.4",
     "react-native-gesture-handler": "~2.28.0",

@@ -10,7 +10,7 @@ export const Positioner: React.FC<
   const { offset } = useToastContext();
   const { top, bottom } = useSafeAreaInsets();
 
-  const containerStyle = React.useMemo<ViewStyle>(() => {
+  const getContainerStyle = (): ViewStyle => {
     if (position === 'center') {
       return {
         position: 'absolute',
@@ -28,9 +28,9 @@ export const Positioner: React.FC<
       width: '100%',
       alignItems: 'center',
     };
-  }, [position]);
+  };
 
-  const insetValues = React.useMemo(() => {
+  const getInsetValues = () => {
     if (position === 'bottom-center') {
       return { bottom: offset || bottom || 40 };
     }
@@ -40,11 +40,11 @@ export const Positioner: React.FC<
     }
 
     return {};
-  }, [position, bottom, top, offset]);
+  };
 
   return (
     <View
-      style={[containerStyle, insetValues, style]}
+      style={[getContainerStyle(), getInsetValues(), style]}
       pointerEvents="box-none"
       {...props}
     >

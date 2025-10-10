@@ -16,9 +16,9 @@ type StyleProps = {
   };
 };
 
-type PromiseOptions = {
-  promise: Promise<unknown>;
-  success: (result: any) => string; // TODO: type this with generics
+type PromiseOptions<T = unknown> = {
+  promise: Promise<T>;
+  success: (result: T) => string;
   error: ((error: unknown) => string) | string;
   loading: string;
 };
@@ -57,7 +57,7 @@ export type ToastProps = StyleProps & {
   richColors?: boolean;
   onDismiss?: (id: string | number) => void;
   onAutoClose?: (id: string | number) => void;
-  promiseOptions?: PromiseOptions;
+  promiseOptions?: PromiseOptions<unknown>;
   actionButtonStyle?: ViewStyle;
   actionButtonTextStyle?: TextStyle;
   cancelButtonStyle?: ViewStyle;
@@ -153,6 +153,7 @@ export type ToasterContextType = Required<
     | 'toastOptions'
     | 'autoWiggleOnUpdate'
     | 'richColors'
+    | 'unstyled'
   >
 > & {
   addToast: AddToastContextHandler;
@@ -169,7 +170,7 @@ export declare const toast: ((
   custom: (jsx: React.ReactElement, data?: ExternalToast) => string | number;
   promise: <T>(
     promise: Promise<T>,
-    options: Omit<PromiseOptions, 'promise'>
+    options: Omit<PromiseOptions<T>, 'promise'> & ExternalToast
   ) => string | number;
   loading: (message: string, data?: ExternalToast) => string | number;
   dismiss: (id?: string | number) => string | number | undefined;

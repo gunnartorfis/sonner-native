@@ -144,14 +144,14 @@ export const ToastDemo: React.FC = () => {
         title="Toast with a successful promise"
         onPress={() => {
           toast.promise(
-            new Promise((resolve) => {
+            new Promise<string>((resolve) => {
               setTimeout(() => {
                 resolve('!');
               }, 2000);
             }),
             {
               loading: 'Loading...',
-              success: (result: string) => `Success${result}`,
+              success: (result) => `Success${result}`,
               error: 'Promise failed',
             }
           );
@@ -161,14 +161,14 @@ export const ToastDemo: React.FC = () => {
         title="Toast with a failed promise"
         onPress={() => {
           toast.promise(
-            new Promise((_, reject) => {
+            new Promise<string>((_, reject) => {
               setTimeout(() => {
                 reject(new Error('promise failed'));
               }, 2000);
             }),
             {
               loading: 'Loading...',
-              success: (result: string) => `Promise resolved: ${result}`,
+              success: (result) => `Promise resolved: ${result}`,
               error: (error) =>
                 error instanceof Error
                   ? `catch 'Error' ${error.message}`
@@ -190,6 +190,7 @@ export const ToastDemo: React.FC = () => {
             unstyled: true,
             icon: (
               <Image
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
                 source={require('../assets/windows-xp.png')}
                 style={{
                   width: 40,
@@ -259,6 +260,7 @@ export const ToastDemo: React.FC = () => {
             description: 'Connected',
             icon: (
               <Image
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
                 src={require('../assets/airpods.png')}
                 style={{
                   width: 30,
