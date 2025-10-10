@@ -16,7 +16,10 @@ import type { ToastPosition, ToastProps } from './types';
 
 const { width: WINDOW_WIDTH } = Dimensions.get('window');
 
-type ToastSwipeHandlerProps = Pick<ToastProps, 'important'> & {
+type ToastSwipeHandlerProps = Pick<
+  ToastProps,
+  'important' | 'index' | 'numberOfToasts'
+> & {
   onRemove: () => void;
   style?: ViewStyle | (ViewStyle | undefined)[];
   onBegin: () => void;
@@ -40,6 +43,8 @@ export const ToastSwipeHandler: React.FC<
   important,
   position: positionProps,
   onPress,
+  index,
+  numberOfToasts,
 }) => {
   const translate = useSharedValue(0);
   const {
@@ -199,7 +204,7 @@ export const ToastSwipeHandler: React.FC<
                 justifyContent: 'center',
                 marginBottom: gap,
               },
-          { width: '100%' },
+          { width: '100%', zIndex: -(numberOfToasts - index) },
           Platform.OS === 'android'
             ? {
                 opacity: 1,

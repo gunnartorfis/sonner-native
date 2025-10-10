@@ -16,6 +16,14 @@ export const ToastDemo: React.FC = () => {
   return (
     <ScrollView contentContainerStyle={{ paddingTop: 100 }}>
       <Button
+        title="Show basic toast"
+        onPress={() => {
+          toast.success('Hello world', {
+            position: 'bottom-center',
+          });
+        }}
+      />
+      <Button
         title="Dismiss active toast"
         disabled={!toastId}
         onPress={() => toast.dismiss(toastId!)}
@@ -31,6 +39,76 @@ export const ToastDemo: React.FC = () => {
         title="Center"
         onPress={() => {
           toast.success('center', { position: 'center' });
+        }}
+      />
+      <Button
+        title="Test Stacked Toasts (Top)"
+        onPress={() => {
+          toast.success('First toast', {
+            position: 'top-center',
+            duration: 10000,
+          });
+          setTimeout(() => {
+            toast.info('Second toast with longer text that wraps', {
+              position: 'top-center',
+              duration: 10000,
+              description: 'This is a description that makes the toast taller',
+            });
+          }, 500);
+          setTimeout(() => {
+            toast.warning('Third toast', {
+              position: 'top-center',
+              duration: 10000,
+            });
+          }, 1000);
+          setTimeout(() => {
+            toast.error('Fourth toast with action', {
+              position: 'top-center',
+              duration: 10000,
+              action: {
+                label: 'Undo',
+                onClick: () => console.log('Undo clicked'),
+              },
+            });
+          }, 1500);
+        }}
+      />
+      <Button
+        title="Test Stacked Toasts (Bottom)"
+        onPress={() => {
+          toast.success('First toast', {
+            position: 'bottom-center',
+            duration: 10000,
+          });
+          setTimeout(() => {
+            toast.info('Second toast with longer text', {
+              position: 'bottom-center',
+              duration: 10000,
+              description: 'This toast has a description to make it taller',
+            });
+          }, 500);
+          setTimeout(() => {
+            toast.error('Third toast', {
+              position: 'bottom-center',
+              duration: 10000,
+            });
+          }, 1000);
+        }}
+      />
+      <Button
+        title="Test Multiple Toasts (No Stacking)"
+        onPress={() => {
+          // Test with stacking disabled - toasts should appear on top of each other
+          toast('Stacking disabled test 1', {
+            position: 'top-center',
+            duration: 10000,
+          });
+          setTimeout(() => {
+            toast('Stacking disabled test 2', {
+              position: 'top-center',
+              duration: 10000,
+            });
+          }, 300);
         }}
       />
       <Button

@@ -51,6 +51,8 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       invert: invertProps,
       richColors: richColorsProps,
       onPress,
+      numberOfToasts,
+      index,
     },
     ref
   ) => {
@@ -61,6 +63,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       pauseWhenPageIsHidden,
       invert: invertCtx,
       richColors: richColorsCtx,
+      enableStacking,
       toastOptions: {
         unstyled: unstyledCtx,
         toastContainerStyle: toastContainerStyleCtx,
@@ -86,8 +89,20 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     const { entering, exiting } = useToastLayoutAnimations(position);
 
     const isDragging = React.useRef(false);
+    // Type the ref to include getBoundingClientRect from New Architecture
+    const toastRef = React.useRef<
+      View & {
+        getBoundingClientRect?: () => {
+          x: number;
+          y: number;
+          width: number;
+          height: number;
+        };
+      }
+    >(null);
 
     const wiggleSharedValue = useSharedValue(1);
+    const toastHeightSharedValue = useSharedValue(0);
 
     const wiggleAnimationStyle = useAnimatedStyle(() => {
       return {
@@ -95,10 +110,26 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       };
     }, [wiggleSharedValue]);
 
+    const stackAnimationStyle = useAnimatedStyle(() => {
+      if (
+        !enableStacking ||
+        numberOfToasts <= 1 ||
+        index === numberOfToasts - 1
+      ) {
+        return {};
+      }
+
+      console.log('toastHeightSharedValue', toastHeightSharedValue.value);
+
+      return {
+        transform: [{ translateY: toastHeightSharedValue.value - 10 }],
+        marginHorizontal: 10,
+      };
+    });
+
     const wiggle = () => {
       'worklet';
 
-      // eslint-disable-next-line react-hooks/immutability
       wiggleSharedValue.value = withRepeat(
         withTiming(Math.min(wiggleSharedValue.value * 1.035, 1.035), {
           duration: 150,
@@ -116,7 +147,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
 
       if (wiggleSharedValue.value !== 1) {
         // we should animate back to 1 and then wiggle
-        // eslint-disable-next-line react-hooks/immutability
         wiggleSharedValue.value = withTiming(1, { duration: 150 }, wiggle);
       } else {
         wiggle();
@@ -126,6 +156,24 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     React.useImperativeHandle(ref, () => ({
       wiggle: wiggleHandler,
     }));
+
+    // Update shared values when stack props change
+    // React.useEffect(() => {
+    //   stackIndexSharedValue.value = withSpring(stackIndex);
+    //   stackOffsetSharedValue.value = withSpring(stackOffset);
+    //   // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [stackIndex, stackOffset]);
+
+    // Measure toast height synchronously and report to store
+    React.useLayoutEffect(() => {
+      if (!enableStacking || !toastRef.current) {
+        return;
+      }
+
+      toastRef.current.measureInWindow?.((_, __, ___, height) => {
+        toastHeightSharedValue.value = height;
+      });
+    }, [enableStacking, toastHeightSharedValue]);
 
     // Handle app state changes - pause/resume timers
     const onBackground = () => {
@@ -146,8 +194,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       onBackground,
       onForeground,
     });
-
-    // Note: Timer and promise handling is now managed by the store
 
     const defaultStyles = useDefaultStyles({
       invert,
@@ -181,8 +227,13 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
 
     if (jsx) {
       return (
-        <ToastSwipeHandler {...toastSwipeHandlerProps}>
-          <Animated.View entering={entering} exiting={exiting}>
+        <ToastSwipeHandler {...toastSwipeHandlerProps} index={index}>
+          <Animated.View
+            ref={toastRef}
+            style={stackAnimationStyle}
+            entering={entering}
+            exiting={exiting}
+          >
             {jsx}
           </Animated.View>
         </ToastSwipeHandler>
@@ -190,9 +241,14 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     }
 
     return (
-      <ToastSwipeHandler {...toastSwipeHandlerProps}>
-        <Animated.View style={wiggleAnimationStyle}>
+      <ToastSwipeHandler
+        {...toastSwipeHandlerProps}
+        index={index}
+        numberOfToasts={numberOfToasts}
+      >
+        <Animated.View style={[wiggleAnimationStyle, stackAnimationStyle]}>
           <Animated.View
+            ref={toastRef}
             style={[
               unstyled ? undefined : elevationStyle,
               defaultStyles.toast,
@@ -232,6 +288,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
                   style={[defaultStyles.title, titleStyleCtx, styles?.title]}
                 >
                   {title}
+                  {index}
                 </Text>
                 {description ? (
                   <Text

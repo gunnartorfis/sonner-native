@@ -40,8 +40,10 @@ export type ToastAction = {
 
 export type ToastProps = StyleProps & {
   id: string | number;
+  index: number;
   title: string;
   variant: ToastVariant;
+  numberOfToasts: number;
   jsx?: React.ReactNode;
   description?: string;
   invert?: boolean;
@@ -124,6 +126,7 @@ export type ToasterProps = Omit<StyleProps, 'style'> & {
   };
   swipeToDismissDirection?: ToastSwipeDirection;
   pauseWhenPageIsHidden?: boolean;
+  enableStacking?: boolean;
   ToasterOverlayWrapper?: React.ComponentType<{ children: React.ReactNode }>;
   ToastWrapper?: React.ComponentType<
     ViewProps & {
@@ -154,6 +157,7 @@ export type ToasterContextType = Required<
     | 'autoWiggleOnUpdate'
     | 'richColors'
     | 'unstyled'
+    | 'enableStacking'
   >
 > & {
   addToast: AddToastContextHandler;

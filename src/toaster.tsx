@@ -62,6 +62,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
   theme,
   autoWiggleOnUpdate,
   richColors,
+  enableStacking = toastDefaultValues.enableStacking,
   ToastWrapper,
   ...props
 }) => {
@@ -109,10 +110,17 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     autoWiggleOnUpdate:
       autoWiggleOnUpdate ?? toastDefaultValues.autoWiggleOnUpdate,
     richColors: richColors ?? toastDefaultValues.richColors,
+    enableStacking: enableStacking ?? toastDefaultValues.enableStacking,
   };
-  const orderToastsFromPosition: (
-    currentToasts: ToastProps[]
-  ) => ToastProps[] = (currentToasts) => {
+  const orderToastsFromPosition: (args: {
+    currentToasts: ToastProps[];
+    enableStacking: boolean;
+  }) => ToastProps[] = ({ currentToasts, enableStacking }) => {
+    if (enableStacking) {
+      return position === 'top-center'
+        ? currentToasts
+        : currentToasts.slice().reverse();
+    }
     return position === 'bottom-center'
       ? currentToasts
       : currentToasts.slice().reverse();
@@ -138,7 +146,10 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     );
   });
 
-  const orderedToasts = orderToastsFromPosition(toasts);
+  const orderedToasts = orderToastsFromPosition({
+    currentToasts: toasts,
+    enableStacking,
+  });
 
   return (
     <ToastContext.Provider value={value}>
@@ -150,14 +161,16 @@ export const ToasterUI: React.FC<ToasterProps> = ({
                 (!possibleToast.position && positionIndex === 0) ||
                 possibleToast.position === currentPosition
             )
-            .map((toastToRender) => {
+            .map((toastToRender, index) => {
               const ToastToRender = (
                 <Toast
                   {...toastToRender}
                   onDismiss={onDismiss}
                   onAutoClose={onAutoClose}
+                  index={index}
                   ref={toastStore.getToastRef(toastToRender.id)}
                   key={toastToRender.id}
+                  numberOfToasts={orderedToasts.length}
                   {...props}
                 />
               );
