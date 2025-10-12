@@ -1,5 +1,6 @@
 import type React from 'react';
 import type { TextStyle, ViewProps, ViewStyle } from 'react-native';
+import type { SharedValue } from 'react-native-reanimated';
 
 type StyleProps = {
   unstyled?: boolean;
@@ -161,6 +162,8 @@ export type ToasterContextType = Required<
   >
 > & {
   addToast: AddToastContextHandler;
+  newestToastHeightShared: SharedValue<number>;
+  toastHeights: Record<string | number, number>;
 };
 
 export declare const toast: ((

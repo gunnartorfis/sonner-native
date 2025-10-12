@@ -17,6 +17,7 @@ type ToastStoreState = {
   toastRefs: Record<string | number, React.RefObject<ToastRef>>;
   shouldShowOverlay: boolean;
   toastTimers: Record<string | number, ToastTimer>;
+  toastHeights: Record<string | number, number>;
 };
 
 type Subscriber = () => void;
@@ -35,6 +36,7 @@ class ToastStore {
     toastRefs: {},
     shouldShowOverlay: false,
     toastTimers: {},
+    toastHeights: {},
   };
 
   private subscribers = new Set<Subscriber>();
@@ -183,7 +185,9 @@ class ToastStore {
   };
 
   addToast = (
-    options: Omit<ToastProps, 'id'> & { id?: string | number }
+    options: Omit<ToastProps, 'id' | 'numberOfToasts' | 'index'> & {
+      id?: string | number;
+    }
   ): string | number => {
     const hasValidId =
       typeof options?.id === 'number' ||
@@ -205,6 +209,8 @@ class ToastStore {
       id,
       variant: options.variant ?? toastDefaultValues.variant,
       duration,
+      numberOfToasts: this.state.toasts.length + 1,
+      index: this.state.toasts.length,
     };
 
     const existingToast = this.state.toasts.find(
@@ -326,6 +332,7 @@ class ToastStore {
         toasts: [],
         toastsCounter: 1,
         toastTimers: {},
+        toastHeights: {},
       };
       this.scheduleHideOverlay();
       this.notify();
@@ -343,9 +350,14 @@ class ToastStore {
       (currentToast) => currentToast.id !== id
     );
 
+    // Clean up height for dismissed toast
+    const updatedHeights = { ...this.state.toastHeights };
+    delete updatedHeights[id];
+
     this.state = {
       ...this.state,
       toasts: filteredToasts,
+      toastHeights: updatedHeights,
     };
 
     if (origin === 'onDismiss') {
@@ -409,6 +421,26 @@ class ToastStore {
     id: string | number
   ): React.RefObject<ToastRef> | undefined => {
     return this.state.toastRefs[id];
+  };
+
+  setToastHeight = (id: string | number, height: number) => {
+    this.state = {
+      ...this.state,
+      toastHeights: {
+        ...this.state.toastHeights,
+        [id]: height,
+      },
+    };
+    this.notify();
+  };
+
+  getToastHeight = (id: string | number): number => {
+    return this.state.toastHeights[id] ?? 0;
+  };
+
+  getNewestToastHeight = (): number => {
+    const newestToast = this.state.toasts[this.state.toasts.length - 1];
+    return newestToast ? (this.state.toastHeights[newestToast.id] ?? 0) : 0;
   };
 }
 

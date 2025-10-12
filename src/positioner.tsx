@@ -20,6 +20,7 @@ export const Positioner: React.FC<
         right: 0,
         justifyContent: 'center',
         alignItems: 'center',
+        overflow: 'visible',
       };
     }
 
@@ -27,6 +28,7 @@ export const Positioner: React.FC<
       position: 'absolute',
       width: '100%',
       alignItems: 'center',
+      overflow: 'visible',
     };
   };
 

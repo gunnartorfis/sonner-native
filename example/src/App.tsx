@@ -30,8 +30,6 @@ const App: React.FC = () => {
           autoWiggleOnUpdate="toast-change"
           theme="system"
           enableStacking={stackingEnabled}
-          stackScale={0.95}
-          stackGap={8}
           icons={{
             error: <Text>💥</Text>,
             loading: <Text>🔄</Text>,

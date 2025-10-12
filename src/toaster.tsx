@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Platform } from 'react-native';
 import { FullWindowOverlay } from 'react-native-screens';
+import { useSharedValue } from 'react-native-reanimated';
 import { toastDefaultValues } from './constants';
 import { ToastContext } from './context';
 import { Positioner } from './positioner';
@@ -72,7 +73,10 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     toastStore.getSnapshot
   );
 
-  const { toasts } = storeState;
+  const { toasts, toastHeights } = storeState;
+
+  // Shared value to track the newest toast's height for stacking
+  const newestToastHeightShared = useSharedValue(0);
 
   // Update store config when props change
   React.useEffect(() => {
@@ -111,6 +115,8 @@ export const ToasterUI: React.FC<ToasterProps> = ({
       autoWiggleOnUpdate ?? toastDefaultValues.autoWiggleOnUpdate,
     richColors: richColors ?? toastDefaultValues.richColors,
     enableStacking: enableStacking ?? toastDefaultValues.enableStacking,
+    newestToastHeightShared,
+    toastHeights,
   };
   const orderToastsFromPosition: (args: {
     currentToasts: ToastProps[];

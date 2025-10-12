@@ -8,19 +8,22 @@ import {
 } from 'react-native';
 import Animated, {
   useAnimatedStyle,
+  useDerivedValue,
   useSharedValue,
   withRepeat,
   withTiming,
 } from 'react-native-reanimated';
-import { useToastLayoutAnimations } from './animations';
+import { ANIMATION_DURATION, useToastLayoutAnimations } from './animations';
 import { toastDefaultValues } from './constants';
 import { useToastContext } from './context';
+import { easeInOutCubic, easeOutQuartFn } from './easings';
 import { ToastSwipeHandler } from './gestures';
 import { CircleCheck, CircleX, Info, TriangleAlert, X } from './icons';
 import { toastStore } from './toast-store';
 import { isToastAction, type ToastProps, type ToastRef } from './types';
 import { useAppStateListener } from './use-app-state';
 import { useDefaultStyles, type DefaultStyles } from './use-default-styles';
+import { useToastPosition } from './use-toast-position';
 
 export const Toast = React.forwardRef<ToastRef, ToastProps>(
   (
@@ -64,6 +67,10 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       invert: invertCtx,
       richColors: richColorsCtx,
       enableStacking,
+      newestToastHeightShared,
+      toastHeights,
+      gap,
+      position: positionCtx,
       toastOptions: {
         unstyled: unstyledCtx,
         toastContainerStyle: toastContainerStyleCtx,
@@ -88,6 +95,38 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
 
     const { entering, exiting } = useToastLayoutAnimations(position);
 
+    // Get all toasts to build ordered IDs for position calculation
+    const allToasts = React.useSyncExternalStore(
+      toastStore.subscribe,
+      toastStore.getSnapshot,
+      toastStore.getSnapshot
+    ).toasts;
+
+    // Build ordered toast IDs based on position for correct stacking
+    const toastPosition = position ?? positionCtx;
+    const orderedToastIds = (() => {
+      if (enableStacking) {
+        return toastPosition === 'top-center'
+          ? allToasts.map((t) => t.id)
+          : allToasts.map((t) => t.id).reverse();
+      }
+      return toastPosition === 'bottom-center'
+        ? allToasts.map((t) => t.id)
+        : allToasts.map((t) => t.id).reverse();
+    })();
+
+    // Calculate absolute position for this toast
+    const yPosition = useToastPosition({
+      id,
+      index,
+      numberOfToasts,
+      enableStacking,
+      position: toastPosition,
+      allToastHeights: toastHeights,
+      gap,
+      orderedToastIds,
+    });
+
     const isDragging = React.useRef(false);
     // Type the ref to include getBoundingClientRect from New Architecture
     const toastRef = React.useRef<
@@ -102,7 +141,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     >(null);
 
     const wiggleSharedValue = useSharedValue(1);
-    const toastHeightSharedValue = useSharedValue(0);
 
     const wiggleAnimationStyle = useAnimatedStyle(() => {
       return {
@@ -110,22 +148,39 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       };
     }, [wiggleSharedValue]);
 
-    const stackAnimationStyle = useAnimatedStyle(() => {
-      if (
-        !enableStacking ||
-        numberOfToasts <= 1 ||
-        index === numberOfToasts - 1
-      ) {
-        return {};
+    // Absolute positioning style for toasts
+    const absolutePositionStyle = useAnimatedStyle(() => {
+      return {
+        position: 'absolute',
+        width: '100%',
+        transform: [{ translateY: yPosition.value }],
+      };
+    }, [yPosition]);
+
+    // Horizontal margin for stacking effect
+    const horizontalMargin = useDerivedValue(() => {
+      'worklet';
+      if (!enableStacking || numberOfToasts <= 1) {
+        return withTiming(0, {
+          duration: ANIMATION_DURATION,
+          easing: easeOutQuartFn,
+        });
       }
 
-      console.log('toastHeightSharedValue', toastHeightSharedValue.value);
+      const multiplier = numberOfToasts - index - 1;
+      // Use same stackGap as vertical positioning for proportional animation
+      const stackGap = toastDefaultValues.stackGap;
+      return withTiming(stackGap * multiplier, {
+        duration: ANIMATION_DURATION,
+        easing: easeOutQuartFn,
+      });
+    }, [enableStacking, numberOfToasts, index]);
 
+    const horizontalStackingStyle = useAnimatedStyle(() => {
       return {
-        transform: [{ translateY: toastHeightSharedValue.value - 10 }],
-        marginHorizontal: 10,
+        marginHorizontal: horizontalMargin.value,
       };
-    });
+    }, [horizontalMargin]);
 
     const wiggle = () => {
       'worklet';
@@ -157,13 +212,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       wiggle: wiggleHandler,
     }));
 
-    // Update shared values when stack props change
-    // React.useEffect(() => {
-    //   stackIndexSharedValue.value = withSpring(stackIndex);
-    //   stackOffsetSharedValue.value = withSpring(stackOffset);
-    //   // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [stackIndex, stackOffset]);
-
     // Measure toast height synchronously and report to store
     React.useLayoutEffect(() => {
       if (!enableStacking || !toastRef.current) {
@@ -171,9 +219,13 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       }
 
       toastRef.current.measureInWindow?.((_, __, ___, height) => {
-        toastHeightSharedValue.value = height;
+        toastStore.setToastHeight(id, height);
+        // If this is the newest toast, update the shared value
+        if (index === numberOfToasts - 1) {
+          newestToastHeightShared.value = height;
+        }
       });
-    }, [enableStacking, toastHeightSharedValue]);
+    }, [enableStacking, id, index, numberOfToasts, newestToastHeightShared]);
 
     // Handle app state changes - pause/resume timers
     const onBackground = () => {
@@ -223,18 +275,21 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       unstyled: unstyled,
       important: important,
       position: position,
+      numberOfToasts,
     };
 
     if (jsx) {
       return (
         <ToastSwipeHandler {...toastSwipeHandlerProps} index={index}>
-          <Animated.View
-            ref={toastRef}
-            style={stackAnimationStyle}
-            entering={entering}
-            exiting={exiting}
-          >
-            {jsx}
+          <Animated.View style={absolutePositionStyle}>
+            <Animated.View
+              ref={toastRef}
+              style={horizontalStackingStyle}
+              entering={entering}
+              exiting={exiting}
+            >
+              {jsx}
+            </Animated.View>
           </Animated.View>
         </ToastSwipeHandler>
       );
@@ -246,136 +301,139 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         index={index}
         numberOfToasts={numberOfToasts}
       >
-        <Animated.View style={[wiggleAnimationStyle, stackAnimationStyle]}>
+        <Animated.View style={absolutePositionStyle}>
           <Animated.View
-            ref={toastRef}
-            style={[
-              unstyled ? undefined : elevationStyle,
-              defaultStyles.toast,
-              toastStyleCtx,
-              styles?.toast,
-              style,
-            ]}
-            entering={entering}
-            exiting={exiting}
+            style={[wiggleAnimationStyle, horizontalStackingStyle]}
           >
-            <View
+            <Animated.View
+              ref={toastRef}
               style={[
-                defaultStyles.toastContent,
-                toastContentStyleCtx,
-                styles?.toastContent,
+                unstyled ? undefined : elevationStyle,
+                defaultStyles.toast,
+                toastStyleCtx,
+                styles?.toast,
+                style,
               ]}
+              entering={entering}
+              exiting={exiting}
             >
-              {promiseOptions || variant === 'loading' ? (
-                'loading' in icons ? (
-                  icons.loading
+              <View
+                style={[
+                  defaultStyles.toastContent,
+                  toastContentStyleCtx,
+                  styles?.toastContent,
+                ]}
+              >
+                {promiseOptions || variant === 'loading' ? (
+                  'loading' in icons ? (
+                    icons.loading
+                  ) : (
+                    <ActivityIndicator />
+                  )
+                ) : icon ? (
+                  <View>{icon}</View>
+                ) : variant in icons ? (
+                  icons[variant]
                 ) : (
-                  <ActivityIndicator />
-                )
-              ) : icon ? (
-                <View>{icon}</View>
-              ) : variant in icons ? (
-                icons[variant]
-              ) : (
-                <ToastIcon
-                  variant={variant}
-                  invert={invert}
-                  richColors={richColors}
-                />
-              )}
-              <View style={{ flex: 1 }}>
-                <Text
-                  style={[defaultStyles.title, titleStyleCtx, styles?.title]}
-                >
-                  {title}
-                  {index}
-                </Text>
-                {description ? (
+                  <ToastIcon
+                    variant={variant}
+                    invert={invert}
+                    richColors={richColors}
+                  />
+                )}
+                <View style={{ flex: 1 }}>
                   <Text
+                    style={[defaultStyles.title, titleStyleCtx, styles?.title]}
+                  >
+                    {title}
+                  </Text>
+                  {description ? (
+                    <Text
+                      style={[
+                        defaultStyles.description,
+                        descriptionStyleCtx,
+                        styles?.description,
+                      ]}
+                    >
+                      {description}
+                    </Text>
+                  ) : null}
+                  <View
                     style={[
-                      defaultStyles.description,
-                      descriptionStyleCtx,
-                      styles?.description,
+                      unstyled || (!action && !cancel)
+                        ? undefined
+                        : defaultStyles.buttons,
+                      buttonsStyleCtx,
+                      styles?.buttons,
                     ]}
                   >
-                    {description}
-                  </Text>
-                ) : null}
-                <View
-                  style={[
-                    unstyled || (!action && !cancel)
-                      ? undefined
-                      : defaultStyles.buttons,
-                    buttonsStyleCtx,
-                    styles?.buttons,
-                  ]}
-                >
-                  {isToastAction(action) ? (
-                    <Pressable
-                      onPress={action.onClick}
-                      style={[
-                        defaultStyles.actionButton,
-                        actionButtonStyleCtx,
-                        actionButtonStyle,
-                      ]}
-                    >
-                      <Text
-                        numberOfLines={1}
+                    {isToastAction(action) ? (
+                      <Pressable
+                        onPress={action.onClick}
                         style={[
-                          defaultStyles.actionButtonText,
-                          actionButtonTextStyleCtx,
-                          actionButtonTextStyle,
+                          defaultStyles.actionButton,
+                          actionButtonStyleCtx,
+                          actionButtonStyle,
                         ]}
                       >
-                        {action.label}
-                      </Text>
-                    </Pressable>
-                  ) : (
-                    action || undefined
-                  )}
-                  {isToastAction(cancel) ? (
-                    <Pressable
-                      onPress={() => {
-                        cancel.onClick();
-                        onDismiss?.(id);
-                      }}
-                      style={[
-                        defaultStyles.cancelButton,
-                        cancelButtonStyleCtx,
-                        cancelButtonStyle,
-                      ]}
-                    >
-                      <Text
-                        numberOfLines={1}
+                        <Text
+                          numberOfLines={1}
+                          style={[
+                            defaultStyles.actionButtonText,
+                            actionButtonTextStyleCtx,
+                            actionButtonTextStyle,
+                          ]}
+                        >
+                          {action.label}
+                        </Text>
+                      </Pressable>
+                    ) : (
+                      action || undefined
+                    )}
+                    {isToastAction(cancel) ? (
+                      <Pressable
+                        onPress={() => {
+                          cancel.onClick();
+                          onDismiss?.(id);
+                        }}
                         style={[
-                          defaultStyles.cancelButtonText,
-                          cancelButtonTextStyleCtx,
-                          cancelButtonTextStyle,
+                          defaultStyles.cancelButton,
+                          cancelButtonStyleCtx,
+                          cancelButtonStyle,
                         ]}
                       >
-                        {cancel.label}
-                      </Text>
-                    </Pressable>
-                  ) : (
-                    cancel || undefined
-                  )}
+                        <Text
+                          numberOfLines={1}
+                          style={[
+                            defaultStyles.cancelButtonText,
+                            cancelButtonTextStyleCtx,
+                            cancelButtonTextStyle,
+                          ]}
+                        >
+                          {cancel.label}
+                        </Text>
+                      </Pressable>
+                    ) : (
+                      cancel || undefined
+                    )}
+                  </View>
                 </View>
+                <CloseButton
+                  dismissible={dismissible}
+                  close={close}
+                  closeButton={closeButton}
+                  onDismiss={onDismiss}
+                  id={id}
+                  styles={styles}
+                  closeButtonStyle={[closeButtonStyleCtx, styles?.closeButton]}
+                  closeButtonIconStyle={[
+                    closeButtonIconStyleCtx,
+                    styles?.closeButtonIcon,
+                  ]}
+                  defaultStyles={defaultStyles}
+                />
               </View>
-              <CloseButton
-                dismissible={dismissible}
-                close={close}
-                closeButton={closeButton}
-                onDismiss={onDismiss}
-                id={id}
-                styles={styles}
-                closeButtonStyle={[closeButtonStyleCtx, styles?.closeButton]}
-                closeButtonIconStyle={[
-                  closeButtonIconStyleCtx,
-                  styles?.closeButtonIcon,
-                ]}
-                defaultStyles={defaultStyles}
-              />
-            </View>
+            </Animated.View>
           </Animated.View>
         </Animated.View>
       </ToastSwipeHandler>
