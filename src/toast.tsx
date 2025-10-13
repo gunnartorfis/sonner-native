@@ -16,7 +16,7 @@ import Animated, {
 import { ANIMATION_DURATION, useToastLayoutAnimations } from './animations';
 import { toastDefaultValues } from './constants';
 import { useToastContext } from './context';
-import { easeInOutCubic, easeOutQuartFn } from './easings';
+import { easeOutQuartFn } from './easings';
 import { ToastSwipeHandler } from './gestures';
 import { CircleCheck, CircleX, Info, TriangleAlert, X } from './icons';
 import { toastStore } from './toast-store';
@@ -93,7 +93,18 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     const duration = durationProps ?? durationCtx;
     const closeButton = closeButtonProps ?? closeButtonCtx;
 
-    const { entering, exiting } = useToastLayoutAnimations(position);
+    const { visibleToasts: visibleToastsCtx } = useToastContext();
+
+    // Determine if this toast should be hidden due to visibility limit
+    const isHiddenByLimit =
+      enableStacking &&
+      index + 1 >= (visibleToastsCtx ?? toastDefaultValues.visibleToasts);
+
+    const { entering, exiting } = useToastLayoutAnimations(
+      position,
+      isHiddenByLimit,
+      numberOfToasts
+    );
 
     // Get all toasts to build ordered IDs for position calculation
     const allToasts = React.useSyncExternalStore(
@@ -106,9 +117,10 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     const toastPosition = position ?? positionCtx;
     const orderedToastIds = (() => {
       if (enableStacking) {
+        // Match the rendering order from toaster.tsx
         return toastPosition === 'top-center'
-          ? allToasts.map((t) => t.id)
-          : allToasts.map((t) => t.id).reverse();
+          ? allToasts.map((t) => t.id).reverse()
+          : allToasts.map((t) => t.id);
       }
       return toastPosition === 'bottom-center'
         ? allToasts.map((t) => t.id)
@@ -167,14 +179,20 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         });
       }
 
-      const multiplier = numberOfToasts - index - 1;
       // Use same stackGap as vertical positioning for proportional animation
       const stackGap = toastDefaultValues.stackGap;
+
+      // Calculate multiplier based on position to match vertical stacking
+      const multiplier =
+        toastPosition === 'top-center'
+          ? index // Top: newest (index 0) has 0 margin, older have more
+          : numberOfToasts - index - 1; // Bottom: newest (highest index) has 0 margin
+
       return withTiming(stackGap * multiplier, {
         duration: ANIMATION_DURATION,
         easing: easeOutQuartFn,
       });
-    }, [enableStacking, numberOfToasts, index]);
+    }, [enableStacking, numberOfToasts, index, toastPosition]);
 
     const horizontalStackingStyle = useAnimatedStyle(() => {
       return {
@@ -185,13 +203,15 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     const wiggle = () => {
       'worklet';
 
-      wiggleSharedValue.value = withRepeat(
-        withTiming(Math.min(wiggleSharedValue.value * 1.035, 1.035), {
-          duration: 150,
-        }),
-        4,
-        true
-      );
+      wiggleSharedValue.set((value) => {
+        return withRepeat(
+          withTiming(Math.min(value * 1.035, 1.035), {
+            duration: 150,
+          }),
+          4,
+          true
+        );
+      });
     };
 
     const wiggleHandler = () => {
@@ -202,7 +222,9 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
 
       if (wiggleSharedValue.value !== 1) {
         // we should animate back to 1 and then wiggle
-        wiggleSharedValue.value = withTiming(1, { duration: 150 }, wiggle);
+        wiggleSharedValue.set(() => {
+          return withTiming(1, { duration: 150 }, wiggle);
+        });
       } else {
         wiggle();
       }

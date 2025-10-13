@@ -33,12 +33,20 @@ export const Positioner: React.FC<
   };
 
   const getInsetValues = () => {
+    const spacingForSafeArea = 20;
     if (position === 'bottom-center') {
-      return { bottom: offset || bottom || 40 };
+      const safeAreaSpacing = offset || bottom || 0;
+      return {
+        bottom:
+          safeAreaSpacing === 0 ? 40 : safeAreaSpacing + spacingForSafeArea,
+      };
     }
 
     if (position === 'top-center') {
-      return { top: offset || top || 40 };
+      const safeAreaSpacing = offset || top || 0;
+      return {
+        top: safeAreaSpacing === 0 ? 40 : safeAreaSpacing + spacingForSafeArea,
+      };
     }
 
     return {};

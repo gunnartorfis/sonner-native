@@ -80,7 +80,14 @@ export function isToastAction(
 
 type ExternalToast = Omit<
   ToastProps,
-  'id' | 'type' | 'title' | 'jsx' | 'promise' | 'variant'
+  | 'id'
+  | 'type'
+  | 'title'
+  | 'jsx'
+  | 'promise'
+  | 'variant'
+  | 'index'
+  | 'numberOfToasts'
 > & {
   id?: string | number;
 };
@@ -159,6 +166,7 @@ export type ToasterContextType = Required<
     | 'richColors'
     | 'unstyled'
     | 'enableStacking'
+    | 'visibleToasts'
   >
 > & {
   addToast: AddToastContextHandler;

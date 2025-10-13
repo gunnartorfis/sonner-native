@@ -23,7 +23,7 @@ const App: React.FC = () => {
         <Toaster
           position="top-center"
           // offset={100}
-          duration={6000}
+          duration={30000}
           swipeToDismissDirection="up"
           visibleToasts={4}
           closeButton

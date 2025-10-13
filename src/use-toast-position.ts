@@ -1,15 +1,7 @@
-import { Easing, useDerivedValue, withTiming } from 'react-native-reanimated';
+import { useDerivedValue, withTiming } from 'react-native-reanimated';
 import { ANIMATION_DURATION } from './animations';
 import { toastDefaultValues } from './constants';
-import {
-  easeInCirc,
-  easeInOutCirc,
-  easeInOutCubic,
-  easeInOutQuad,
-  easeInOutQuadFn,
-  easeOutCirc,
-  easeOutQuartFn,
-} from './easings';
+import { easeOutQuartFn } from './easings';
 import type { ToastPosition } from './types';
 
 // Default estimated height for toasts before measurement
@@ -62,15 +54,16 @@ export const useToastPosition = ({
       if (enableStacking) {
         // Stacking mode: overlap with small offset
         const stackGap = toastDefaultValues.stackGap;
-        // For both top and bottom, newest toast (highest index) is at 0
-        // Older toasts are offset
-        const multiplier = numberOfToasts - index - 1;
 
         if (position === 'bottom-center') {
-          // Bottom: older toasts go up (negative Y)
+          // Bottom: newest toast (highest index) is at 0
+          // Older toasts (lower indices) are offset up (negative Y)
+          const multiplier = numberOfToasts - index - 1;
           return -stackGap * multiplier;
         } else {
-          // Top: older toasts go down (positive Y)
+          // Top: newest toast (index 0) is at 0
+          // Older toasts (higher indices) are offset down (positive Y)
+          const multiplier = index;
           return stackGap * multiplier;
         }
       } else {

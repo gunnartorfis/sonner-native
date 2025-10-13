@@ -115,6 +115,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
       autoWiggleOnUpdate ?? toastDefaultValues.autoWiggleOnUpdate,
     richColors: richColors ?? toastDefaultValues.richColors,
     enableStacking: enableStacking ?? toastDefaultValues.enableStacking,
+    visibleToasts: visibleToasts ?? toastDefaultValues.visibleToasts,
     newestToastHeightShared,
     toastHeights,
   };
@@ -123,9 +124,11 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     enableStacking: boolean;
   }) => ToastProps[] = ({ currentToasts, enableStacking }) => {
     if (enableStacking) {
+      // For top: reverse order so newest toast is rendered first (appears behind)
+      // For bottom: keep original order so newest toast is rendered last (appears in front)
       return position === 'top-center'
-        ? currentToasts
-        : currentToasts.slice().reverse();
+        ? currentToasts.slice().reverse()
+        : currentToasts;
     }
     return position === 'bottom-center'
       ? currentToasts

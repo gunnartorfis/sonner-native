@@ -1,4 +1,5 @@
 import { withTiming } from 'react-native-reanimated';
+import { toastDefaultValues } from './constants';
 import { useToastContext } from './context';
 import { easeInOutCubic, easeOutQuartFn } from './easings';
 import type { ToastPosition } from './types';
@@ -6,7 +7,9 @@ import type { ToastPosition } from './types';
 export const ANIMATION_DURATION = 600;
 
 export const useToastLayoutAnimations = (
-  positionProp: ToastPosition | undefined
+  positionProp: ToastPosition | undefined,
+  isHiddenByLimit?: boolean,
+  numberOfToasts?: number
 ) => {
   const { position: positionCtx } = useToastContext();
   const position = positionProp || positionCtx;
@@ -18,13 +21,15 @@ export const useToastLayoutAnimations = (
     },
     exiting: () => {
       'worklet';
-      return getToastExiting({ position });
+      return getToastExiting({ position, isHiddenByLimit, numberOfToasts });
     },
   };
 };
 
 type GetToastAnimationParams = {
   position: ToastPosition;
+  isHiddenByLimit?: boolean;
+  numberOfToasts?: number;
 };
 
 export const getToastEntering = ({ position }: GetToastAnimationParams) => {
@@ -72,20 +77,58 @@ export const getToastEntering = ({ position }: GetToastAnimationParams) => {
   };
 };
 
-export const getToastExiting = ({ position }: GetToastAnimationParams) => {
+export const getToastExiting = ({
+  position,
+  isHiddenByLimit,
+  numberOfToasts,
+}: GetToastAnimationParams) => {
   'worklet';
 
-  const translateY = (() => {
+  // If toast is hidden by visibility limit, only fade out without sliding
+  if (isHiddenByLimit) {
+    const animations = {
+      opacity: withTiming(0, {
+        easing: easeInOutCubic,
+        duration: ANIMATION_DURATION,
+      }),
+    };
+
+    const initialValues = {
+      opacity: 1,
+    };
+
+    return {
+      initialValues,
+      animations,
+    };
+  }
+
+  const stackGap = toastDefaultValues.stackGap;
+
+  // Determine slide distance based on number of visible toasts
+  const getSlideDistance = () => {
+    // If only 1 toast, slide fully
+    if (numberOfToasts === 1) {
+      if (position === 'top-center') {
+        return -150;
+      }
+      if (position === 'bottom-center') {
+        return 150;
+      }
+      return 50;
+    }
+
+    // If more than 1 toast, only slide by stackGap
     if (position === 'top-center') {
-      return -150;
+      return -stackGap;
     }
-
     if (position === 'bottom-center') {
-      return 150;
+      return stackGap;
     }
+    return stackGap;
+  };
 
-    return 50;
-  })();
+  const translateY = getSlideDistance();
 
   const animations = {
     opacity: withTiming(0, { easing: easeInOutCubic }),

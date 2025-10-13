@@ -18,8 +18,11 @@ export const ToastDemo: React.FC = () => {
       <Button
         title="Show basic toast"
         onPress={() => {
+          // toast.success('Hello world', {
+          //   position: 'bottom-center',
+          // });
           toast.success('Hello world', {
-            position: 'bottom-center',
+            // position: '',
           });
         }}
       />
