@@ -2,6 +2,7 @@
   "expo": {
     "name": "sonner-native-example",
     "slug": "sonner-native-example",
+    "scheme": "sonner-native-example",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -26,7 +27,9 @@
       "package": "reanimatedtoasts.example"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": ["expo-router"]
   }
 }

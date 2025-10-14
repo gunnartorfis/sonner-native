@@ -1,7 +1,7 @@
 {
   "name": "sonner-native-example",
   "version": "1.0.0",
-  "main": "expo/AppEntry.js",
+  "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
@@ -12,10 +12,12 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~6.1.2",
-    "@react-navigation/bottom-tabs": "^6.6.1",
-    "@react-navigation/native": "^6.0.8",
-    "@react-navigation/native-stack": "^6.9.12",
+    "@expo/ui": "~0.2.0-beta.7",
     "expo": "~54.0.13",
+    "expo-constants": "~18.0.9",
+    "expo-glass-effect": "~0.1.4",
+    "expo-linking": "~8.0.8",
+    "expo-router": "~6.0.12",
     "expo-status-bar": "~3.0.8",
     "nativewind": "4.2.1",
     "react": "19.1.0",
