@@ -16,6 +16,7 @@ export const useToastPosition = ({
   allToastHeights,
   gap,
   orderedToastIds,
+  isExpanded,
 }: {
   id: string | number;
   index: number;
@@ -25,19 +26,25 @@ export const useToastPosition = ({
   allToastHeights: Record<string | number, number>;
   gap: number;
   orderedToastIds: Array<string | number>;
+  isExpanded: boolean;
 }) => {
   const yPosition = useDerivedValue(() => {
     'worklet';
 
     const calculatePosition = () => {
+      // When expanded, disable stacking and show all toasts with full separation
+      const effectiveEnableStacking = enableStacking && !isExpanded;
+
       if (position === 'center') {
         // Center position: stack from center outward
-        if (enableStacking) {
+        if (effectiveEnableStacking) {
           const stackGap = toastDefaultValues.stackGap;
           const offsetFromCenter = stackGap * (numberOfToasts - index - 1);
           return offsetFromCenter;
         } else {
           // Non-stacking center: calculate based on heights
+          // When expanded, use stackGap instead of gap for tighter spacing
+          const effectiveGap = isExpanded ? toastDefaultValues.stackGap : gap;
           let totalOffset = 0;
           for (let i = 0; i < index; i++) {
             const toastId = orderedToastIds[i];
@@ -45,13 +52,13 @@ export const useToastPosition = ({
               continue;
             }
             const height = allToastHeights[toastId] || ESTIMATED_TOAST_HEIGHT;
-            totalOffset += height + gap;
+            totalOffset += height + effectiveGap;
           }
           return totalOffset;
         }
       }
 
-      if (enableStacking) {
+      if (effectiveEnableStacking) {
         // Stacking mode: overlap with small offset
         const stackGap = toastDefaultValues.stackGap;
 
@@ -68,6 +75,9 @@ export const useToastPosition = ({
         }
       } else {
         // Non-stacking mode: fully separated by gap
+        // When expanded, use stackGap instead of gap for tighter spacing
+        const effectiveGap = isExpanded ? toastDefaultValues.stackGap : gap;
+
         if (position === 'bottom-center') {
           // Bottom: newest at 0, sum heights going up (negative)
           let totalOffset = 0;
@@ -77,7 +87,7 @@ export const useToastPosition = ({
               continue;
             }
             const height = allToastHeights[toastId] || ESTIMATED_TOAST_HEIGHT;
-            totalOffset += height + gap;
+            totalOffset += height + effectiveGap;
           }
           return -totalOffset;
         } else {
@@ -89,7 +99,7 @@ export const useToastPosition = ({
               continue;
             }
             const height = allToastHeights[toastId] || ESTIMATED_TOAST_HEIGHT;
-            totalOffset += height + gap;
+            totalOffset += height + effectiveGap;
           }
           return totalOffset;
         }
@@ -109,6 +119,7 @@ export const useToastPosition = ({
     allToastHeights,
     gap,
     orderedToastIds,
+    isExpanded,
   ]);
 
   return yPosition;

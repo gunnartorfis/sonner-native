@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, type ViewStyle } from 'react-native';
+import { Pressable, View, type ViewStyle } from 'react-native';
 import type { ToasterProps } from './types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useToastContext } from './context';
+import { getCloseButtonAreaWidth, isPressNearCloseButton } from './press-utils';
 
 export const Positioner: React.FC<
   React.PropsWithChildren<Pick<ToasterProps, 'position' | 'style'>>
 > = ({ children, position, style, ...props }) => {
-  const { offset } = useToastContext();
+  const { offset, isExpanded, collapse } = useToastContext();
   const { top, bottom } = useSafeAreaInsets();
 
   const getContainerStyle = (): ViewStyle => {
@@ -52,13 +53,40 @@ export const Positioner: React.FC<
     return {};
   };
 
+  const handleOverlayPress = (event: {
+    nativeEvent: { locationX: number };
+  }) => {
+    const pressX = event.nativeEvent.locationX;
+
+    // Only collapse if not pressing near the close button
+    if (!isPressNearCloseButton({ x: pressX })) {
+      collapse();
+    }
+  };
+
   return (
-    <View
-      style={[getContainerStyle(), getInsetValues(), style]}
-      pointerEvents="box-none"
-      {...props}
-    >
-      {children}
-    </View>
+    <>
+      {/* Overlay for tap-outside-to-collapse when expanded */}
+      {isExpanded && (
+        <Pressable
+          style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: getCloseButtonAreaWidth(),
+            backgroundColor: 'transparent',
+          }}
+          onPress={handleOverlayPress}
+        />
+      )}
+      <View
+        style={[getContainerStyle(), getInsetValues(), style]}
+        pointerEvents="box-none"
+        {...props}
+      >
+        {children}
+      </View>
+    </>
   );
 };

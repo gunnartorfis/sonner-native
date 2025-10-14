@@ -18,6 +18,7 @@ type ToastStoreState = {
   shouldShowOverlay: boolean;
   toastTimers: Record<string | number, ToastTimer>;
   toastHeights: Record<string | number, number>;
+  isExpanded: boolean;
 };
 
 type Subscriber = () => void;
@@ -37,6 +38,7 @@ class ToastStore {
     shouldShowOverlay: false,
     toastTimers: {},
     toastHeights: {},
+    isExpanded: false,
   };
 
   private subscribers = new Set<Subscriber>();
@@ -333,6 +335,7 @@ class ToastStore {
         toastsCounter: 1,
         toastTimers: {},
         toastHeights: {},
+        isExpanded: false,
       };
       this.scheduleHideOverlay();
       this.notify();
@@ -354,11 +357,21 @@ class ToastStore {
     const updatedHeights = { ...this.state.toastHeights };
     delete updatedHeights[id];
 
+    // Auto-collapse if only one toast remains
+    const shouldAutoCollapse =
+      filteredToasts.length <= 1 && this.state.isExpanded;
+
     this.state = {
       ...this.state,
       toasts: filteredToasts,
       toastHeights: updatedHeights,
+      isExpanded: shouldAutoCollapse ? false : this.state.isExpanded,
     };
+
+    // Resume timers if we auto-collapsed
+    if (shouldAutoCollapse) {
+      this.resumeAllTimers();
+    }
 
     if (origin === 'onDismiss') {
       toastForCallback?.onDismiss?.(id);
@@ -441,6 +454,34 @@ class ToastStore {
   getNewestToastHeight = (): number => {
     const newestToast = this.state.toasts[this.state.toasts.length - 1];
     return newestToast ? (this.state.toastHeights[newestToast.id] ?? 0) : 0;
+  };
+
+  expand = () => {
+    this.state = {
+      ...this.state,
+      isExpanded: true,
+    };
+    // Pause all timers when expanded
+    this.pauseAllTimers();
+    this.notify();
+  };
+
+  collapse = () => {
+    this.state = {
+      ...this.state,
+      isExpanded: false,
+    };
+    // Resume all timers when collapsed
+    this.resumeAllTimers();
+    this.notify();
+  };
+
+  toggleExpand = () => {
+    if (this.state.isExpanded) {
+      this.collapse();
+    } else {
+      this.expand();
+    }
   };
 }
 

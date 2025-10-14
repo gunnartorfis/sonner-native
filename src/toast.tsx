@@ -24,6 +24,7 @@ import { isToastAction, type ToastProps, type ToastRef } from './types';
 import { useAppStateListener } from './use-app-state';
 import { useDefaultStyles, type DefaultStyles } from './use-default-styles';
 import { useToastPosition } from './use-toast-position';
+import { isPressNearCloseButton } from './press-utils';
 
 export const Toast = React.forwardRef<ToastRef, ToastProps>(
   (
@@ -71,6 +72,8 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       toastHeights,
       gap,
       position: positionCtx,
+      isExpanded,
+      toggleExpand,
       toastOptions: {
         unstyled: unstyledCtx,
         toastContainerStyle: toastContainerStyleCtx,
@@ -137,6 +140,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       allToastHeights: toastHeights,
       gap,
       orderedToastIds,
+      isExpanded,
     });
 
     const isDragging = React.useRef(false);
@@ -172,7 +176,8 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     // Horizontal margin for stacking effect
     const horizontalMargin = useDerivedValue(() => {
       'worklet';
-      if (!enableStacking || numberOfToasts <= 1) {
+      // When expanded, remove horizontal margin
+      if (!enableStacking || numberOfToasts <= 1 || isExpanded) {
         return withTiming(0, {
           duration: ANIMATION_DURATION,
           easing: easeOutQuartFn,
@@ -192,7 +197,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         duration: ANIMATION_DURATION,
         easing: easeOutQuartFn,
       });
-    }, [enableStacking, numberOfToasts, index, toastPosition]);
+    }, [enableStacking, numberOfToasts, index, toastPosition, isExpanded]);
 
     const horizontalStackingStyle = useAnimatedStyle(() => {
       return {
@@ -288,10 +293,25 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       },
       onFinalize: () => {
         isDragging.current = false;
-        // Resume timer when dragging ends
-        toastStore.resumeTimer(id);
+        // Resume timer when dragging ends (only if not expanded)
+        if (!isExpanded) {
+          toastStore.resumeTimer(id);
+        }
       },
-      onPress: () => onPress?.(),
+      onPress: ({ x }: { x: number; y: number }) => {
+        // Only allow expanding/collapsing when:
+        // - Stacking is enabled and there are multiple toasts
+        // - Press is not near the close button area
+        if (
+          enableStacking &&
+          numberOfToasts > 1 &&
+          !isPressNearCloseButton({ x })
+        ) {
+          toggleExpand();
+        }
+        // Call user's onPress handler if provided
+        onPress?.();
+      },
       enabled: !promiseOptions && dismissible,
       style: [toastContainerStyleCtx, styles?.toastContainer],
       unstyled: unstyled,

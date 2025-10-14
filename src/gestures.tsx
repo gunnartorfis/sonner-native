@@ -27,7 +27,7 @@ type ToastSwipeHandlerProps = Pick<
   enabled?: boolean;
   unstyled?: boolean;
   position?: ToastPosition;
-  onPress: () => void;
+  onPress: (args: { x: number; y: number }) => void;
 };
 
 export const ToastSwipeHandler: React.FC<
@@ -160,10 +160,10 @@ export const ToastSwipeHandler: React.FC<
       runOnJS(onFinalize)();
     });
 
-  const tap = Gesture.Tap().onEnd(() => {
+  const tap = Gesture.Tap().onEnd((event) => {
     'worklet';
     if (onPress) {
-      runOnJS(onPress)();
+      runOnJS(onPress)({ x: event.x, y: event.y });
     }
   });
 

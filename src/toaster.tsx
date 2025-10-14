@@ -73,7 +73,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     toastStore.getSnapshot
   );
 
-  const { toasts, toastHeights } = storeState;
+  const { toasts, toastHeights, isExpanded } = storeState;
 
   // Shared value to track the newest toast's height for stacking
   const newestToastHeightShared = useSharedValue(0);
@@ -118,6 +118,10 @@ export const ToasterUI: React.FC<ToasterProps> = ({
     visibleToasts: visibleToasts ?? toastDefaultValues.visibleToasts,
     newestToastHeightShared,
     toastHeights,
+    isExpanded,
+    expand: toastStore.expand,
+    collapse: toastStore.collapse,
+    toggleExpand: toastStore.toggleExpand,
   };
   const orderToastsFromPosition: (args: {
     currentToasts: ToastProps[];

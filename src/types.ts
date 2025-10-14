@@ -172,6 +172,10 @@ export type ToasterContextType = Required<
   addToast: AddToastContextHandler;
   newestToastHeightShared: SharedValue<number>;
   toastHeights: Record<string | number, number>;
+  isExpanded: boolean;
+  expand: () => void;
+  collapse: () => void;
+  toggleExpand: () => void;
 };
 
 export declare const toast: ((
