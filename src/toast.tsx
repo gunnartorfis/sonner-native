@@ -302,10 +302,13 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         // Only allow expanding/collapsing when:
         // - Stacking is enabled and there are multiple toasts
         // - Press is not near the close button area
+        // - Position is not center (no stacking for center)
+        const toastPosition = position || positionCtx;
         if (
           enableStacking &&
           numberOfToasts > 1 &&
-          !isPressNearCloseButton({ x })
+          !isPressNearCloseButton({ x }) &&
+          toastPosition !== 'center'
         ) {
           toggleExpand();
         }
