@@ -93,6 +93,7 @@ export type ToasterProps = Omit<StyleProps, 'style'> & {
   offset?: number;
   autoWiggleOnUpdate?: AutoWiggle;
   style?: ViewStyle;
+  positionerStyle?: ViewStyle;
   // dir?: 'ltr' | 'rtl'; (ltr)
   // hotkey?: string; // hotkeys not supported on mobile
   invert?: boolean;
