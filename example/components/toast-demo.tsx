@@ -7,8 +7,8 @@ const ToastDemo: React.FC = () => {
   const [toastId, setToastId] = React.useState<string | number | null>(null);
 
   return (
-    <Host matchContents style={{ flex: 1 }}>
-      <List scrollEnabled listStyle="plain">
+    <Host style={{ flex: 1 }}>
+      <List scrollEnabled listStyle="insetGrouped">
         <SwiftUIButton
           variant="borderedProminent"
           onPress={() => {

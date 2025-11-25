@@ -79,7 +79,7 @@
     "prettier": "^3.6.2",
     "react": "19.1.0",
     "react-native": "0.81.4",
-    "react-native-builder-bob": "^0.40.13",
+    "react-native-builder-bob": "^0.40.16",
     "react-native-gesture-handler": "~2.28.0",
     "react-native-reanimated": "~4.1.1",
     "react-native-safe-area-context": "~5.6.0",
@@ -88,7 +88,7 @@
     "react-native-worklets": "^0.6.1",
     "release-it": "^17.11.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.0"
+    "typescript-eslint": "^8.48.0"
   },
   "resolutions": {
     "@types/react": "^18.2.44"
@@ -110,9 +110,23 @@
   "packageManager": "yarn@4.6.0",
   "jest": {
     "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/__tests__/setup.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/lib/",
+      "<rootDir>/example/"
+    ],
     "modulePathIgnorePatterns": [
       "<rootDir>/example/node_modules",
       "<rootDir>/lib/"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/__tests__/**/*",
+      "!src/index.tsx"
     ]
   },
   "commitlint": {

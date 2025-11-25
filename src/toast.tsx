@@ -24,6 +24,7 @@ import { isToastAction, type ToastProps, type ToastRef } from './types';
 import { useAppStateListener } from './use-app-state';
 import { useDefaultStyles, type DefaultStyles } from './use-default-styles';
 import { useToastPosition } from './use-toast-position';
+import { getOrderedToastIds } from './position-utils';
 import { isPressNearCloseButton } from './press-utils';
 
 export const Toast = React.forwardRef<ToastRef, ToastProps>(
@@ -118,19 +119,14 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
 
     // Build ordered toast IDs based on position for correct stacking
     const toastPosition = position ?? positionCtx;
-    const orderedToastIds = (() => {
-      if (enableStacking) {
-        // Match the rendering order from toaster.tsx
-        return toastPosition === 'top-center'
-          ? allToasts.map((t) => t.id).reverse()
-          : allToasts.map((t) => t.id);
-      }
-      return toastPosition === 'bottom-center'
-        ? allToasts.map((t) => t.id)
-        : allToasts.map((t) => t.id).reverse();
-    })();
+    const orderedToastIds = getOrderedToastIds(
+      allToasts,
+      toastPosition,
+      enableStacking
+    );
 
     // Calculate absolute position for this toast
+    const stackGap = toastDefaultValues.stackGap;
     const yPosition = useToastPosition({
       id,
       index,
@@ -141,6 +137,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       gap,
       orderedToastIds,
       isExpanded,
+      stackGap,
     });
 
     const isDragging = React.useRef(false);
@@ -184,20 +181,24 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         });
       }
 
-      // Use same stackGap as vertical positioning for proportional animation
-      const stackGap = toastDefaultValues.stackGap;
-
       // Calculate multiplier based on position to match vertical stacking
       const multiplier =
-        toastPosition === 'top-center'
-          ? index // Top: newest (index 0) has 0 margin, older have more
+        toastPosition === 'top-center' || toastPosition === 'center'
+          ? index // Top/Center: newest (index 0) has 0 margin, older have more
           : numberOfToasts - index - 1; // Bottom: newest (highest index) has 0 margin
 
       return withTiming(stackGap * multiplier, {
         duration: ANIMATION_DURATION,
         easing: easeOutQuartFn,
       });
-    }, [enableStacking, numberOfToasts, index, toastPosition, isExpanded]);
+    }, [
+      enableStacking,
+      numberOfToasts,
+      index,
+      toastPosition,
+      isExpanded,
+      stackGap,
+    ]);
 
     const horizontalStackingStyle = useAnimatedStyle(() => {
       return {
