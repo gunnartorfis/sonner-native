@@ -1,5 +1,12 @@
 
 
+## [0.21.2](https://github.com/gunnartorfis/sonner-native/compare/v0.21.1...v0.21.2) (2025-12-01)
+
+
+### Bug Fixes
+
+* **app:** android ghost element ([1ed8a62](https://github.com/gunnartorfis/sonner-native/commit/1ed8a6245b4c8557f40858553ad986c2a5ec5062))
+
 ## [0.21.1](https://github.com/gunnartorfis/sonner-native/compare/v0.21.0...v0.21.1) (2025-08-28)
 
 
