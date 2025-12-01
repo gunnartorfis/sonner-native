@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, type ViewStyle } from 'react-native';
+import { Platform, View, type ViewStyle } from 'react-native';
 import type { ToasterProps } from './types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useToastContext } from './context';
@@ -42,10 +42,14 @@ export const Positioner: React.FC<
     return {};
   }, [position, bottom, top, offset]);
 
+  const hasChildren = React.Children.count(children) > 0;
+
   return (
     <View
       style={[containerStyle, insetValues, style]}
-      pointerEvents="box-none"
+      pointerEvents={
+        Platform.OS === 'android' && !hasChildren ? 'none' : 'box-none'
+      }
       {...props}
     >
       {children}
