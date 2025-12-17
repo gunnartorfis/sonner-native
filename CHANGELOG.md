@@ -1,5 +1,13 @@
 
 
+# [0.22.0](https://github.com/gunnartorfis/sonner-native/compare/v0.21.2...v0.22.0) (2025-12-17)
+
+
+### Features
+
+* add backgroundComponent prop for custom toast backgrounds ([b2940c5](https://github.com/gunnartorfis/sonner-native/commit/b2940c527e96c858ef3397e2e523c47776916fb5))
+* allow variant-specific default styles in Toaster ([96d9bed](https://github.com/gunnartorfis/sonner-native/commit/96d9bedb33d9d199e28a2ad1617b2bde6d21e54e))
+
 ## [0.21.2](https://github.com/gunnartorfis/sonner-native/compare/v0.21.1...v0.21.2) (2025-12-01)
 
 
