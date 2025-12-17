@@ -1,5 +1,7 @@
 
 
+## [0.22.1](https://github.com/gunnartorfis/sonner-native/compare/v0.22.0...v0.22.1) (2025-12-17)
+
 # [0.22.0](https://github.com/gunnartorfis/sonner-native/compare/v0.21.2...v0.22.0) (2025-12-17)
 
 
