@@ -45,7 +45,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       invert: invertProps,
       richColors: richColorsProps,
       onPress,
-      backgroundComponent: backgroundComponentProps,
     },
     ref
   ) => {
@@ -71,7 +70,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
         buttonsStyle: buttonsStyleCtx,
         closeButtonStyle: closeButtonStyleCtx,
         closeButtonIconStyle: closeButtonIconStyleCtx,
-        backgroundComponent: backgroundComponentCtx,
         success: successStyleCtx,
         error: errorStyleCtx,
         warning: warningStyleCtx,
@@ -84,8 +82,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     const unstyled = unstyledProps ?? unstyledCtx;
     const duration = durationProps ?? durationCtx;
     const closeButton = closeButtonProps ?? closeButtonCtx;
-    const backgroundComponent =
-      backgroundComponentProps ?? backgroundComponentCtx;
 
     const { entering, exiting } = useToastLayoutAnimations(position);
 
@@ -363,17 +359,6 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
       );
     }
 
-    const backgroundComponentStyle = backgroundComponent
-      ? {
-          overflow: 'hidden' as const,
-          backgroundColor: 'transparent',
-        }
-      : undefined;
-
-    const contentContainerStyle = backgroundComponent
-      ? { position: 'relative' as const, zIndex: 1 }
-      : undefined;
-
     return (
       <ToastSwipeHandler {...toastSwipeHandlerProps}>
         <Animated.View style={wiggleAnimationStyle}>
@@ -385,18 +370,15 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
               variantStyle,
               styles?.toast,
               style,
-              backgroundComponentStyle,
             ]}
             entering={entering}
             exiting={exiting}
           >
-            {backgroundComponent}
             <View
               style={[
                 defaultStyles.toastContent,
                 toastContentStyleCtx,
                 styles?.toastContent,
-                contentContainerStyle,
               ]}
             >
               {promiseOptions || variant === 'loading' ? (

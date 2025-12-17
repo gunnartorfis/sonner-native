@@ -459,28 +459,6 @@ export const ToastDemo: React.FC = () => {
           });
         }}
       />
-
-      <Button
-        title="Toast with BlurView background"
-        onPress={() => {
-          const { BlurView } = require('expo-blur');
-          const { StyleSheet, Platform } = require('react-native');
-
-          toast.success('Blur Background', {
-            description: 'This toast has a blur background',
-            backgroundComponent: (
-              <BlurView
-                intensity={20}
-                tint="dark"
-                experimentalBlurMethod={
-                  Platform.OS === 'android' ? 'dimezisBlurView' : undefined
-                }
-                style={StyleSheet.absoluteFill}
-              />
-            ),
-          });
-        }}
-      />
     </ScrollView>
   );
 };
