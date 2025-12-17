@@ -9632,6 +9632,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-blur@npm:^15.0.7":
+  version: 15.0.7
+  resolution: "expo-blur@npm:15.0.7"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: 29aad1b3683fa96d86c1b568836eeffe2fca08f7202fd5a2a6c269f650d98b3ce1dbe4846d23efb00c94dfa7a5f2c4bbd6e0f6cc5ae3a1265e71464a9b46596e
+  languageName: node
+  linkType: hard
+
 "expo-constants@npm:~16.0.0":
   version: 16.0.2
   resolution: "expo-constants@npm:16.0.2"
@@ -19319,6 +19330,7 @@ __metadata:
     "@react-navigation/native": ^6.0.8
     "@react-navigation/native-stack": ^6.9.12
     expo: ~51.0.32
+    expo-blur: ^15.0.7
     expo-status-bar: ~1.12.1
     nativewind: 4.1.6
     react: 18.2.0
