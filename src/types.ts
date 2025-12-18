@@ -14,6 +14,7 @@ type StyleProps = {
     closeButton?: ViewStyle;
     closeButtonIcon?: ViewStyle;
   };
+  backgroundComponent?: React.ReactNode;
 };
 
 type PromiseOptions = {
@@ -110,6 +111,12 @@ export type ToasterProps = Omit<StyleProps, 'style'> & {
     buttonsStyle?: ViewStyle;
     closeButtonStyle?: ViewStyle;
     closeButtonIconStyle?: ViewStyle;
+    backgroundComponent?: React.ReactNode;
+    success?: ViewStyle;
+    error?: ViewStyle;
+    warning?: ViewStyle;
+    info?: ViewStyle;
+    loading?: ViewStyle;
   };
   gap?: number;
   loadingIcon?: React.ReactNode;

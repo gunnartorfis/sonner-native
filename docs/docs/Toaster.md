@@ -26,31 +26,6 @@ export default function App() {
 }
 ```
 
-### With Expo Router
-
-When using Expo Router, place the `Toaster` component in your root layout file (`app/_layout.tsx`). The SafeAreaProvider and GestureHandlerRootView are typically already configured by Expo Router, so you only need to add the Toaster:
-
-```tsx
-import { Toaster } from 'sonner-native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-
-export default function RootLayout() {
-  return (
-    <>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-      <Toaster />
-    </>
-  );
-}
-```
-
-This setup ensures that toasts will be displayed across all screens in your Expo Router app.
-
 ## Customization
 
 The Toaster component can provide default styles for all toasts, but individual toasts can also be customized. The Toaster component accepts a number of props to customize the appearance and behavior of the toasts.
@@ -77,6 +52,22 @@ You can provide default styles for all toasts by passing the `style` prop to the
 />
 ```
 
+### Styling Toasts by Variant
+
+You can provide default styles for specific toast variants within `toastOptions`. These styles will be applied as the base for any toast of that type.
+
+```tsx
+<Toaster
+  toastOptions={{
+    // Set a default style for all success toasts
+    success: {
+      backgroundColor: '#28a745',
+    },
+    // This also works for 'error', 'warning', 'info', and 'loading'
+  }}
+/>
+```
+
 ### Usage with react-native-z-view
 
 Use the `ToasterOverlayWrapper` prop to wrap the Toaster component with a custom component. This is useful when using `react-native-z-view` to render the toasts.
@@ -94,18 +85,19 @@ import { ZView } from 'react-native-z-view';
 />;
 ```
 
+
 ### Dismiss toast on tap
 
 Use the `ToastWrapper` prop to wrap the Toast component with a custom component. This is useful when you want to customize the behavior of the toast, for example add a dismiss on tap instead of the the close icon.
 
 ```tsx
-import { Pressable } from 'react-native';
+import { Pressable } from "react-native"
 
-function Wrapper({ toastId, children }) {
-  function onPress() {
-    toast.dismiss(toastId);
+function Wrapper({toastId, children}){
+  function onPress(){
+    toast.dismiss(toastId)
   }
-  return <Pressable onPress={onPress}>{children}</Pressable>;
+  return <Pressable onPress={onPress}>{children}</Pressable>
 }
 
 <Toaster
@@ -116,22 +108,74 @@ function Wrapper({ toastId, children }) {
 />;
 ```
 
+### Custom Background Component
+
+Use the `backgroundComponent` in `toastOptions` to add a custom background to all toasts, such as a blur effect. The background component will render inside the toast's animated view and participate in all animations.
+
+```tsx
+import { BlurView } from 'expo-blur';
+import { StyleSheet, Platform } from 'react-native';
+
+<Toaster
+  toastOptions={{
+    backgroundComponent: (
+      <BlurView
+        intensity={80}
+        tint="dark"
+        experimentalBlurMethod={
+          Platform.OS === 'android' ? 'dimezisBlurView' : undefined
+        }
+        style={StyleSheet.absoluteFill}
+      />
+    ),
+  }}
+/>;
+```
+
+**Important notes:**
+
+- The `backgroundComponent` must use `StyleSheet.absoluteFill` or equivalent absolute positioning
+- On Android, `expo-blur` requires `experimentalBlurMethod="dimezisBlurView"` for actual blur (otherwise falls back to semi-transparent view)
+- The library automatically applies `overflow: 'hidden'` and `backgroundColor: 'transparent'` when backgroundComponent is present
+- The background participates in all toast animations (enter, exit, wiggle)
+- Does not apply to custom JSX toasts (`toast.custom()`)
+
+You can also override the background on a per-toast basis using the `backgroundComponent` option in `toast()`:
+
+```tsx
+import { toast } from 'sonner-native';
+
+toast.success('Saved!', {
+  backgroundComponent: (
+    <BlurView
+      intensity={100}
+      tint="light"
+      experimentalBlurMethod={
+        Platform.OS === 'android' ? 'dimezisBlurView' : undefined
+      }
+      style={StyleSheet.absoluteFill}
+    />
+  ),
+});
+```
+
 ## API Reference
 
-| Property                  |                                            Description                                             |      Default |
-| :------------------------ | :------------------------------------------------------------------------------------------------: | -----------: |
-| theme                     |                                          `light`, `dark`                                           |     `system` |
-| visibleToasts             |                                  Maximum number of visible toasts                                  |          `3` |
-| position                  |                              Place where the toasts will be rendered                               | `top-center` |
-| offset                    |                                   Offset from the top or bottom                                    |          `0` |
-| closeButton               |                                 Adds a close button to all toasts                                  |      `false` |
-| invert                    |                             Dark toasts in light mode and vice versa.                              |      `false` |
-| toastOptions              | These will act as default options for all toasts. See [toast()](/toast) for all available options. |         `{}` |
-| gap                       |                                  Gap between toasts when expanded                                  |         `16` |
-| icons                     |                                     Changes the default icons                                      |          `-` |
-| pauseWhenPageIsHidden     |                        Pauses toast timers when the app enters background.                         |         `{}` |
-| `swipeToDismissDirection` |                             Swipe direction to dismiss (`left`, `up`).                             |         `up` |
-| ToasterOverlayWrapper     |                                Custom component to wrap the Toaster.                               |        `div` |
-| ToastWrapper              |                                 Custom component to wrap the Toast.                                |        `div` |
-| autoWiggleOnUpdate        |             Adds a wiggle animation on toast update. `never`, `toast-change`, `always`             |      `never` |
-| richColors                |                             Makes error and success state more colorful                            |      `false` |
+| Property                         |                                            Description                                             |      Default |
+| :------------------------------- | :------------------------------------------------------------------------------------------------: | -----------: |
+| theme                            |                                          `light`, `dark`                                           |     `system` |
+| visibleToasts                    |                                  Maximum number of visible toasts                                  |          `3` |
+| position                         |                              Place where the toasts will be rendered                               | `top-center` |
+| offset                           |                                   Offset from the top or bottom                                    |          `0` |
+| closeButton                      |                                 Adds a close button to all toasts                                  |      `false` |
+| invert                           |                             Dark toasts in light mode and vice versa.                              |      `false` |
+| toastOptions                     | These will act as default options for all toasts. See [toast()](/toast) for all available options. |         `{}` |
+| toastOptions.backgroundComponent |           Custom component rendered as toast background. Must use absolute positioning.            |          `-` |
+| gap                              |                                  Gap between toasts when expanded                                  |         `16` |
+| icons                            |                                     Changes the default icons                                      |          `-` |
+| pauseWhenPageIsHidden            |                        Pauses toast timers when the app enters background.                         |         `{}` |
+| `swipeToDismissDirection`        |                             Swipe direction to dismiss (`left`, `up`).                             |         `up` |
+| ToasterOverlayWrapper            |                                Custom component to wrap the Toaster.                               |        `div` |
+| ToastWrapper                     |                                 Custom component to wrap the Toast.                                |        `div` |
+| autoWiggleOnUpdate               |             Adds a wiggle animation on toast update. `never`, `toast-change`, `always`             |      `never` |
+| richColors                       |                             Makes error and success state more colorful                            |      `false` |
