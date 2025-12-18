@@ -5,7 +5,6 @@
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
-  "module": "./lib/module/index.js",
   "exports": {
     ".": {
       "source": "./src/index.tsx",
@@ -69,6 +68,7 @@
     "@babel/eslint-parser": "^7.25.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@evilmartians/lefthook": "^1.13.6",
+    "@react-native/babel-preset": "0.83.0",
     "@react-native/eslint-config": "^0.83.0",
     "@react-native/eslint-plugin": "0.83.0",
     "@release-it/conventional-changelog": "^10.0.4",
@@ -193,7 +193,12 @@
           "esm": true
         }
       ],
-      "typescript"
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
     ]
   },
   "create-react-native-library": {
