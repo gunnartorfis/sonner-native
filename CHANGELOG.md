@@ -1,7 +1,5 @@
 # Changelog
 
-# [0.22.0-beta.0](https://github.com/gunnartorfis/sonner-native/compare/v0.21.0...v0.22.0-beta.0) (2025-07-05)
-
 ## [0.22.2](https://github.com/gunnartorfis/sonner-native/compare/v0.22.1...v0.22.2) (2025-12-18)
 
 ## [0.22.1](https://github.com/gunnartorfis/sonner-native/compare/v0.22.0...v0.22.1) (2025-12-17)
