@@ -32,11 +32,11 @@ export const Positioner: React.FC<
 
   const insetValues = React.useMemo(() => {
     if (position === 'bottom-center') {
-      return { bottom: offset ?? (bottom || 40) };
+      return { bottom: offset || bottom || 40 };
     }
 
     if (position === 'top-center') {
-      return { top: offset ?? (top || 40) };
+      return { top: offset || top || 40 };
     }
 
     return {};
