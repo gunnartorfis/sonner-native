@@ -7,8 +7,11 @@ import {
   ScrollView,
   Text,
   View,
+  StyleSheet,
+  Platform,
 } from 'react-native';
 import { toast } from 'sonner-native';
+import { BlurView } from 'expo-blur';
 
 export const ToastDemo: React.FC = () => {
   const [toastId, setToastId] = React.useState<string | number | null>(null);
@@ -190,7 +193,7 @@ export const ToastDemo: React.FC = () => {
             unstyled: true,
             icon: (
               <Image
-                source={require('../assets/windows-xp.png')}
+                source={require('../assets/images/windows-xp.png')}
                 style={{
                   width: 40,
                   height: 40,
@@ -259,7 +262,7 @@ export const ToastDemo: React.FC = () => {
             description: 'Connected',
             icon: (
               <Image
-                src={require('../assets/airpods.png')}
+                src={require('../assets/images/airpods.png')}
                 style={{
                   width: 30,
                   height: 30,
@@ -463,9 +466,6 @@ export const ToastDemo: React.FC = () => {
       <Button
         title="Toast with BlurView background"
         onPress={() => {
-          const { BlurView } = require('expo-blur');
-          const { StyleSheet, Platform } = require('react-native');
-
           toast.success('Blur Background', {
             description: 'This toast has a blur background',
             backgroundComponent: (

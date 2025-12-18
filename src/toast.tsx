@@ -90,9 +90,11 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
     const { entering, exiting } = useToastLayoutAnimations(position);
 
     const isDragging = React.useRef(false);
-    const timer = React.useRef<ReturnType<typeof setTimeout>>();
-    const timerStart = React.useRef<number | undefined>();
-    const timeLeftOnceBackgrounded = React.useRef<number | undefined>();
+    const timer = React.useRef<ReturnType<typeof setTimeout>>(undefined);
+    const timerStart = React.useRef<number | undefined>(undefined);
+    const timeLeftOnceBackgrounded = React.useRef<number | undefined>(
+      undefined
+    );
     const isResolvingPromise = React.useRef(false);
 
     const wiggleSharedValue = useSharedValue(1);
