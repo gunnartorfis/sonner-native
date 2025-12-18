@@ -83,7 +83,7 @@ export const ToasterUI: React.FC<
     setToasts: React.Dispatch<React.SetStateAction<ToastProps[]>>;
     toastsCounter: React.MutableRefObject<number>;
     toastRefs: React.MutableRefObject<
-      Record<string, React.RefObject<ToastRef>>
+      Record<string, React.RefObject<ToastRef | null>>
     >;
   }
 > = ({
