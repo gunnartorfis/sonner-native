@@ -1,5 +1,7 @@
 # Changelog
 
+# [0.23.0-beta.1](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.23.0-beta.0...v0.23.0-beta.1) (2025-12-18)
+
 # [0.23.0-beta.0](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.22.2...v0.23.0-beta.0) (2025-12-18)
 
 
