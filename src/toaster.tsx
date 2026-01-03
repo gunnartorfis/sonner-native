@@ -329,12 +329,50 @@ export const ToasterUI: React.FC<
             .map((toastToRender) => {
               const ToastToRender = (
                 <Toast
+                  {...props}
                   {...toastToRender}
+                  style={{
+                    ...props.style,
+                    ...toastToRender.style,
+                  }}
+                  styles={{
+                    toastContainer: {
+                      ...props.styles?.toastContainer,
+                      ...toastToRender.styles?.toastContainer,
+                    },
+                    toast: {
+                      ...props.styles?.toast,
+                      ...toastToRender.styles?.toast,
+                    },
+                    toastContent: {
+                      ...props.styles?.toastContent,
+                      ...toastToRender.styles?.toastContent,
+                    },
+                    title: {
+                      ...props.styles?.title,
+                      ...toastToRender.styles?.title,
+                    },
+                    description: {
+                      ...props.styles?.description,
+                      ...toastToRender.styles?.description,
+                    },
+                    buttons: {
+                      ...props.styles?.buttons,
+                      ...toastToRender.styles?.buttons,
+                    },
+                    closeButton: {
+                      ...props.styles?.closeButton,
+                      ...toastToRender.styles?.closeButton,
+                    },
+                    closeButtonIcon: {
+                      ...props.styles?.closeButtonIcon,
+                      ...toastToRender.styles?.closeButtonIcon,
+                    },
+                  }}
                   onDismiss={onDismiss}
                   onAutoClose={onAutoClose}
                   ref={toastRefs.current[toastToRender.id]}
                   key={toastToRender.id}
-                  {...props}
                 />
               );
 
