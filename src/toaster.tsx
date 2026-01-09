@@ -106,6 +106,7 @@ export const ToasterUI: React.FC<
   toastsCounter,
   toastRefs,
   ToastWrapper,
+  positionerStyle,
   ...props
 }) => {
   addToastHandler = React.useCallback(
@@ -319,7 +320,11 @@ export const ToasterUI: React.FC<
   return (
     <ToastContext.Provider value={value}>
       {possiblePositions.map((currentPosition, positionIndex) => (
-        <Positioner position={currentPosition} key={currentPosition}>
+        <Positioner
+          key={currentPosition}
+          style={positionerStyle}
+          position={currentPosition}
+        >
           {orderedToasts
             .filter(
               (possibleToast) =>
