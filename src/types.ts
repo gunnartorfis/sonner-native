@@ -1,19 +1,21 @@
 import type React from 'react';
 import type { TextStyle, ViewProps, ViewStyle } from 'react-native';
 
+export type ToastStyles = {
+  toastContainer?: ViewStyle;
+  toast?: ViewStyle;
+  toastContent?: ViewStyle;
+  title?: TextStyle;
+  description?: TextStyle;
+  buttons?: ViewStyle;
+  closeButton?: ViewStyle;
+  closeButtonIcon?: ViewStyle;
+};
+
 type StyleProps = {
   unstyled?: boolean;
   style?: ViewStyle;
-  styles?: {
-    toastContainer?: ViewStyle;
-    toast?: ViewStyle;
-    toastContent?: ViewStyle;
-    title?: TextStyle;
-    description?: TextStyle;
-    buttons?: ViewStyle;
-    closeButton?: ViewStyle;
-    closeButtonIcon?: ViewStyle;
-  };
+  styles?: ToastStyles;
   backgroundComponent?: React.ReactNode;
 };
 
@@ -22,6 +24,11 @@ type PromiseOptions = {
   success: (result: any) => string; // TODO: type this with generics
   error: ((error: unknown) => string) | string;
   loading: string;
+  styles?: {
+    loading?: ToastStyles;
+    success?: ToastStyles;
+    error?: ToastStyles;
+  };
 };
 
 export type ToastPosition = 'top-center' | 'bottom-center' | 'center';

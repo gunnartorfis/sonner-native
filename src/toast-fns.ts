@@ -50,6 +50,7 @@ toast.promise = (promise, options) => {
     ...options,
     title: options.loading,
     variant: 'info',
+    styles: options.styles?.loading,
     promiseOptions: {
       ...options,
       promise,
