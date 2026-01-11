@@ -1,4 +1,44 @@
+# Changelog
 
+# [0.23.0](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.23.0-beta.1...v0.23.0) (2026-01-11)
+
+
+### Bug Fixes
+
+* explicitly merge styles ([4db13b3](https://github.com/gunnartorfis/react-native-reanimated-toasts/commit/4db13b3aedfda94f632033122c89891c9fd9b9fc))
+
+
+### Features
+
+* adding positionerStyle property ([9f71bae](https://github.com/gunnartorfis/react-native-reanimated-toasts/commit/9f71baeb3f387a53986dc89afba8c7e1000684e1))
+* allow styles to be passed to promise toasts through api ([cc74fb8](https://github.com/gunnartorfis/react-native-reanimated-toasts/commit/cc74fb8783da82715e8a8e80b1095c0ff2c307ce))
+
+# [0.23.0-beta.1](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.23.0-beta.0...v0.23.0-beta.1) (2025-12-18)
+
+# [0.23.0-beta.0](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.22.2...v0.23.0-beta.0) (2025-12-18)
+
+
+
+# [0.22.0-beta.0](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.22.2...v0.23.0-beta.0) (2025-07-05)
+
+## [0.22.2](https://github.com/gunnartorfis/sonner-native/compare/v0.22.1...v0.22.2) (2025-12-18)
+
+## [0.22.1](https://github.com/gunnartorfis/sonner-native/compare/v0.22.0...v0.22.1) (2025-12-17)
+
+# [0.22.0](https://github.com/gunnartorfis/sonner-native/compare/v0.21.2...v0.22.0) (2025-12-17)
+
+
+### Features
+
+* add backgroundComponent prop for custom toast backgrounds ([b2940c5](https://github.com/gunnartorfis/sonner-native/commit/b2940c527e96c858ef3397e2e523c47776916fb5))
+* allow variant-specific default styles in Toaster ([96d9bed](https://github.com/gunnartorfis/sonner-native/commit/96d9bedb33d9d199e28a2ad1617b2bde6d21e54e))
+
+## [0.21.2](https://github.com/gunnartorfis/sonner-native/compare/v0.21.1...v0.21.2) (2025-12-01)
+
+
+### Bug Fixes
+
+* **app:** android ghost element ([1ed8a62](https://github.com/gunnartorfis/sonner-native/commit/1ed8a6245b4c8557f40858553ad986c2a5ec5062))
 
 ## [0.21.1](https://github.com/gunnartorfis/sonner-native/compare/v0.21.0...v0.21.1) (2025-08-28)
 

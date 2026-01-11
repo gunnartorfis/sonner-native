@@ -1,11 +1,11 @@
 import React from 'react';
-import { Pressable, View } from 'react-native';
+import { Platform, Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useToastContext } from './context';
 import {
+  calculateOutsidePressableArea,
   getContainerStyle,
   getInsetValues,
-  calculateOutsidePressableArea,
 } from './positioner-utils';
 import type { ToasterProps } from './types';
 
@@ -39,10 +39,10 @@ export const Positioner: React.FC<
     insetValues,
   });
 
-  const finalContainerStyle = [containerStyle, insetValues, style];
-
   // Don't show expand/collapse for center position
   const shouldAllowCollapse = resolvedPosition !== 'center' && isExpanded;
+
+  const hasChildren = React.Children.count(children) > 0;
 
   return (
     <>
@@ -50,8 +50,13 @@ export const Positioner: React.FC<
       {shouldAllowCollapse && (
         <Pressable style={outsidePressableStyle} onPress={handleOutsidePress} />
       )}
-      {/* Toast container */}
-      <View style={finalContainerStyle} pointerEvents="box-none" {...props}>
+      <View
+        style={[containerStyle, insetValues, style]}
+        pointerEvents={
+          Platform.OS === 'android' && !hasChildren ? 'none' : 'box-none'
+        }
+        {...props}
+      >
         {children}
       </View>
     </>

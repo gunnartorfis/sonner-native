@@ -2,19 +2,22 @@ import type React from 'react';
 import type { TextStyle, ViewProps, ViewStyle } from 'react-native';
 import type { SharedValue } from 'react-native-reanimated';
 
+export type ToastStyles = {
+  toastContainer?: ViewStyle;
+  toast?: ViewStyle;
+  toastContent?: ViewStyle;
+  title?: TextStyle;
+  description?: TextStyle;
+  buttons?: ViewStyle;
+  closeButton?: ViewStyle;
+  closeButtonIcon?: ViewStyle;
+};
+
 type StyleProps = {
   unstyled?: boolean;
   style?: ViewStyle;
-  styles?: {
-    toastContainer?: ViewStyle;
-    toast?: ViewStyle;
-    toastContent?: ViewStyle;
-    title?: TextStyle;
-    description?: TextStyle;
-    buttons?: ViewStyle;
-    closeButton?: ViewStyle;
-    closeButtonIcon?: ViewStyle;
-  };
+  styles?: ToastStyles;
+  backgroundComponent?: React.ReactNode;
 };
 
 type PromiseOptions<T = unknown> = {
@@ -22,6 +25,11 @@ type PromiseOptions<T = unknown> = {
   success: (result: T) => string;
   error: ((error: unknown) => string) | string;
   loading: string;
+  styles?: {
+    loading?: ToastStyles;
+    success?: ToastStyles;
+    error?: ToastStyles;
+  };
 };
 
 export type ToastPosition = 'top-center' | 'bottom-center' | 'center';
@@ -103,6 +111,7 @@ export type ToasterProps = Omit<StyleProps, 'style'> & {
   offset?: number;
   autoWiggleOnUpdate?: AutoWiggle;
   style?: ViewStyle;
+  positionerStyle?: ViewStyle;
   // dir?: 'ltr' | 'rtl'; (ltr)
   // hotkey?: string; // hotkeys not supported on mobile
   invert?: boolean;
@@ -120,6 +129,12 @@ export type ToasterProps = Omit<StyleProps, 'style'> & {
     buttonsStyle?: ViewStyle;
     closeButtonStyle?: ViewStyle;
     closeButtonIconStyle?: ViewStyle;
+    backgroundComponent?: React.ReactNode;
+    success?: ViewStyle;
+    error?: ViewStyle;
+    warning?: ViewStyle;
+    info?: ViewStyle;
+    loading?: ViewStyle;
   };
   gap?: number;
   loadingIcon?: React.ReactNode;

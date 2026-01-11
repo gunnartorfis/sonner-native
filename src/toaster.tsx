@@ -65,6 +65,7 @@ export const ToasterUI: React.FC<ToasterProps> = ({
   richColors,
   enableStacking = toastDefaultValues.enableStacking,
   ToastWrapper,
+  positionerStyle,
   ...props
 }) => {
   const storeState = React.useSyncExternalStore(
@@ -167,7 +168,11 @@ export const ToasterUI: React.FC<ToasterProps> = ({
   return (
     <ToastContext.Provider value={value}>
       {possiblePositions.map((currentPosition, positionIndex) => (
-        <Positioner position={currentPosition} key={currentPosition}>
+        <Positioner
+          key={currentPosition}
+          style={positionerStyle}
+          position={currentPosition}
+        >
           {orderedToasts
             .filter(
               (possibleToast) =>
@@ -177,14 +182,52 @@ export const ToasterUI: React.FC<ToasterProps> = ({
             .map((toastToRender, index) => {
               const ToastToRender = (
                 <Toast
+                  {...props}
                   {...toastToRender}
+                  style={{
+                    ...props.style,
+                    ...toastToRender.style,
+                  }}
+                  styles={{
+                    toastContainer: {
+                      ...props.styles?.toastContainer,
+                      ...toastToRender.styles?.toastContainer,
+                    },
+                    toast: {
+                      ...props.styles?.toast,
+                      ...toastToRender.styles?.toast,
+                    },
+                    toastContent: {
+                      ...props.styles?.toastContent,
+                      ...toastToRender.styles?.toastContent,
+                    },
+                    title: {
+                      ...props.styles?.title,
+                      ...toastToRender.styles?.title,
+                    },
+                    description: {
+                      ...props.styles?.description,
+                      ...toastToRender.styles?.description,
+                    },
+                    buttons: {
+                      ...props.styles?.buttons,
+                      ...toastToRender.styles?.buttons,
+                    },
+                    closeButton: {
+                      ...props.styles?.closeButton,
+                      ...toastToRender.styles?.closeButton,
+                    },
+                    closeButtonIcon: {
+                      ...props.styles?.closeButtonIcon,
+                      ...toastToRender.styles?.closeButtonIcon,
+                    },
+                  }}
                   onDismiss={onDismiss}
                   onAutoClose={onAutoClose}
                   index={index}
                   ref={toastStore.getToastRef(toastToRender.id)}
                   key={toastToRender.id}
                   numberOfToasts={orderedToasts.length}
-                  {...props}
                 />
               );
 
