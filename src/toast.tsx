@@ -210,6 +210,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
               id,
               variant: 'success',
               promiseOptions: undefined,
+              styles: promiseOptions.styles?.success,
             });
           } catch (error) {
             addToast({
@@ -220,6 +221,7 @@ export const Toast = React.forwardRef<ToastRef, ToastProps>(
               id,
               variant: 'error',
               promiseOptions: undefined,
+              styles: promiseOptions.styles?.error,
             });
           } finally {
             isResolvingPromise.current = false;
