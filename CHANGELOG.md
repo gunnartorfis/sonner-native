@@ -1,5 +1,18 @@
 # Changelog
 
+# [0.23.0](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.23.0-beta.1...v0.23.0) (2026-01-11)
+
+
+### Bug Fixes
+
+* explicitly merge styles ([4db13b3](https://github.com/gunnartorfis/react-native-reanimated-toasts/commit/4db13b3aedfda94f632033122c89891c9fd9b9fc))
+
+
+### Features
+
+* adding positionerStyle property ([9f71bae](https://github.com/gunnartorfis/react-native-reanimated-toasts/commit/9f71baeb3f387a53986dc89afba8c7e1000684e1))
+* allow styles to be passed to promise toasts through api ([cc74fb8](https://github.com/gunnartorfis/react-native-reanimated-toasts/commit/cc74fb8783da82715e8a8e80b1095c0ff2c307ce))
+
 # [0.23.0-beta.1](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.23.0-beta.0...v0.23.0-beta.1) (2025-12-18)
 
 # [0.23.0-beta.0](https://github.com/gunnartorfis/react-native-reanimated-toasts/compare/v0.22.2...v0.23.0-beta.0) (2025-12-18)
