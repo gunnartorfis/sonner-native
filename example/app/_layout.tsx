@@ -4,7 +4,6 @@ import { Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Toaster, type ToastPosition } from 'sonner-native';
-import '../global.css';
 
 const RootLayout: React.FC = () => {
   const params = useGlobalSearchParams<{

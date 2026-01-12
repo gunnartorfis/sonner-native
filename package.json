@@ -64,18 +64,18 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@babel/eslint-parser": "^7.25.1",
+    "@babel/core": "^7.28.5",
+    "@babel/eslint-parser": "^7.28.5",
     "@commitlint/config-conventional": "^19.8.1",
     "@evilmartians/lefthook": "^1.13.6",
-    "@react-native/babel-preset": "0.83.0",
-    "@react-native/eslint-config": "^0.83.0",
-    "@react-native/eslint-plugin": "0.83.0",
+    "@react-native/babel-preset": "0.83.1",
+    "@react-native/eslint-config": "^0.83.1",
+    "@react-native/eslint-plugin": "0.83.1",
     "@release-it/conventional-changelog": "^10.0.4",
     "@types/jest": "^30.0.0",
-    "@types/react": "~19.1.10",
-    "@typescript-eslint/eslint-plugin": "^8.36.0",
-    "@typescript-eslint/parser": "^8.36.0",
+    "@types/react": "~19.2.8",
+    "@typescript-eslint/eslint-plugin": "^8.52.0",
+    "@typescript-eslint/parser": "^8.52.0",
     "commitlint": "^19.8.1",
     "del-cli": "^6.0.0",
     "eslint": "^9.37.0",
@@ -101,7 +101,7 @@
     "react-native-worklets": "^0.6.1",
     "release-it": "^17.11.0",
     "typescript": "~5.9.3",
-    "typescript-eslint": "^8.48.0"
+    "typescript-eslint": "^8.52.0"
   },
   "peerDependencies": {
     "react": "*",
