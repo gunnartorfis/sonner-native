@@ -123,7 +123,7 @@ export * from 'sonner';
 
 ## Documentation
 
-For more advanced usage, check out the [documentation](https://gunnartorfis.github.io/sonner-native/)
+For more advanced usage, check out the [documentation](https://sonner-native.netlify.app/)
 
 ## Recording
 
