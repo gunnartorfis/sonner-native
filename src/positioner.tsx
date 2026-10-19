@@ -80,10 +80,16 @@ export const Positioner: React.FC<
         />
       )}
       <View
-        style={[containerStyle, androidElevationStyle, insetValues, style]}
-        pointerEvents={
-          Platform.OS === 'android' && !hasChildren ? 'none' : 'box-none'
-        }
+        style={[
+          containerStyle,
+          androidElevationStyle,
+          insetValues,
+          style,
+          {
+            pointerEvents:
+              Platform.OS === 'android' && !hasChildren ? 'none' : 'box-none',
+          },
+        ]}
         {...props}
       >
         {children}
